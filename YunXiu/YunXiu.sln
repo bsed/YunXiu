@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunXiu.BLL", "YunXiu.BLL\YunXiu.BLL.csproj", "{39C011D5-F4DB-4C5F-A4C4-DE9761FC1835}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunXiu.DAL", "YunXiu.DAL\YunXiu.DAL.csproj", "{E5FE5D26-D696-4766-87E6-077F44D6AED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunXiu.Model", "YunXiu.Model\YunXiu.Model.csproj", "{3529157E-3814-422B-A440-2313EDBDB693}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunXiu.Commom", "YunXiu.Commom\YunXiu.Commom.csproj", "{E8CBE8DE-F362-4F53-881D-C28969C61766}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunXiu.Interface", "YunXiu.Interface\YunXiu.Interface.csproj", "{299619C1-6D8C-4BCD-BB1F-2F4398AFCDF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunXiu.Cache", "YunXiu.Cache\YunXiu.Cache.csproj", "{89AF804C-A506-4010-A22E-8C8D6DCE35F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39C011D5-F4DB-4C5F-A4C4-DE9761FC1835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39C011D5-F4DB-4C5F-A4C4-DE9761FC1835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39C011D5-F4DB-4C5F-A4C4-DE9761FC1835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39C011D5-F4DB-4C5F-A4C4-DE9761FC1835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5FE5D26-D696-4766-87E6-077F44D6AED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5FE5D26-D696-4766-87E6-077F44D6AED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5FE5D26-D696-4766-87E6-077F44D6AED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5FE5D26-D696-4766-87E6-077F44D6AED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3529157E-3814-422B-A440-2313EDBDB693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3529157E-3814-422B-A440-2313EDBDB693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3529157E-3814-422B-A440-2313EDBDB693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3529157E-3814-422B-A440-2313EDBDB693}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8CBE8DE-F362-4F53-881D-C28969C61766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8CBE8DE-F362-4F53-881D-C28969C61766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8CBE8DE-F362-4F53-881D-C28969C61766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8CBE8DE-F362-4F53-881D-C28969C61766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{299619C1-6D8C-4BCD-BB1F-2F4398AFCDF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{299619C1-6D8C-4BCD-BB1F-2F4398AFCDF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{299619C1-6D8C-4BCD-BB1F-2F4398AFCDF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{299619C1-6D8C-4BCD-BB1F-2F4398AFCDF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89AF804C-A506-4010-A22E-8C8D6DCE35F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89AF804C-A506-4010-A22E-8C8D6DCE35F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89AF804C-A506-4010-A22E-8C8D6DCE35F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89AF804C-A506-4010-A22E-8C8D6DCE35F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	
+EndGlobal

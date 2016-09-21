@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{299619C1-6D8C-4BCD-BB1F-2F4398AFCDF9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YunXiu.Interface</RootNamespace>
+    <AssemblyName>YunXiu.Interface</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="YunXiu.Model">
+      <HintPath>..\YunXiu.Model\bin\Debug\YunXiu.Model.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IAttributeValue.cs" />
+    <Compile Include="IBanner.cs" />
+    <Compile Include="IBid.cs" />
+    <Compile Include="IBrand.cs" />
+    <Compile Include="IBuyApply.cs" />
+    <Compile Include="IBuyProduct.cs" />
+    <Compile Include="ICateAttribute.cs" />
+    <Compile Include="ICategory.cs" />
+    <Compile Include="IConsultation.cs" />
+    <Compile Include="IConsultationReply.cs" />
+    <Compile Include="IEmail.cs" />
+    <Compile Include="IInvoice.cs" />
+    <Compile Include="ILogistics.cs" />
+    <Compile Include="IMessageTb.cs" />
+    <Compile Include="IOrder.cs" />
+    <Compile Include="IOrderPayOrder.cs" />
+    <Compile Include="IPayOrder.cs" />
+    <Compile Include="IProduct.cs" />
+    <Compile Include="IProductAttr.cs" />
+    <Compile Include="IProductConsult.cs" />
+    <Compile Include="IProductReview.cs" />
+    <Compile Include="IProductStock.cs" />
+    <Compile Include="IProductStorage.cs" />
+    <Compile Include="IPurchaseOfferAccept.cs" />
+    <Compile Include="IPurchasePlan.cs" />
+    <Compile Include="IPurchasePlanOffer.cs" />
+    <Compile Include="IReceiptAddress.cs" />
+    <Compile Include="IShoppingCart.cs" />
+    <Compile Include="ISMS.cs" />
+    <Compile Include="IStore.cs" />
+    <Compile Include="IStoreHome.cs" />
+    <Compile Include="IStoreNavigation.cs" />
+    <Compile Include="IStoreStaff.cs" />
+    <Compile Include="IStoreUser.cs" />
+    <Compile Include="IStoreUserGroup.cs" />
+    <Compile Include="IStoreUserGroupStoreUser.cs" />
+    <Compile Include="ITender.cs" />
+    <Compile Include="ITenderAccept.cs" />
+    <Compile Include="IUser.cs" />
+    <Compile Include="IUserRanks.cs" />
+    <Compile Include="IVisitorBrowse.cs" />
+    <Compile Include="IWithdrawalsApply.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

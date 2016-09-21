@@ -1,0 +1,17 @@
+D:\YunXiu\YunXiu\YunXiu.DAL\obj\Debug\YunXiu.DAL.csprojResolveAssemblyReference.cache
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\YunXiu.DAL.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\YunXiu.DAL.pdb
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\Dapper.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\Newtonsoft.Json.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\YunXiu.Commom.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\YunXiu.Interface.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\YunXiu.Model.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\Lucene.Net.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\PanGu.HighLight.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\PanGu.Lucene.Analyzer.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\PanGu.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\YunXiu.Interface.pdb
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\YunXiu.Commom.pdb
+D:\YunXiu\YunXiu\YunXiu.DAL\bin\Debug\YunXiu.Model.pdb
+D:\YunXiu\YunXiu\YunXiu.DAL\obj\Debug\YunXiu.DAL.dll
+D:\YunXiu\YunXiu\YunXiu.DAL\obj\Debug\YunXiu.DAL.pdb

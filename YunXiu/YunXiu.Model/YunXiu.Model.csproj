@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3529157E-3814-422B-A440-2313EDBDB693}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YunXiu.Model</RootNamespace>
+    <AssemblyName>YunXiu.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttributeValue.cs" />
+    <Compile Include="Banner.cs" />
+    <Compile Include="Base.cs" />
+    <Compile Include="Bid.cs" />
+    <Compile Include="Brand.cs" />
+    <Compile Include="BuyApply.cs" />
+    <Compile Include="BuyProduct.cs" />
+    <Compile Include="CateAttribute.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="Class.cs" />
+    <Compile Include="Consultation.cs" />
+    <Compile Include="ConsultationReply.cs" />
+    <Compile Include="ConsultationType.cs" />
+    <Compile Include="ExtTable.cs" />
+    <Compile Include="FavoriteProduct.cs" />
+    <Compile Include="FavoriteProductModel.cs" />
+    <Compile Include="FavoriteStore.cs" />
+    <Compile Include="FavoriteStoreModel.cs" />
+    <Compile Include="Invoice.cs" />
+    <Compile Include="Loginfaillogs.cs" />
+    <Compile Include="Logistics.cs" />
+    <Compile Include="MessageTb.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderPayOrder.cs" />
+    <Compile Include="OutStore.cs" />
+    <Compile Include="PageResult.cs" />
+    <Compile Include="PayOrder.cs" />
+    <Compile Include="ProductAttr.cs" />
+    <Compile Include="ProductConsults.cs" />
+    <Compile Include="ProductConsultsModel.cs" />
+    <Compile Include="ProductConsultTypes.cs" />
+    <Compile Include="ProductImages.cs" />
+    <Compile Include="ProductKeyWords.cs" />
+    <Compile Include="ProductReviewQuality.cs" />
+    <Compile Include="ProductReview.cs" />
+    <Compile Include="Productskus.cs" />
+    <Compile Include="Productstats.cs" />
+    <Compile Include="ProductStock.cs" />
+    <Compile Include="ProductStorage.cs" />
+    <Compile Include="PurchaseOfferAccept.cs" />
+    <Compile Include="PurchasePlan.cs" />
+    <Compile Include="PurchasePlanModel.cs" />
+    <Compile Include="PurchasePlanOffer.cs" />
+    <Compile Include="PurchasePlanView.cs" />
+    <Compile Include="Pvstats.cs" />
+    <Compile Include="ReceiptAddress.cs" />
+    <Compile Include="RefundProducts.cs" />
+    <Compile Include="Regions.cs" />
+    <Compile Include="Relateproducts.cs" />
+    <Compile Include="Searchhistories.cs" />
+    <Compile Include="Shipaddresses.cs" />
+    <Compile Include="Shipcompanies.cs" />
+    <Compile Include="ShoppingCart .cs" />
+    <Compile Include="Singlepromotions.cs" />
+    <Compile Include="SMS.cs" />
+    <Compile Include="Storeadminlogs.cs" />
+    <Compile Include="StoreBanners.cs" />
+    <Compile Include="Storeclasses.cs" />
+    <Compile Include="StoreHome.cs" />
+    <Compile Include="Storeindustries.cs" />
+    <Compile Include="Storekeepers.cs" />
+    <Compile Include="StoreNavigation.cs" />
+    <Compile Include="Storeranks.cs" />
+    <Compile Include="Storereviews.cs" />
+    <Compile Include="Store.cs" />
+    <Compile Include="StoresApply_Company2_.cs" />
+    <Compile Include="StoresApply_Company_.cs" />
+    <Compile Include="StoresApply_public.cs" />
+    <Compile Include="Storeshipfees.cs" />
+    <Compile Include="Storeshiptemplates.cs" />
+    <Compile Include="StoreStaff.cs" />
+    <Compile Include="StoreUser.cs" />
+    <Compile Include="StoreUserGroup.cs" />
+    <Compile Include="StoreUserGroupStoreUser.cs" />
+    <Compile Include="Suitproducts.cs" />
+    <Compile Include="Suitpromotions.cs" />
+    <Compile Include="Tender.cs" />
+    <Compile Include="TenderAccept.cs" />
+    <Compile Include="TenderView.cs" />
+    <Compile Include="Timeproducts.cs" />
+    <Compile Include="Topics.cs" />
+    <Compile Include="Trace.cs" />
+    <Compile Include="Userdetails.cs" />
+    <Compile Include="Userranks.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Global\GlobalDictionary.cs" />
+    <Compile Include="Global\GlobalList.cs" />
+    <Compile Include="Global\GlobalQueue.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VisitorBrowse.cs" />
+    <Compile Include="WithdrawalsApply.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
