@@ -59,6 +59,7 @@
     <Compile Include="IConsultation.cs" />
     <Compile Include="IConsultationReply.cs" />
     <Compile Include="IEmail.cs" />
+    <Compile Include="IFavoriteProduct.cs" />
     <Compile Include="IInvoice.cs" />
     <Compile Include="ILogistics.cs" />
     <Compile Include="IMessageTb.cs" />

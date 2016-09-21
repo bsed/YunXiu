@@ -70,6 +70,7 @@
     <Compile Include="ConsultationReply_DAL.cs" />
     <Compile Include="Consultation_DAL.cs" />
     <Compile Include="Email_DAL.cs" />
+    <Compile Include="FavoriteProduct_DAL.cs" />
     <Compile Include="Invoice_DAL.cs" />
     <Compile Include="Logistics_DAL.cs" />
     <Compile Include="MessageTb_DAL.cs" />

@@ -21,7 +21,8 @@ namespace ProductApi.Controllers
         Lazy<Category_BLL> cateBll = new Lazy<Category_BLL>();
         Lazy<LuceneNet> lucene = new Lazy<LuceneNet>();
         Lazy<ProductReview_BLL> reviewBll = new Lazy<ProductReview_BLL>();
-      //  Lazy<ProductState_BLL> productStateBll = new Lazy<ProductState_BLL>();
+        Lazy<FavoriteProduct_BLL> fProductBll = new Lazy<FavoriteProduct_BLL>();
+        //  Lazy<ProductState_BLL> productStateBll = new Lazy<ProductState_BLL>();
         static string indexPath = HttpContext.Current.Server.MapPath("/IndexData/ProductIndex");//商品索引 
         #region 商品
 
@@ -88,7 +89,7 @@ namespace ProductApi.Controllers
                     {
                         ResultList = products,
                         TotalCount = totalCount,
-                        PageIndex = pageSize
+                        PageIndex = pageIndex
                     };
                 }
 
@@ -136,7 +137,7 @@ namespace ProductApi.Controllers
             return response;
         }
 
-        
+
 
         [HttpPost]
         /// <summary>
@@ -225,7 +226,7 @@ namespace ProductApi.Controllers
             }
             return response;
         }
-      
+
         [HttpPost]
         /// <summary>
         /// 添加商品
@@ -402,22 +403,8 @@ namespace ProductApi.Controllers
             var result = false;
             try
             {
-                Dictionary<string, int> dic = null;
-                using (var ms = new MemoryStream())
-                {
-                    HttpContext.Current.Request.GetBufferlessInputStream().CopyTo(ms);
-                    if (ms.Length != 0)
-                    {
-                        dic = WebCommom.HttpRequestBodyConvertToObj<Dictionary<string, int>>(ms);
-                    }
-                }
-                if (dic.Count > 0)
-                {
-                    var userID = dic["userID"];
-                    var productID = dic["productID"];
-                    var number = dic["number"];
-                    result = shoppingCartBll.Value.AddProductToShoppingCart(userID, productID, number);
-                }
+                var sc = WebCommom.HttpRequestBodyConvertToObj<ShoppingCart>(HttpContext.Current);
+                result = shoppingCartBll.Value.AddProductToShoppingCart(sc);
             }
             catch (Exception ex)
             {
@@ -467,6 +454,29 @@ namespace ProductApi.Controllers
             {
 
             }
+            return response;
+        }
+
+
+        [HttpPost]
+
+        public HttpResponseMessage AddFavoriteProduct()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var fProduct = WebCommom.HttpRequestBodyConvertToObj<FavoriteProduct>(HttpContext.Current);
+                if (fProduct != null)
+                {
+                    result = fProductBll.Value.AddFavoriteProduct(fProduct);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetResponse(result);
             return response;
         }
 

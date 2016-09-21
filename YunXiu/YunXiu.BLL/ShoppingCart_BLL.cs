@@ -12,12 +12,12 @@ namespace YunXiu.BLL
     public class ShoppingCart_BLL : IShoppingCart
     {
         ShoppingCart_DAL dal = new ShoppingCart_DAL();
-        public bool AddProductToShoppingCart(int userID, int productID,int number)
+        public bool AddProductToShoppingCart(ShoppingCart sc)
         {
             var result = false;
             try
             {
-                result = dal.AddProductToShoppingCart(userID, productID, number);
+                result = dal.AddProductToShoppingCart(sc);
             }
             catch (Exception ex) { }
             return result;

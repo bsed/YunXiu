@@ -3,3 +3,8 @@ D:\YunXiu\YunXiu\YunXiu.Model\bin\Debug\YunXiu.Model.dll
 D:\YunXiu\YunXiu\YunXiu.Model\bin\Debug\YunXiu.Model.pdb
 D:\YunXiu\YunXiu\YunXiu.Model\obj\Debug\YunXiu.Model.dll
 D:\YunXiu\YunXiu\YunXiu.Model\obj\Debug\YunXiu.Model.pdb
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Model\bin\Debug\YunXiu.Model.dll
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Model\bin\Debug\YunXiu.Model.pdb
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Model\obj\Debug\YunXiu.Model.csprojResolveAssemblyReference.cache
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Model\obj\Debug\YunXiu.Model.dll
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Model\obj\Debug\YunXiu.Model.pdb

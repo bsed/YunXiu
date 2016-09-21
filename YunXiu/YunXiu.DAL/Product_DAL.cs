@@ -26,7 +26,7 @@ namespace YunXiu.DAL
                 var sql = new StringBuilder();
                 sql.Append("SELECT [PID],[Psn],[CateID],[BrandID],[StoreID],[StorestID],[SkugID],[Name],[ShopPrice],[MarketPrice]");
                 sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ShowImg],[SaleCount]");
-                sql.Append(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser] FROM Product AND [State]<>1");
+                sql.Append(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[LastUpdateDate] FROM Product WHERE [State]!=-1");
 
                 var dt = SQLHelper.GetTable(sql.ToString());
                 #region 提取数据
@@ -100,7 +100,7 @@ namespace YunXiu.DAL
                 var sql2 = new StringBuilder();
                 sql2.Append("SELECT ca.[AttrID],ca.[Name],av.[AttrValID],av.[AttrVal],av.[IsInput],pa.[PAID],pa.[ProductID],pa.[AttrID],pa.[AttrValID],pa.[InputVal],pa.[CreateDate] FROM ProductAttr pa ");
                 sql2.Append("LEFT JOIN CateAttribute ca ON ca.[AttrID] = pa.[AttrID]");
-                sql2.Append("LEFT JOIN AttributeValue av ON av.[AttrValID] = pa.[AttrValID]");
+                sql2.Append("LEFT JOIN AttributeValue av ON av.[AttrValID] = pa.[AttrValID] ");
                 sql2.Append(string.Format("WHERE pa.[ProductID]={0}", pID));
 
                 using (IDbConnection dbConn = DapperHelper.GetDbConnection())

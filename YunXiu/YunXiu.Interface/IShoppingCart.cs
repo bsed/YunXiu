@@ -29,7 +29,7 @@ namespace YunXiu.Interface
         /// <param name="userID">用户ID</param>
         /// <param name="productID">商品ID</param>
         /// <returns>是否添加成功</returns>
-        bool AddProductToShoppingCart(int userID, int productID,int number);
+        bool AddProductToShoppingCart(ShoppingCart sc);
 
         List<ShoppingCart> GetShoppingCartByProduct(List<int> pID);
     }

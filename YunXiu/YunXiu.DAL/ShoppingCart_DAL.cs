@@ -12,21 +12,16 @@ namespace YunXiu.DAL
 {
     public class ShoppingCart_DAL : IShoppingCart
     {
-        public bool AddProductToShoppingCart(int userID, int productID, int number)
+        public bool AddProductToShoppingCart(ShoppingCart sc)
         {
             var result = false;
             try
             {
-                var nowDate = DateTime.Now;
-                var sql = "INSERT INTO ShoppingCart([UserID],[ProductID],[Number],[CreateDate],[CreateUserID],[LastUpdateDate],[LastUpdateUserID]) VALUES(@UserID,@ProductID,@Number,@CreateDate,@CreateUserID,@LastUpdateDate,@LastUpdateUserID)";
+                var sql = "INSERT INTO ShoppingCart([UserID],[ProductID],[Number],[CreateDate]) VALUES(@UserID,@ProductID,@Number,GETDATE())";
                 var pars = new List<SqlParameter>();
-                pars.Add(new SqlParameter("@UserID", userID));
-                pars.Add(new SqlParameter("@ProductID", productID));
-                pars.Add(new SqlParameter("@Number", number));
-                pars.Add(new SqlParameter("@CreateDate", nowDate));
-                pars.Add(new SqlParameter("@CreateUserID", userID));
-                pars.Add(new SqlParameter("@LastUpdateDate", nowDate));
-                pars.Add(new SqlParameter("@LastUpdateUserID", userID));
+                pars.Add(new SqlParameter("@UserID", sc.User.UID));
+                pars.Add(new SqlParameter("@ProductID", sc.Product.PID));
+                pars.Add(new SqlParameter("@Number", sc.Number));
                 result = SQLHelper.ExcuteSQL(sql, pars.ToArray()) > 0;
             }
             catch (Exception ex)

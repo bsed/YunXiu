@@ -62,6 +62,7 @@
     <Compile Include="ConsultationReply_BLL.cs" />
     <Compile Include="Consultation_BLL.cs" />
     <Compile Include="Email_BLL.cs" />
+    <Compile Include="FavoriteProduct_BLL.cs" />
     <Compile Include="Invoice_BLL.cs" />
     <Compile Include="Logistics_BLL.cs" />
     <Compile Include="MessageTb_BLL.cs" />

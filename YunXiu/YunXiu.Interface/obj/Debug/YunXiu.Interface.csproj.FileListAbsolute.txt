@@ -5,3 +5,10 @@ D:\YunXiu\YunXiu\YunXiu.Interface\bin\Debug\YunXiu.Model.pdb
 D:\YunXiu\YunXiu\YunXiu.Interface\obj\Debug\YunXiu.Interface.csprojResolveAssemblyReference.cache
 D:\YunXiu\YunXiu\YunXiu.Interface\obj\Debug\YunXiu.Interface.dll
 D:\YunXiu\YunXiu\YunXiu.Interface\obj\Debug\YunXiu.Interface.pdb
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Interface\bin\Debug\YunXiu.Interface.dll
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Interface\bin\Debug\YunXiu.Interface.pdb
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Interface\bin\Debug\YunXiu.Model.dll
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Interface\bin\Debug\YunXiu.Model.pdb
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Interface\obj\Debug\YunXiu.Interface.csprojResolveAssemblyReference.cache
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Interface\obj\Debug\YunXiu.Interface.dll
+D:\Projdct_GIT\YunXiu\YunXiu\YunXiu.Interface\obj\Debug\YunXiu.Interface.pdb

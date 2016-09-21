@@ -151,7 +151,8 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="YunXiu.BLL">
+    <Reference Include="YunXiu.BLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\YunXiu\YunXiu.BLL\bin\Debug\YunXiu.BLL.dll</HintPath>
     </Reference>
     <Reference Include="YunXiu.Commom">
@@ -308,6 +309,7 @@
     <Content Include="IndexData\ProductIndex\segments.gen" />
     <Content Include="IndexData\ProductIndex\segments_2" />
     <Content Include="IndexData\ProductIndex\_0.cfs" />
+    <Content Include="bin\Dictionaries\Dict.dct" />
     <None Include="Properties\PublishProfiles\ProductApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
