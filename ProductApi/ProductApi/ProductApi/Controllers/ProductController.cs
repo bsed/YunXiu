@@ -22,13 +22,19 @@ namespace ProductApi.Controllers
         Lazy<LuceneNet> lucene = new Lazy<LuceneNet>();
         Lazy<ProductReview_BLL> reviewBll = new Lazy<ProductReview_BLL>();
         Lazy<FavoriteProduct_BLL> fProductBll = new Lazy<FavoriteProduct_BLL>();
+        Lazy<ProductAttr_BLL> pAttrBll = new Lazy<ProductAttr_BLL>();
+        Lazy<ProductImage_BLL> pImgBll = new Lazy<ProductImage_BLL>();
+        Lazy<ProductStock_BLL> stockBll = new Lazy<ProductStock_BLL>();
+        Lazy<ConsultationType_BLL> cTypeBll = new Lazy<ConsultationType_BLL>();
+        Lazy<Consultation_BLL> cBll = new Lazy<Consultation_BLL>();
+        Lazy<ConsultationReply_BLL> cReplyBll = new Lazy<ConsultationReply_BLL>();
         //  Lazy<ProductState_BLL> productStateBll = new Lazy<ProductState_BLL>();
         static string indexPath = HttpContext.Current.Server.MapPath("/IndexData/ProductIndex");//商品索引 
         #region 商品
 
         [HttpPost]
         /// <summary>
-        /// 根据商品ID获取商品
+        /// 获取商品
         /// </summary>
         /// <param name="pID">商品ID</param>
         /// <returns></returns>
@@ -127,6 +133,11 @@ namespace ProductApi.Controllers
                 {
                     var id = Convert.ToInt32(str);
                     product = bll.Value.GetProductByID(id);
+                    if (product != null)
+                    {
+                        product.Attributes = pAttrBll.Value.GetProductAttr(id);
+                        product.ProductImages = pImgBll.Value.GetProductImg(id);
+                    }
                 }
             }
             catch (Exception ex)
@@ -347,7 +358,6 @@ namespace ProductApi.Controllers
             return response;
         }
 
-
         /// <summary>
         /// 获取商铺产品
         /// </summary>
@@ -373,6 +383,11 @@ namespace ProductApi.Controllers
             return response;
         }
 
+
+   
+    
+
+
         private Dictionary<string, bool> GetIndexField()
         {
             var needCreateField = new Dictionary<string, bool>();
@@ -388,6 +403,80 @@ namespace ProductApi.Controllers
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.SaleCount), false);
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.ShowImg), false);
             return needCreateField;
+        }
+        #endregion
+
+
+        #region 产品咨询
+
+        /// <summary>
+        /// 添加咨询类型
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage AddConsultationType()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var cType = WebCommom.HttpRequestBodyConvertToObj<ConsultationType>(HttpContext.Current);
+                result = cTypeBll.Value.AddConsultationType(cType);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+
+        /// <summary>
+        /// 获取咨询类型
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetConsultationType()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var cType = WebCommom.HttpRequestBodyConvertToObj<ConsultationType>(HttpContext.Current);
+                result = cTypeBll.Value.AddConsultationType(cType);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+
+
+        /// <summary>
+        /// 获取产品咨询以及咨询回复
+        /// </summary>
+        /// <returns></returns>
+        public HttpResponseMessage GetConsultation()
+        {
+            HttpResponseMessage response = null;
+            ConsultationResult result = null;
+            try
+            {
+                var pID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                if (pID != 0)
+                {
+                    result.ConsultationList = cBll.Value.GetConsultationByProduct(pID);
+                    result.ReplyList =cReplyBll.Value.GetConsultationReplyByProduct(pID);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(result);
+            return response;
         }
         #endregion
 
@@ -459,7 +548,6 @@ namespace ProductApi.Controllers
 
 
         [HttpPost]
-
         public HttpResponseMessage AddFavoriteProduct()
         {
             HttpResponseMessage response = null;
@@ -523,6 +611,28 @@ namespace ProductApi.Controllers
 
             }
             response = WebCommom.GetResponse(list);
+            return response;
+        }
+        #endregion
+
+        #region 库存
+
+        /// <summary>
+        /// 获取商品库存
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetProductStock()
+        {
+            HttpResponseMessage response = null;
+            var number = 0;
+            try
+            {
+                var pID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                stockBll.Value.GetProductStock(pID);
+            }
+            catch(Exception ex) { }
+            response = WebCommom.GetResponse(number);
             return response;
         }
         #endregion

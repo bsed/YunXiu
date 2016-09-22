@@ -17,7 +17,7 @@ namespace YunXiu.BLL
             return dal.GetProductStock();
         }
 
-        public ProductStock GetProductStock(int pID)
+        public int GetProductStock(int pID)
         {
             return dal.GetProductStock(pID);
         }

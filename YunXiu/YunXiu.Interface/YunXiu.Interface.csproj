@@ -52,14 +52,17 @@
     <Compile Include="IBanner.cs" />
     <Compile Include="IBid.cs" />
     <Compile Include="IBrand.cs" />
+    <Compile Include="IBrowseHistorie.cs" />
     <Compile Include="IBuyApply.cs" />
     <Compile Include="IBuyProduct.cs" />
     <Compile Include="ICateAttribute.cs" />
     <Compile Include="ICategory.cs" />
     <Compile Include="IConsultation.cs" />
     <Compile Include="IConsultationReply.cs" />
+    <Compile Include="IConsultationType.cs" />
     <Compile Include="IEmail.cs" />
     <Compile Include="IFavoriteProduct.cs" />
+    <Compile Include="IFavoriteStore.cs" />
     <Compile Include="IInvoice.cs" />
     <Compile Include="ILogistics.cs" />
     <Compile Include="IMessageTb.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="IProduct.cs" />
     <Compile Include="IProductAttr.cs" />
     <Compile Include="IProductConsult.cs" />
+    <Compile Include="IProductImage.cs" />
     <Compile Include="IProductReview.cs" />
     <Compile Include="IProductStock.cs" />
     <Compile Include="IProductStorage.cs" />

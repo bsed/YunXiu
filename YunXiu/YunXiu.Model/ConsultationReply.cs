@@ -18,6 +18,6 @@ namespace YunXiu.Model
 
         public Consultation RConsultation { get; set; }
 
-        public Product RProductID { get; set; }
+        public Product RProduct{ get; set; }
     }
 }

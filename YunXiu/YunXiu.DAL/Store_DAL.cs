@@ -7,6 +7,7 @@ using YunXiu.Interface;
 using YunXiu.Model;
 using YunXiu.Commom;
 using Dapper;
+using System.Data;
 
 namespace YunXiu.DAL
 {
@@ -50,6 +51,35 @@ namespace YunXiu.DAL
             return result;
         }
 
+        public List<Store> GetStore()
+        {
+            List<Store> list = null;
+            try
+            {
+                var sql = new StringBuilder(); ;
+                sql.Append("SELECT c.[CateID],c.[Sort],c.[Name],s.[StoreID],s.[StoreManagerID],s.[State],s.[Name],s.[RegionID],s.[StorerID],s.[Logo],s.[Mobile],s.[Phone],s.[QQ],s.[DePoint],s.[SePoint],s.[ShPoint],");
+                sql.Append("s.[Honesties],s.[ValidityDate],s.[Theme],s.[Announcement],s.[Description],s.[StoreMoney],s.[CreateDate] FROM Store s ");
+                sql.Append("LEFT JOIN Category c ON s.[CategoryID] = c.[CateID] ");
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
+                {
+                    list = conn.Query<Store, Category, Store>(sql.ToString(),
+                        (s,c)=> 
+                        {
+                            s.Category = c;
+                            return s;
+                        },
+                        null,
+                        null,
+                        true,
+                        "Name,CateID",
+                        null,
+                        null).ToList();
+                }
+            }
+            catch (Exception ex) { }
+            return list;
+        }
+
         public decimal GetStoreAmount(int sID)
         {
             decimal amount = 0;
@@ -61,6 +91,40 @@ namespace YunXiu.DAL
             catch (Exception ex)
             { }
             return amount;
+        }
+
+        public Store GetStoreByID(int sID)
+        {
+            Store store = null;
+            try
+            {
+                var sql = new StringBuilder();
+                sql.Append("SELECT c.[CateID],c.[Sort],c.[Name],s.[StoreID],s.[StoreManagerID],s.[State],s.[Name],s.[RegionID],s.[StorerID],s.[Logo],s.[Mobile],s.[Phone],s.[QQ],s.[DePoint],s.[SePoint],s.[ShPoint],");
+                sql.Append("s.[Honesties],s.[ValidityDate],s.[Theme],s.[Announcement],s.[Description],s.[StoreMoney],s.[CreateDate] FROM Store s ");
+                sql.Append("LEFT JOIN Category c ON s.[CategoryID] = c.[CateID] ");
+                sql.Append(string.Format("WHERE s.[StoreID]={0}",sID));
+
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
+                {
+                    store = conn.Query<Store, Category, Store>(sql.ToString(),
+                        (s, c) =>
+                        {
+                            s.Category = c;
+                            return s;
+                        },
+                        null,
+                        null,
+                        true,
+                        "Name,CateID",
+                        null,
+                        null).SingleOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return store;
         }
 
         public bool UpdateStore(Store store)

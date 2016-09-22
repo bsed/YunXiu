@@ -21,7 +21,7 @@ namespace YunXiu.Interface
         /// </summary>
         /// <param name="pID"></param>
         /// <returns></returns>
-        ProductStock GetProductStock(int pID);
+        int GetProductStock(int pID);
 
         /// <summary>
         /// 修改库存

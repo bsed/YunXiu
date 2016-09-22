@@ -16,5 +16,9 @@ namespace YunXiu.Interface
         bool UpdateStore(Store store);
 
         bool DeleteStore(int sID);
+
+        List<Store> GetStore();
+
+        Store GetStoreByID(int sID);
     }
 }

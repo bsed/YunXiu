@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 
 namespace YunXiu.Model
 {
-    public class FavoriteStore
+    public class FavoriteStore:Base
     {
-        public int RecordId { get; set; }
+        public int FID { get; set; }
 
-        public int Uid { get; set; }
+        public User User { get; set; }
 
-        public int StoreId { get; set; }
-
-        public DateTime AddTime { get; set; }
-
-        public string SName { get; set; }
-
-        public string Logo { get; set; }
+        public Store Store { get; set; }
     }
 }

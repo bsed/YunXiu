@@ -89,24 +89,19 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT c.[Name],c.[CateID],b.[BrandID] ,b.[Name],s.[StoreID],s.[State],s.[Name],[PID],[Psn],[StorestID],[SkugID],p.[Name],[ShopPrice],[MarketPrice],");
-                sql.Append("[CostPrice],[IsBest],[IsHot],[IsNew],p.[Sort],[Weight],[ShowImg],[SaleCount],");
-                sql.Append("[VisitCount],[ReviewCount],p.[Description],[OfficialGuarantee],[FAQs],p.[CreateDate],p.[LastUpdateDate] FROM Product p ");
+                sql.Append("SELECT c.[Name],c.[CateID],b.[BrandID] ,b.[Name],s.[StoreID],s.[State],s.[Name],s.[Logo],s.[Mobile],s.[Phone],p.[PID],p.[Psn],p.[StorestID],p.[SkugID],p.[Name],p.[ShopPrice],p.[MarketPrice],");
+                sql.Append("p.[CostPrice],p.[IsBest],p.[IsHot],p.[IsNew],p.[Sort],p.[Weight],p.[ShowImg],p.[SaleCount],");
+                sql.Append("p.[VisitCount],p.[ReviewCount],p.[Description],p.[OfficialGuarantee],[FAQs],p.[CreateDate],p.[LastUpdateDate] FROM Product p ");
                 sql.Append("LEFT JOIN Category c ON c.[CateID]=p.[CateID] ");
                 sql.Append("LEFT JOIN Brand b ON b.[BrandID]=p.[BrandID] ");
                 sql.Append("LEFT JOIN Store s ON s.[StoreID]=p.[StoreID] ");
                 sql.Append(string.Format("WHERE p.[PID] ={0} ", pID));
 
-                var sql2 = new StringBuilder();
-                sql2.Append("SELECT ca.[AttrID],ca.[Name],av.[AttrValID],av.[AttrVal],av.[IsInput],pa.[PAID],pa.[ProductID],pa.[AttrID],pa.[AttrValID],pa.[InputVal],pa.[CreateDate] FROM ProductAttr pa ");
-                sql2.Append("LEFT JOIN CateAttribute ca ON ca.[AttrID] = pa.[AttrID]");
-                sql2.Append("LEFT JOIN AttributeValue av ON av.[AttrValID] = pa.[AttrValID] ");
-                sql2.Append(string.Format("WHERE pa.[ProductID]={0}", pID));
-
+           
                 using (IDbConnection dbConn = DapperHelper.GetDbConnection())
                 {
-                    product = dbConn.Query<Product, Category, Brand, Store, Product>(sql.ToString(),
-                        (p, c, b, s) =>
+                    product = dbConn.Query <Category, Brand, Store,Product, Product>(sql.ToString(),
+                        ( c, b, s,p) =>
                         {
                             p.Category = c;
                             p.Brand = b;
@@ -116,30 +111,10 @@ namespace YunXiu.DAL
                         null,
                         null,
                         true,
-                        "Name,CateID,BrandID,StoreID",
+                        "Name",
                         null,
-                        null).SingleOrDefault();
-
-                    List<ProductAttr> attrs = dbConn.Query<ProductAttr, CateAttribute, AttributeValue, ProductAttr>(sql2.ToString(),
-                        (pa, ca, av) =>
-                        {
-                            pa.Attr = ca;
-                            pa.AttrVal = av;
-                            return pa;
-                        },
-                        null,
-                        null,
-                        true,
-                        "Name,AttrValID,AttrVal",
-                        null,
-                        null).ToList();
-                    product.Attributes = attrs;
+                        null).SingleOrDefault();             
                 }
-
-
-
-
-
             }
             catch (Exception ex)
             {
@@ -160,7 +135,7 @@ namespace YunXiu.DAL
                 var sql = new StringBuilder();
                 sql.Append(string.Format("SELECT TOP {0} [PID],[Psn],[CateID],[BrandID],[StoreID],[StorestID],[SkugID],[Name],[ShopPrice],[MarketPrice]", count));
                 sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ShowImg],[SaleCount]");
-                sql.Append(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser] FROM Product WHERE IsHot=1 AND [State]<>1");
+                sql.Append(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[LastUpdateDate] FROM Product WHERE IsHot=1 AND [State]!=-1");
 
                 var dt = SQLHelper.GetTable(sql.ToString());
                 #region 提取数据

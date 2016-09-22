@@ -63,14 +63,17 @@
     <Compile Include="Banner_DAL.cs" />
     <Compile Include="Bid_DAL.cs" />
     <Compile Include="Brand_DAL.cs" />
+    <Compile Include="BrowseHistorie_DAL.cs" />
     <Compile Include="BuyApply_DAL.cs" />
     <Compile Include="BuyProduct_DAL.cs" />
     <Compile Include="CateAttribute_DAL.cs" />
     <Compile Include="Category_DAL.cs" />
     <Compile Include="ConsultationReply_DAL.cs" />
+    <Compile Include="ConsultationType_DAL.cs" />
     <Compile Include="Consultation_DAL.cs" />
     <Compile Include="Email_DAL.cs" />
     <Compile Include="FavoriteProduct_DAL.cs" />
+    <Compile Include="FavoriteStore_DAL.cs" />
     <Compile Include="Invoice_DAL.cs" />
     <Compile Include="Logistics_DAL.cs" />
     <Compile Include="MessageTb_DAL.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="PayOrder_DAL.cs" />
     <Compile Include="ProductAttr_DAL.cs" />
     <Compile Include="ProductConsult_DAL.cs" />
+    <Compile Include="ProductImage_DAL.cs" />
     <Compile Include="ProductReview_DAL.cs" />
     <Compile Include="ProductStock_DAL.cs" />
     <Compile Include="ProductStorage_DAL.cs" />

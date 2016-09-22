@@ -22,9 +22,19 @@ namespace YunXiu.BLL
             return dal.DeleteStore(sID);
         }
 
+        public List<Store> GetStore()
+        {
+            return dal.GetStore();
+        }
+
         public decimal GetStoreAmount(int sID)
         {
             return dal.GetStoreAmount(sID);
+        }
+
+        public Store GetStoreByID(int sID)
+        {
+            return dal.GetStoreByID(sID);
         }
 
         public bool UpdateStore(Store store)

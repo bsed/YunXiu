@@ -41,30 +41,24 @@ namespace YunXiu.DAL
             return list;
         }
 
-        public ProductStock GetProductStock(int pID)
+        public int GetProductStock(int pID)
         {
-            ProductStock productStock = null;
+            var number = 0;
             try
             {
-                var sql = "SELECT [ID],[ProductID],[Number],[Limit],[CreateDate],[CreateUserID],[LastUpdateUserID],[LastUpdateDate] FROM ProductStock";
+                var sql = string.Format("SELECT [Number] FROM ProductStock WHERE [ProductID]={0}", pID);
                 var dt = SQLHelper.GetTable(sql);
 
-                productStock = new ProductStock
+                if (dt.Rows.Count > 0)
                 {
-                    ID = Convert.ToInt32(dt.Rows[0]["ID"]),
-                    Product = new Product
-                    {
-                        PID = Convert.IsDBNull(dt.Rows[0]["ProductID"]) ? 0 : Convert.ToInt32(dt.Rows[0]["ProductID"])
-                    },
-                    Number = Convert.IsDBNull(dt.Rows[0]["Number"]) ? 0 : Convert.ToInt32(dt.Rows[0]["Number"]),
-                    Limit = Convert.IsDBNull(dt.Rows[0]["Limit"]) ? 0 : Convert.ToInt32(dt.Rows[0]["Limit"]),
-                };
+                    number =Convert.ToInt32(dt.Rows[0][0]);
+                }
             }
             catch (Exception ex)
             {
 
             }
-            return productStock;
+            return number;
         }
 
         /// <summary>

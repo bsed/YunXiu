@@ -158,7 +158,15 @@ namespace YunXiu.Model
         /// </summary>
         public int FiveStar { get; set; }
 
-        public List<ProductAttr> Attributes { get; set; }
+        /// <summary>
+        /// 产品属性
+        /// </summary>
+        public List<ProductAttr> Attributes { get; set; } = new List<ProductAttr>();
+
+        /// <summary>
+        /// 产品图片
+        /// </summary>
+        public List<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
         #endregion
     }
 }

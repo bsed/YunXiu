@@ -13,6 +13,6 @@ namespace YunXiu.Interface
 
         bool DeleteConsultation(int cID);
 
-        bool GetConsultationByProduct(int pID);
+        List<Consultation> GetConsultationByProduct(int pID);
     }
 }

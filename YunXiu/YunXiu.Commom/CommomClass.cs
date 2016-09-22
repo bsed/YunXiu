@@ -184,10 +184,13 @@ namespace YunXiu.Commom
             Dictionary<string, string> dic = new Dictionary<string, string>();
             var doc = LoadXml(filePath);
             var node = doc.SelectSingleNode(xPath);
-            for (int i = 0; i < node.ChildNodes.Count; i++)
+            if (node != null)
             {
-                dic.Add(node.ChildNodes[i].Name, node.ChildNodes[i].InnerText);
-            }
+                for (int i = 0; i < node.ChildNodes.Count; i++)
+                {
+                    dic.Add(node.ChildNodes[i].Name, node.ChildNodes[i].InnerText);
+                }
+            }       
             return dic;
         }
 

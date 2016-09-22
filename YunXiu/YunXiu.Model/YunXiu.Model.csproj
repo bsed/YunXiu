@@ -51,6 +51,7 @@
     <Compile Include="Base.cs" />
     <Compile Include="Bid.cs" />
     <Compile Include="Brand.cs" />
+    <Compile Include="BrowseHistorie.cs" />
     <Compile Include="BuyApply.cs" />
     <Compile Include="BuyProduct.cs" />
     <Compile Include="CateAttribute.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Class.cs" />
     <Compile Include="Consultation.cs" />
     <Compile Include="ConsultationReply.cs" />
+    <Compile Include="ConsultationResult.cs" />
     <Compile Include="ConsultationType.cs" />
     <Compile Include="ExtTable.cs" />
     <Compile Include="FavoriteProduct.cs" />
@@ -77,7 +79,7 @@
     <Compile Include="ProductConsults.cs" />
     <Compile Include="ProductConsultsModel.cs" />
     <Compile Include="ProductConsultTypes.cs" />
-    <Compile Include="ProductImages.cs" />
+    <Compile Include="ProductImage.cs" />
     <Compile Include="ProductKeyWords.cs" />
     <Compile Include="ProductReviewQuality.cs" />
     <Compile Include="ProductReview.cs" />

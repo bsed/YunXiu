@@ -13,6 +13,6 @@ namespace YunXiu.Interface
 
         bool DeleteProductAttr(int aID);
 
-         
+        List<ProductAttr> GetProductAttr(int pID);
     }
 }

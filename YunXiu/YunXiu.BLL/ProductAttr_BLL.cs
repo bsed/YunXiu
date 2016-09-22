@@ -21,5 +21,10 @@ namespace YunXiu.BLL
         {
             return dal.DeleteProductAttr(aID);
         }
+
+        public List<ProductAttr> GetProductAttr(int pID)
+        {
+            return dal.GetProductAttr(pID);
+        }
     }
 }

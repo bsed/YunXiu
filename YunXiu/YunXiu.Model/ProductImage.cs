@@ -9,10 +9,10 @@ namespace YunXiu.Model
     /// <summary>
     /// 商品图片表
     /// </summary>
-    public class ProductImages
+    public class ProductImage
     {
-        public int PImgId { get; set; }
-        public int Pid { get; set; }
+        public int PImgID { get; set; }
+        public Product Product { get; set; }
 
         /// <summary>
         /// 图片

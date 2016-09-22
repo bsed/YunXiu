@@ -55,14 +55,17 @@
     <Compile Include="Banner_BLL.cs" />
     <Compile Include="Bid_BLL.cs" />
     <Compile Include="Brand_BLL.cs" />
+    <Compile Include="BrowseHistorie_BLL.cs" />
     <Compile Include="BuyApply_BLL.cs" />
     <Compile Include="BuyProduct_BLL.cs" />
     <Compile Include="CateAttribute_BLL.cs" />
     <Compile Include="Category_BLL.cs" />
     <Compile Include="ConsultationReply_BLL.cs" />
+    <Compile Include="ConsultationType_BLL.cs" />
     <Compile Include="Consultation_BLL.cs" />
     <Compile Include="Email_BLL.cs" />
     <Compile Include="FavoriteProduct_BLL.cs" />
+    <Compile Include="FavoriteStore_BLL.cs" />
     <Compile Include="Invoice_BLL.cs" />
     <Compile Include="Logistics_BLL.cs" />
     <Compile Include="MessageTb_BLL.cs" />
@@ -71,6 +74,7 @@
     <Compile Include="PayOrder_BLL.cs" />
     <Compile Include="ProductAttr_BLL.cs" />
     <Compile Include="ProductConsult_BLL.cs" />
+    <Compile Include="ProductImage_BLL.cs" />
     <Compile Include="ProductReview_BLL.cs" />
     <Compile Include="ProductStock_BLL.cs" />
     <Compile Include="PurchaseOfferAccept_BLL.cs" />

@@ -22,7 +22,7 @@ namespace YunXiu.BLL
             return dal.DeleteConsultation(cID);
         }
 
-        public bool GetConsultationByProduct(int pID)
+        public List<Consultation> GetConsultationByProduct(int pID)
         {
             return GetConsultationByProduct(pID);
         }

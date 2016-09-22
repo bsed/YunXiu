@@ -12,7 +12,7 @@ namespace YunXiu.Model
 
         public string AttrVal { get; set; }
 
-        public CateAttribute AttrID { get; set; }
+        public CateAttribute Attr { get; set; }
         public string IsInput { get; set; }
     }
 }
