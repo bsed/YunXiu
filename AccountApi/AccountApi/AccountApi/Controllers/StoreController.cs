@@ -23,6 +23,7 @@ namespace AccountApi.Controllers
         [HttpPost]
         public HttpResponseMessage AddStore()
         {
+           
             HttpResponseMessage response = null;
             var result = false;
             try

@@ -8,8 +8,14 @@ namespace YunXiu.Model
 {
     public class ConsultationResult : Base
     {
-        public List<Consultation> ConsultationList { get; set; } = new List<Consultation>();
+        public ConsultationResult()
+        {
+            ConsultationList = new List<Consultation>();
+            ReplyList = new List<Model.ConsultationReply>();
+        }
 
-        public List<ConsultationReply> ReplyList { get; set; } = new List<ConsultationReply>();
+        public List<Consultation> ConsultationList { get; set; }
+
+        public List<ConsultationReply> ReplyList { get; set; } 
     }
 }

@@ -159,6 +159,11 @@ namespace YunXiu.Model
         public int FiveStar { get; set; }
 
         /// <summary>
+        /// 评价数目
+        /// </summary>
+        public int ReviewCount { get; set; }
+
+        /// <summary>
         /// 产品属性
         /// </summary>
         public List<ProductAttr> Attributes { get; set; } = new List<ProductAttr>();
@@ -167,6 +172,9 @@ namespace YunXiu.Model
         /// 产品图片
         /// </summary>
         public List<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
+
+        
+
         #endregion
     }
 }

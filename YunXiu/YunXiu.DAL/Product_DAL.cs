@@ -111,7 +111,7 @@ namespace YunXiu.DAL
                         null,
                         null,
                         true,
-                        "Name",
+                        "Name,StoreID,PID",
                         null,
                         null).SingleOrDefault();             
                 }
@@ -376,7 +376,7 @@ namespace YunXiu.DAL
                 var sql = new StringBuilder();
                 sql.Append("SELECT [PID],[Psn],[CateID],[BrandID],[StoreID],[StorestID],[SkugID],[Name],[ShopPrice],[MarketPrice]");
                 sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ShowImg],[SaleCount]");
-                sql.Append(string.Format(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser] FROM Product Where CateID IN({0}) AND [State]<>1", id));
+                sql.Append(string.Format(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[LastUpdateDate] FROM Product Where CateID IN({0}) AND [State]!=-1", id));
 
                 var dt = SQLHelper.GetTable(sql.ToString());
                 #region 提取数据

@@ -42,11 +42,12 @@ namespace YunXiu.DAL
             List<ConsultationReply> list = null;
             try
             {
+                var str = "PID,CreateDate,ID";
                 var sql = new StringBuilder();
-                sql.Append("SELECT r.[ID],c.[RContent],r.[CreateDate],p.[PID],p.[Name],p.[ShowImg],c.[ID],c.[CContent],u.[UserName] FROM ConsultationReply r ");
+                sql.Append("SELECT r.[RID],r.[RContent],r.[CreateDate],p.[PID],p.[Name],p.[ShowImg],c.[ID],c.[CContent] FROM ConsultationReply r ");
                 sql.Append("LEFT JOIN Product p ON r.[RProductID]=p.[PID] ");
                 sql.Append("LEFT JOIN Consultation c ON r.[RConsultationID]= c.[ID] ");
-                sql.Append(string.Format("WHERE [RProductID]={0}", pID));
+                sql.Append(string.Format("WHERE r.[RProductID]={0}", pID));
 
                 using (IDbConnection conn = DapperHelper.GetDbConnection())
                 {
@@ -60,7 +61,7 @@ namespace YunXiu.DAL
                         null,
                         null,
                         true,
-                        "ID",
+                        str,
                         null,
                         null).ToList();
                 }

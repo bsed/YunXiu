@@ -42,16 +42,16 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT c.[ID],c.[CContent],c.[CreateDate],p.[PID],p.[Name],p.[ShowImg],ct.[ID],ct.[CTypeName],u.[UserName],u.[UID] FROM Consultation c ");
+                sql.Append("SELECT c.[ID],c.[CContent],c.[CreateDate],ct.[ID],ct.[CTypeName],p.[PID],p.[Name],p.[ShowImg],u.[UID],u.[UserName] FROM Consultation c ");
                 sql.Append("LEFT JOIN Product p ON c.[CProductID]=p.[PID] ");
                 sql.Append("LEFT JOIN ConsultationType ct ON c.[CTypeID]= ct.[ID] ");
-                sql.Append("LEFT JOIN User u ON c.[CreateUserID]=u.[UID]");
-                sql.Append(string.Format("WHERE [CProductID]={0}",pID));
+                sql.Append("LEFT JOIN [User] u ON c.[CreateUserID]=u.[UID] ");
+                sql.Append(string.Format("WHERE c.[CProductID]={0}",pID));
 
                 using (IDbConnection conn = DapperHelper.GetDbConnection())
                 {
-                    list = conn.Query<Consultation, Product, ConsultationType, User, Consultation>(sql.ToString(),
-                        (c,p,ct,u)=> 
+                    list = conn.Query<Consultation, ConsultationType, Product, User, Consultation>(sql.ToString(),
+                        (c, ct, p,u)=> 
                         {
                             c.CProduct = p;
                             c.CType = ct;
@@ -61,7 +61,7 @@ namespace YunXiu.DAL
                         null,
                         null,
                         true,
-                        "ID",
+                        "ID,CreateDate,PID,UID",
                         null,
                         null).ToList();
                 }

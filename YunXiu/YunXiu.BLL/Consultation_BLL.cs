@@ -24,7 +24,7 @@ namespace YunXiu.BLL
 
         public List<Consultation> GetConsultationByProduct(int pID)
         {
-            return GetConsultationByProduct(pID);
+            return dal.GetConsultationByProduct(pID);
         }
     }
 }

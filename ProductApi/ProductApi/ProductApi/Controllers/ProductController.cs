@@ -439,17 +439,16 @@ namespace ProductApi.Controllers
         public HttpResponseMessage GetConsultationType()
         {
             HttpResponseMessage response = null;
-            var result = false;
+            List<ConsultationType> list = null;
             try
-            {
-                var cType = WebCommom.HttpRequestBodyConvertToObj<ConsultationType>(HttpContext.Current);
-                result = cTypeBll.Value.AddConsultationType(cType);
+            {           
+                list = cTypeBll.Value.GetConsultationType();
             }
             catch (Exception ex)
             {
 
             }
-            response = WebCommom.GetResponse(result);
+            response = WebCommom.GetResponse(list);
             return response;
         }
 
@@ -458,17 +457,18 @@ namespace ProductApi.Controllers
         /// 获取产品咨询以及咨询回复
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public HttpResponseMessage GetConsultation()
         {
             HttpResponseMessage response = null;
-            ConsultationResult result = null;
+            ConsultationResult result = new ConsultationResult(); 
             try
             {
                 var pID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
                 if (pID != 0)
-                {
-                    result.ConsultationList = cBll.Value.GetConsultationByProduct(pID);
-                    result.ReplyList =cReplyBll.Value.GetConsultationReplyByProduct(pID);
+                {          
+                    result.ConsultationList = cBll.Value.GetConsultationByProduct(pID);              
+                    result.ReplyList= cReplyBll.Value.GetConsultationReplyByProduct(pID);
                 }
             }
             catch (Exception ex)
@@ -478,6 +478,29 @@ namespace ProductApi.Controllers
             response = WebCommom.GetJsonResponse(result);
             return response;
         }
+
+        /// <summary>
+        /// 添加产品咨询
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage AddConsultation()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var consultation = WebCommom.HttpRequestBodyConvertToObj<Consultation>(HttpContext.Current);
+                result = cBll.Value.AddConsultation(consultation);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+
         #endregion
 
         #region 购物车
