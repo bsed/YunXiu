@@ -9,7 +9,7 @@ namespace YunXiu.Interface
 {
     public interface IStoreHome
     {
-        bool AddStoreHome(StoreHome home);
+        bool UpdateStoreHome(StoreHome home);
 
         StoreHome GetStoreHomeByStore(int sID);
     }

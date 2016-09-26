@@ -47,6 +47,16 @@ namespace YunXiu.Commom
             return result;
         }
 
+        public static bool ExecuteProc(string proc, DynamicParameters pars)
+        {
+            var result = false;
+            using (IDbConnection conn = GetDbConnection())
+            {
+                result = conn.Execute(proc, pars, null, null, CommandType.StoredProcedure) > 0;
+            }
+            return result;
+        }
+
         public static List<T> Query<T>(string sql)
         {
             List<T> list = null;
@@ -62,7 +72,27 @@ namespace YunXiu.Commom
             T t = default(T);
             using (IDbConnection conn = GetDbConnection())
             {
-                t = conn.ExecuteScalar<T>(sql);
+                t = conn.Query<T>(sql).SingleOrDefault();
+            }
+            return t;
+        }
+
+        public static T QuerySingle<T>(string sql, T obj)
+        {
+            T t = default(T);
+            using (IDbConnection conn = GetDbConnection())
+            {
+                t = conn.Query<T>(sql, obj).SingleOrDefault();
+            }
+            return t;
+        }
+
+        public static T QuerySingle<T>(string sql, DynamicParameters pars)
+        {
+            T t = default(T);
+            using (IDbConnection conn = GetDbConnection())
+            {
+                t = conn.Query<T>(sql, pars).SingleOrDefault();
             }
             return t;
         }

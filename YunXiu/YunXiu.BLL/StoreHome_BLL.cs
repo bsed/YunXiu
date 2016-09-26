@@ -12,9 +12,9 @@ namespace YunXiu.BLL
     public class StoreHome_BLL : IStoreHome
     {
         StoreHome_DAL dal = new StoreHome_DAL();
-        public bool AddStoreHome(StoreHome home)
+        public bool UpdateStoreHome(StoreHome home)
         {
-            return dal.AddStoreHome(home);
+            return dal.UpdateStoreHome(home);
         }
 
         public StoreHome GetStoreHomeByStore(int sID)

@@ -20,7 +20,7 @@ namespace YunXiu.Commom
             request.ContentType = "text/json";
             //  request.ContentLength = Encoding.UTF8.GetByteCount(HttpUtility.UrlEncode(postDataStr));
 
-            Stream myRequestStream = request.GetRequestStream();
+            aStream myRequestStream = request.GetRequestStream();
             StreamWriter myStreamWriter = new StreamWriter(myRequestStream, Encoding.GetEncoding("gb2312"));
             myStreamWriter.Write(HttpUtility.UrlEncode(postDataStr));
             myStreamWriter.AutoFlush = true;

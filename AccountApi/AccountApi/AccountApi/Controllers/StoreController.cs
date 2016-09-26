@@ -14,8 +14,9 @@ namespace AccountApi.Controllers
     public class StoreController : ApiController
     {
         Lazy<Store_BLL> bll = new Lazy<Store_BLL>();
+        Lazy<StoreHome_BLL> storeHomeBll = new Lazy<StoreHome_BLL>();
         Lazy<FavoriteStore_BLL> fStoreBll = new Lazy<FavoriteStore_BLL>();
-        
+        Lazy<StoreNavigation_BLL> navigationBll = new Lazy<StoreNavigation_BLL>();
         /// <summary>
         /// 添加商铺
         /// </summary>
@@ -152,6 +153,83 @@ namespace AccountApi.Controllers
             return response;
         }
 
-       
+        /// <summary>
+        /// 获取商铺首页
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetStoreHome()
+        {
+            HttpResponseMessage response = null;
+            StoreHome home = null;
+            try
+            {
+                var sID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                home = storeHomeBll.Value.GetStoreHomeByStore(sID);
+            }
+            catch (Exception ex) { }
+            response = WebCommom.GetJsonResponse(home);
+            return response;
+        }
+
+        /// <summary>
+        /// 修改商铺首页
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage UpdateStoreHome()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var home = WebCommom.HttpRequestBodyConvertToObj<StoreHome>(HttpContext.Current);
+                result = storeHomeBll.Value.UpdateStoreHome(home);
+            }
+            catch (Exception ex) { }
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+
+        /// <summary>
+        /// 添加店铺导航
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage AddStoreNavigation()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var navigation = WebCommom.HttpRequestBodyConvertToObj<StoreNavigation>(HttpContext.Current);
+                result = navigationBll.Value.AddStoreNavigation(navigation);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+
+        /// <summary>
+        /// 获取商铺导航
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetStoreNavigation()
+        {
+            HttpResponseMessage response = null;
+            List<StoreNavigation> list = null;
+            try
+            {
+                var sID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                list = navigationBll.Value.GetStoreNavigation(sID);
+            }
+            catch (Exception ex) { }
+            response = WebCommom.GetJsonResponse(list);
+            return response;
+        }
     }
 }

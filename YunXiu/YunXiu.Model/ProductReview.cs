@@ -66,6 +66,11 @@ namespace YunXiu.Model
         /// 点赞数
         /// </summary>
         public int LikeCount { get; set; }
+
+        /// <summary>
+        /// 评论类型,1:好评,2:中评,3:差评
+        /// </summary>
+        public int ReviewType { get; set; }
         ///// <summary>
         ///// 支付积分
         ///// </summary>

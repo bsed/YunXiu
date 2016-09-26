@@ -90,8 +90,8 @@ namespace YunXiu.DAL
             {
                 var sql = new StringBuilder();
                 sql.Append("SELECT c.[Name],c.[CateID],b.[BrandID] ,b.[Name],s.[StoreID],s.[State],s.[Name],s.[Logo],s.[Mobile],s.[Phone],p.[PID],p.[Psn],p.[StorestID],p.[SkugID],p.[Name],p.[ShopPrice],p.[MarketPrice],");
-                sql.Append("p.[CostPrice],p.[IsBest],p.[IsHot],p.[IsNew],p.[Sort],p.[Weight],p.[ShowImg],p.[SaleCount],");
-                sql.Append("p.[VisitCount],p.[ReviewCount],p.[Description],p.[OfficialGuarantee],[FAQs],p.[CreateDate],p.[LastUpdateDate] FROM Product p ");
+                sql.Append("p.[CostPrice],p.[IsBest],p.[IsHot],p.[IsNew],p.[Sort],p.[Weight],p.[ShowImg],p.[SaleCount],p.[VisitCount],p.[ReviewCount],p.[Description],p.[OfficialGuarantee],");
+                sql.Append("p.[FAQs],p.[OneStar],p.[TwoStar],p.[ThreeStar],p.[FourStar],p.[FiveStar],p.[CreateDate],p.[LastUpdateDate] FROM Product p ");
                 sql.Append("LEFT JOIN Category c ON c.[CateID]=p.[CateID] ");
                 sql.Append("LEFT JOIN Brand b ON b.[BrandID]=p.[BrandID] ");
                 sql.Append("LEFT JOIN Store s ON s.[StoreID]=p.[StoreID] ");
