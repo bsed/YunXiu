@@ -103,7 +103,7 @@ namespace YunXiu.Model
         /// <summary>
         /// 主图
         /// </summary>
-        public string ShowImg { get; set; } = "";
+        public int ImgID { get; set; } = 0;
 
         /// <summary>
         /// 销售数量

@@ -29,7 +29,7 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT ca.[AttrID],ca.[Name],av.[AttrValID],av.[AttrVal],av.[IsInput],pa.[PAID],pa.[ProductID],pa.[AttrID],pa.[AttrValID],pa.[InputVal],pa.[CreateDate] FROM ProductAttr pa ");
+                sql.Append("SELECT pa.[PAID],pa.[ProductID],pa.[AttrID],pa.[AttrValID],pa.[InputVal],pa.[CreateDate],ca.[AttrID],ca.[Name],av.[AttrValID],av.[AttrVal],av.[IsInput] FROM ProductAttr pa ");
                 sql.Append("LEFT JOIN CateAttribute ca ON ca.[AttrID] = pa.[AttrID]");
                 sql.Append("LEFT JOIN AttributeValue av ON av.[AttrValID] = pa.[AttrValID] ");
                 sql.Append(string.Format("WHERE pa.[ProductID]={0}", pID));
@@ -45,7 +45,7 @@ namespace YunXiu.DAL
                        null,
                        null,
                        true,
-                       "Name,AttrValID,AttrVal",
+                       "PAID,AttrID,AttrValID",
                        null,
                        null).ToList();
                 }

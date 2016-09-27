@@ -28,6 +28,7 @@ namespace ProductApi.Controllers
         Lazy<ConsultationType_BLL> cTypeBll = new Lazy<ConsultationType_BLL>();
         Lazy<Consultation_BLL> cBll = new Lazy<Consultation_BLL>();
         Lazy<ConsultationReply_BLL> cReplyBll = new Lazy<ConsultationReply_BLL>();
+        Lazy<ProductImage_BLL> imgBll = new Lazy<ProductImage_BLL>();
         //  Lazy<ProductState_BLL> productStateBll = new Lazy<ProductState_BLL>();
         static string indexPath = HttpContext.Current.Server.MapPath("/IndexData/ProductIndex");//商品索引 
         #region 商品
@@ -383,11 +384,6 @@ namespace ProductApi.Controllers
             return response;
         }
 
-
-   
-    
-
-
         private Dictionary<string, bool> GetIndexField()
         {
             var needCreateField = new Dictionary<string, bool>();
@@ -401,7 +397,7 @@ namespace ProductApi.Controllers
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.MarketPrice), false);
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.OfficialGuarantee), false);
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.SaleCount), false);
-            needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.ShowImg), false);
+            needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.ImgID), false);
             return needCreateField;
         }
         #endregion
@@ -441,7 +437,7 @@ namespace ProductApi.Controllers
             HttpResponseMessage response = null;
             List<ConsultationType> list = null;
             try
-            {           
+            {
                 list = cTypeBll.Value.GetConsultationType();
             }
             catch (Exception ex)
@@ -461,14 +457,14 @@ namespace ProductApi.Controllers
         public HttpResponseMessage GetConsultation()
         {
             HttpResponseMessage response = null;
-            ConsultationResult result = new ConsultationResult(); 
+            ConsultationResult result = new ConsultationResult();
             try
             {
                 var pID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
                 if (pID != 0)
-                {          
-                    result.ConsultationList = cBll.Value.GetConsultationByProduct(pID);              
-                    result.ReplyList= cReplyBll.Value.GetConsultationReplyByProduct(pID);
+                {
+                    result.ConsultationList = cBll.Value.GetConsultationByProduct(pID);
+                    result.ReplyList = cReplyBll.Value.GetConsultationReplyByProduct(pID);
                 }
             }
             catch (Exception ex)
@@ -654,8 +650,75 @@ namespace ProductApi.Controllers
                 var pID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
                 stockBll.Value.GetProductStock(pID);
             }
-            catch(Exception ex) { }
+            catch (Exception ex) { }
             response = WebCommom.GetResponse(number);
+            return response;
+        }
+        #endregion
+
+        #region 商品图片
+        /// <summary>
+        /// 获取商品图片
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetProductImages()
+        {
+            HttpResponseMessage response = null;
+            List<ProductImage> images = null;
+            try
+            {
+                var pID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                images = imgBll.Value.GetProductImg(pID);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(images);
+            return response;
+        }
+
+        /// <summary>
+        /// 设置产品主图
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage SetProductMainImage()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var imgID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                if (imgID != 0)
+                {
+                    result = bll.Value.SetProductMainImage(imgID);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+
+        /// <summary>
+        /// 添加商品图片
+        /// </summary>
+        [HttpPost]
+        public HttpResponseMessage AddProductImage()
+        {
+            HttpResponseMessage response = null;
+            var imgID = 0;
+            try
+            {
+                var img = WebCommom.HttpRequestBodyConvertToObj<ProductImage>(HttpContext.Current);
+                imgID = imgBll.Value.AddProductImg(img);
+            }
+            catch (Exception ex) { }
+            response = WebCommom.GetResponse(imgID);
             return response;
         }
         #endregion

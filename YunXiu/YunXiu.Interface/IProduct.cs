@@ -61,5 +61,7 @@ namespace YunXiu.Interface
         List<Product> GetProductByCate(List<int> cateID,int count);
 
         List<Product> GetProductByStore(int storeID);
+
+        bool SetProductMainImage(int imgID);
     }
 }

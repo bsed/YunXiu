@@ -63,7 +63,7 @@ namespace YunXiu.Model
         /// 商品名
         /// </summary>
         public string PName { get; set; }
-        public string PShowImg { get; set; }
+        public string PImgID { get; set; }
         public string ConsultIp { get; set; }
         public string ReplyIp { get; set; }
     }

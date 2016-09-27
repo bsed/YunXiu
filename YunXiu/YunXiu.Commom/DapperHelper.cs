@@ -97,6 +97,16 @@ namespace YunXiu.Commom
             return t;
         }
 
+        public static int ExecuteScalar(string sql, DynamicParameters pars)
+        {
+            var val = 0;
+            using (IDbConnection conn = GetDbConnection())
+            {
+                val = conn.ExecuteScalar<int>(sql, pars);
+            }
+            return val;
+        }
+
         private static SqlConnection GetConn()
         {
             var connStr = Model.Global.GlobalDictionary.GetSysConfVal("DBCon");

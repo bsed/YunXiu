@@ -12,7 +12,7 @@ namespace YunXiu.BLL
     public class ProductImage_BLL : IProductImage
     {
         ProductImage_DAL dal = new ProductImage_DAL();
-        public bool AddProductImg(ProductImage img)
+        public int AddProductImg(ProductImage img)
         {
             return dal.AddProductImg(img);
         }

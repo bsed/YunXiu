@@ -31,7 +31,7 @@ namespace YunXiu.DAL
 
             sb.Append(" SELECT  ConsultId ,Pid ,ConsultTypeId ,State ,ConsultUid ,ReplyUid , ");
             sb.Append(" StoreId ,ConsultTime ,ReplyTime ,ConsultMessage ,ReplyMessage , ");
-            sb.Append(" ConsultNickName ,ReplyNickName ,PName ,PShowImg ,ConsultIp ,ReplyIp, ");
+            sb.Append(" ConsultNickName ,ReplyNickName ,PName ,PImgID ,ConsultIp ,ReplyIp, ");
             sb.Append(" ROW_NUMBER() OVER(ORDER BY ConsultTime desc) AS RowNum ");
             sb.Append(" FROM dbo.ProductConsults ");
 
@@ -88,7 +88,7 @@ namespace YunXiu.DAL
 
             sb.Append(" SELECT  ConsultId ,Pid ,ConsultTypeId ,State ,ConsultUid ,ReplyUid , ");
             sb.Append(" StoreId ,ConsultTime ,ReplyTime ,ConsultMessage ,ReplyMessage , ");
-            sb.Append(" ConsultNickName ,ReplyNickName ,PName ,PShowImg ,ConsultIp ,ReplyIp, ");
+            sb.Append(" ConsultNickName ,ReplyNickName ,PName ,PImgID ,ConsultIp ,ReplyIp, ");
             sb.Append(" ROW_NUMBER() OVER(ORDER BY ConsultTime desc) AS RowNum ");
             sb.Append(" FROM dbo.ProductConsults ");
             sb.Append(" WHERE ConsultUid=@Uid ");
@@ -133,7 +133,7 @@ namespace YunXiu.DAL
             };
             sb.Append(" SELECT  ConsultId ,Pid ,ConsultTypeId ,State ,ConsultUid ,ReplyUid , ");
             sb.Append(" StoreId ,ConsultTime ,ReplyTime ,ConsultMessage ,ReplyMessage , ");
-            sb.Append(" ConsultNickName ,ReplyNickName ,PName ,PShowImg ,ConsultIp ,ReplyIp, ");
+            sb.Append(" ConsultNickName ,ReplyNickName ,PName ,PImgID ,ConsultIp ,ReplyIp, ");
             sb.Append(" ROW_NUMBER() OVER(ORDER BY ConsultTime desc) AS RowNum ");
             sb.Append(" FROM dbo.ProductConsults ");
             sb.Append(" WHERE ConsultId=@PCId ");
@@ -164,7 +164,7 @@ namespace YunXiu.DAL
             { 
                 new SqlParameter("@StoreId",Item.StoreId),
                 new SqlParameter("@State",Item.State),
-                new SqlParameter("@PShowImg",Item.PShowImg),
+                new SqlParameter("@PImgID",Item.PImgID),
                 new SqlParameter("@PName",Item.PName),
                 new SqlParameter("@Pid",Item.Pid),
                 new SqlParameter("@ConsultUid",Item.ConsultUid),
@@ -176,11 +176,11 @@ namespace YunXiu.DAL
             };
             sb.Append(" INSERT INTO ProductConsults( Pid ,ConsultTypeId ,State ,ConsultUid ,ReplyUid , ");
             sb.Append(" StoreId ,ConsultTime ,ReplyTime ,ConsultMessage ,ReplyMessage , ");
-            sb.Append(" ConsultNickName ,ReplyNickName ,PName ,PShowImg ,ConsultIp ,ReplyIp) ");
+            sb.Append(" ConsultNickName ,ReplyNickName ,PName ,PImgID ,ConsultIp ,ReplyIp) ");
 
             sb.Append(" Values( @Pid ,@ConsultTypeId ,@State ,@ConsultUid ,0 ,");
             sb.Append(" @StoreId ,GETDATE() ,GETDATE() ,@ConsultMessage ,'' , ");
-            sb.Append(" @ConsultNickName ,'' ,@PName ,@PShowImg ,@ConsultIp ,'' ");
+            sb.Append(" @ConsultNickName ,'' ,@PName ,@PImgID ,@ConsultIp ,'' ");
             sb.Append(" ) ");
             sb.Append("  ");
             try
@@ -287,7 +287,7 @@ namespace YunXiu.DAL
                     ConsultUid = Convert.IsDBNull(dr["ConsultUid"]) ? 0 : Convert.ToInt32(dr["ConsultUid"]),
                     Pid = Convert.IsDBNull(dr["Pid"]) ? 0 : Convert.ToInt32(dr["Pid"]),
                     PName = Convert.IsDBNull(dr["PName"]) ? "" : dr["PName"].ToString(),
-                    PShowImg = Convert.IsDBNull(dr["PShowImg"]) ? "" : dr["PShowImg"].ToString(),
+                    PImgID = Convert.IsDBNull(dr["PImgID"]) ? "" : dr["PImgID"].ToString(),
                     ReplyIp = Convert.IsDBNull(dr["ReplyIp"]) ? "" : dr["ReplyIp"].ToString(),
                     ReplyMessage = Convert.IsDBNull(dr["ReplyMessage"]) ? "" : dr["ReplyMessage"].ToString(),
                     ReplyNickName = Convert.IsDBNull(dr["ReplyNickName"]) ? "" : dr["ReplyNickName"].ToString(),

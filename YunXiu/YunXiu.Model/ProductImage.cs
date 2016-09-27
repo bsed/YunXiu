@@ -17,7 +17,7 @@ namespace YunXiu.Model
         /// <summary>
         /// 图片
         /// </summary>
-        public string ShowImg { get; set; }
+        public string ImgID { get; set; }
 
         /// <summary>
         /// 是否为主图

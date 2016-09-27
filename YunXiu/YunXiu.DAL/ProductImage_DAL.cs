@@ -12,21 +12,21 @@ namespace YunXiu.DAL
 {
     public class ProductImage_DAL : IProductImage
     {
-        public bool AddProductImg(ProductImage img)
+        public int AddProductImg(ProductImage img)
         {
-            var result = false;
+            var imgID =0;
             try
             {
-                var sql = "INSERT INTO ProductImages([PID],[ShowImg],[IsMain],[Displayorder],[StoreID]) VALUES(@PID,@ShowImg,@IsMain,@Displayorder,@StoreID)";
-                DynamicParameters pars = new DynamicParameters(img);
+                var sql = "INSERT INTO ProductImages([PID],[IsMain],[Displayorder],[StoreID]) VALUES(@PID,@ImgID,@IsMain,@Displayorder,@StoreID) SELECT @@IDENTITY ";
+                DynamicParameters pars = new DynamicParameters();
                 pars.Add("@PID", img.Product.PID);
-                result = DapperHelper.Execute(sql, pars);
+                imgID = DapperHelper.ExecuteScalar(sql, pars);
             }
             catch (Exception ex)
             {
 
             }
-            return result;
+            return imgID;
         }
 
         public bool DeleteProductImg(int piID)
@@ -49,7 +49,7 @@ namespace YunXiu.DAL
             List<ProductImage> list = null;
             try
             {
-                var sql = string.Format("SELECT [ShowImg],[IsMain],[Displayorder],[StoreID] FROM ProductImages WHERE [PID]={0}", pID);
+                var sql = string.Format("SELECT [IsMain],[Displayorder],[StoreID] FROM ProductImages WHERE [PID]={0}", pID);
                 list = DapperHelper.Query<ProductImage>(sql).ToList();
             }
             catch (Exception ex)

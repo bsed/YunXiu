@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using YunXiu.Model;
 using YunXiu.Commom;
 using YunXiu.Interface;
+using Dapper;
 
 namespace YunXiu.DAL
 {
@@ -64,42 +65,26 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT [OID],[OSN],[BuyUserID],[OrderState],[BuyProductID],[ReceiptAddressID],[CreateDate],[CreateUserID],[LastUpdateUserID],[LastUpdateDate] ");
-                sql.Append(string.Format("FROM Order WHERE [BuyUserID] = {0}", userID));
-                var dt = SQLHelper.GetTable(sql.ToString());
-                #region 提取数据 
-                for (int i = 0; i < dt.Rows.Count; i++)
+                sql.Append("SELECT o.[OID],o.[OSN],o.[OrderState],o.[CreateDate],ra.[ID],ra.[Addr],ra.[ZipCode],ra.[ConsigneeName],p.[PID],p.[Name],p.[ImgID] FROM [Order] o");               
+                sql.Append("LEFT JOIN ReceiptAddress ra ON ra.[ID] = o.[ReceiptAddressID]");
+                sql.Append("LEFT JOIN Product p ON p.[PID] = o.[BuyProductID]");
+                sql.Append(string.Format("WHERE o.[BuyUserID] = {0}", userID));
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
                 {
-                    var obj = new Order
-                    {
-                        OID = Convert.ToInt32(dt.Rows[i]["OID"]),
-                        BuyUser = new User
+                    list = conn.Query<Order, ReceiptAddress, Product, Order>(sql.ToString(),
+                        (o,ra,p)=>
                         {
-                            UID = Convert.IsDBNull(dt.Rows[i]["BuyUserID"]) ? 0 : Convert.ToInt32(dt.Rows[i]["BuyUserID"])
+                            o.ReceiptAddress = ra;
+                            o.BuyProduct = p;
+                            return o;
                         },
-                        OrderState = Convert.IsDBNull(dt.Rows[i]["OrderState"]) ? 0 : Convert.ToInt32(dt.Rows[i]["OrderState"]),
-                        BuyProduct = new Product
-                        {
-                            PID = Convert.IsDBNull(dt.Rows[i]["BuyProductID"]) ? 0 : Convert.ToInt32(dt.Rows[i]["BuyProductID"])
-                        },
-                        ReceiptAddress = new ReceiptAddress
-                        {
-                            ID = Convert.IsDBNull(dt.Rows[i]["ReceiptAddressID"]) ? 0 : Convert.ToInt32(dt.Rows[i]["ReceiptAddressID"])
-                        },
-                        CreateDate = Convert.IsDBNull(dt.Rows[i]["CreateDate"]) ? new DateTime() : Convert.ToDateTime(dt.Rows[i]["CreateDate"]),
-                        CreateUser = new User
-                        {
-                            UID = Convert.IsDBNull(dt.Rows[i]["CreateUserID"]) ? 0 : Convert.ToInt32(dt.Rows[i]["CreateUserID"])
-                        },
-                        LastUpdateUser = new User
-                        {
-                            UID = Convert.IsDBNull(dt.Rows[i]["LastUpdateUserID"]) ? 0 : Convert.ToInt32(dt.Rows[i]["LastUpdateUserID"])
-                        },
-                        LastUpdateDate = Convert.IsDBNull(dt.Rows[i]["LastUpdateDate"]) ? new DateTime() : Convert.ToDateTime(dt.Rows[i]["LastUpdateDate"]),
-                    };
-                    list.Add(obj);
+                        null,
+                        null,
+                        true,
+                        "OID,ID,PID",
+                        null
+                        ).ToList();
                 }
-                #endregion
             }
             catch (Exception ex)
             {

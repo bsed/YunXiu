@@ -41,7 +41,7 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT p.[PID],p.[Name],p.[ShowImg] FROM BrowseHistorie bh ");
+                sql.Append("SELECT p.[PID],p.[Name],p.[ImgID] FROM BrowseHistorie bh ");
                 sql.Append("LEFT JOIN Product p ON bh.[PID]=p.[PID] ");
                 sql.Append(string.Format("WHERE bh.[UID]={0}",uID));
                 list = DapperHelper.Query<BrowseHistorie>(sql.ToString());

@@ -64,7 +64,7 @@ namespace ProductApi
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.MarketPrice), false);
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.OfficialGuarantee), false);
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.SaleCount), false);
-            needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.ShowImg), false);
+            needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.ImgID), false);
             #endregion
             var isCreateSuccess = lucene.CreateIndexByData<Product>(products, needCreateField,true);
             if (!isCreateSuccess)

@@ -25,7 +25,7 @@ namespace YunXiu.DAL
             {
                 var sql = new StringBuilder();
                 sql.Append("SELECT [PID],[Psn],[CateID],[BrandID],[StoreID],[StorestID],[SkugID],[Name],[ShopPrice],[MarketPrice]");
-                sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ShowImg],[SaleCount]");
+                sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ImgID],[SaleCount]");
                 sql.Append(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[LastUpdateDate] FROM Product WHERE [State]!=-1");
 
                 var dt = SQLHelper.GetTable(sql.ToString());
@@ -60,7 +60,7 @@ namespace YunXiu.DAL
                         IsNew = Convert.IsDBNull(dt.Rows[i]["IsNew"]) ? false : Convert.ToBoolean(dt.Rows[i]["IsNew"]),
                         Sort = Convert.IsDBNull(dt.Rows[i]["Sort"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Sort"]),
                         Weight = Convert.IsDBNull(dt.Rows[i]["Weight"]) ? 0 : Convert.ToSingle(dt.Rows[i]["Weight"]),
-                        ShowImg = Convert.IsDBNull(dt.Rows[i]["ShowImg"]) ? "" : Convert.ToString(dt.Rows[i]["ShowImg"]),
+                        //  ImgID = Convert.IsDBNull(dt.Rows[i]["ImgID"]) ? "" : Convert.ToString(dt.Rows[i]["ImgID"]),
                         SaleCount = Convert.IsDBNull(dt.Rows[i]["SaleCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["SaleCount"]),
                         VisitCount = Convert.IsDBNull(dt.Rows[i]["VisitCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["VisitCount"]),
                         Description = Convert.IsDBNull(dt.Rows[i]["Description"]) ? "" : Convert.ToString(dt.Rows[i]["Description"]),
@@ -90,18 +90,18 @@ namespace YunXiu.DAL
             {
                 var sql = new StringBuilder();
                 sql.Append("SELECT c.[Name],c.[CateID],b.[BrandID] ,b.[Name],s.[StoreID],s.[State],s.[Name],s.[Logo],s.[Mobile],s.[Phone],p.[PID],p.[Psn],p.[StorestID],p.[SkugID],p.[Name],p.[ShopPrice],p.[MarketPrice],");
-                sql.Append("p.[CostPrice],p.[IsBest],p.[IsHot],p.[IsNew],p.[Sort],p.[Weight],p.[ShowImg],p.[SaleCount],p.[VisitCount],p.[ReviewCount],p.[Description],p.[OfficialGuarantee],");
+                sql.Append("p.[CostPrice],p.[IsBest],p.[IsHot],p.[IsNew],p.[Sort],p.[Weight],p.[ImgID],p.[SaleCount],p.[VisitCount],p.[ReviewCount],p.[Description],p.[OfficialGuarantee],");
                 sql.Append("p.[FAQs],p.[OneStar],p.[TwoStar],p.[ThreeStar],p.[FourStar],p.[FiveStar],p.[CreateDate],p.[LastUpdateDate] FROM Product p ");
                 sql.Append("LEFT JOIN Category c ON c.[CateID]=p.[CateID] ");
                 sql.Append("LEFT JOIN Brand b ON b.[BrandID]=p.[BrandID] ");
                 sql.Append("LEFT JOIN Store s ON s.[StoreID]=p.[StoreID] ");
                 sql.Append(string.Format("WHERE p.[PID] ={0} ", pID));
 
-           
+
                 using (IDbConnection dbConn = DapperHelper.GetDbConnection())
                 {
-                    product = dbConn.Query <Category, Brand, Store,Product, Product>(sql.ToString(),
-                        ( c, b, s,p) =>
+                    product = dbConn.Query<Category, Brand, Store, Product, Product>(sql.ToString(),
+                        (c, b, s, p) =>
                         {
                             p.Category = c;
                             p.Brand = b;
@@ -113,7 +113,7 @@ namespace YunXiu.DAL
                         true,
                         "Name,StoreID,PID",
                         null,
-                        null).SingleOrDefault();             
+                        null).SingleOrDefault();
                 }
             }
             catch (Exception ex)
@@ -134,7 +134,7 @@ namespace YunXiu.DAL
             {
                 var sql = new StringBuilder();
                 sql.Append(string.Format("SELECT TOP {0} [PID],[Psn],[CateID],[BrandID],[StoreID],[StorestID],[SkugID],[Name],[ShopPrice],[MarketPrice]", count));
-                sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ShowImg],[SaleCount]");
+                sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ImgID],[SaleCount]");
                 sql.Append(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[LastUpdateDate] FROM Product WHERE IsHot=1 AND [State]!=-1");
 
                 var dt = SQLHelper.GetTable(sql.ToString());
@@ -169,7 +169,7 @@ namespace YunXiu.DAL
                         IsNew = Convert.IsDBNull(dt.Rows[i]["IsNew"]) ? false : Convert.ToBoolean(dt.Rows[i]["IsNew"]),
                         Sort = Convert.IsDBNull(dt.Rows[i]["Sort"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Sort"]),
                         Weight = Convert.IsDBNull(dt.Rows[i]["Weight"]) ? 0 : Convert.ToSingle(dt.Rows[i]["Weight"]),
-                        ShowImg = Convert.IsDBNull(dt.Rows[i]["ShowImg"]) ? "" : Convert.ToString(dt.Rows[i]["ShowImg"]),
+                        //   ImgID = Convert.IsDBNull(dt.Rows[i]["ImgID"]) ? "" : Convert.ToString(dt.Rows[i]["ImgID"]),
                         SaleCount = Convert.IsDBNull(dt.Rows[i]["SaleCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["SaleCount"]),
                         VisitCount = Convert.IsDBNull(dt.Rows[i]["VisitCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["VisitCount"]),
                         Description = Convert.IsDBNull(dt.Rows[i]["Description"]) ? "" : Convert.ToString(dt.Rows[i]["Description"]),
@@ -194,7 +194,7 @@ namespace YunXiu.DAL
             {
                 var sql = new StringBuilder();
                 sql.Append("SELECT [PID],[Psn],[CateID],[BrandID],[StoreID],[StorestID],[SkugID],[Name],[ShopPrice],[MarketPrice]");
-                sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ShowImg],[SaleCount]");
+                sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ImgID],[SaleCount]");
                 sql.Append(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser] FROM Product WHERE IsHot=1 AND [State]<>1");
 
                 var dt = SQLHelper.GetTable(sql.ToString());
@@ -229,7 +229,7 @@ namespace YunXiu.DAL
                         IsNew = Convert.IsDBNull(dt.Rows[i]["IsNew"]) ? false : Convert.ToBoolean(dt.Rows[i]["IsNew"]),
                         Sort = Convert.IsDBNull(dt.Rows[i]["Sort"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Sort"]),
                         Weight = Convert.IsDBNull(dt.Rows[i]["Weight"]) ? 0 : Convert.ToSingle(dt.Rows[i]["Weight"]),
-                        ShowImg = Convert.IsDBNull(dt.Rows[i]["ShowImg"]) ? "" : Convert.ToString(dt.Rows[i]["ShowImg"]),
+                        // ImgID = Convert.IsDBNull(dt.Rows[i]["ImgID"]) ? "" : Convert.ToString(dt.Rows[i]["ImgID"]),
                         SaleCount = Convert.IsDBNull(dt.Rows[i]["SaleCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["SaleCount"]),
                         VisitCount = Convert.IsDBNull(dt.Rows[i]["VisitCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["VisitCount"]),
                         Description = Convert.IsDBNull(dt.Rows[i]["Description"]) ? "" : Convert.ToString(dt.Rows[i]["Description"]),
@@ -255,10 +255,10 @@ namespace YunXiu.DAL
                 var nowDate = DateTime.Now;
                 var sql = new StringBuilder();
                 sql.Append("INSERT INTO Product([Psn],[CateID],[BrandID],[StoreID],[StorestID],[SkugID],[Name],[ShopPrice], ");
-                sql.Append("[MarketPrice],[CostPrice],[State],[IsBest],[IsHot],[IsNew],[IsRecommend],[Sort],[Weight],[ShowImg],");
+                sql.Append("[MarketPrice],[CostPrice],[State],[IsBest],[IsHot],[IsNew],[IsRecommend],[Sort],[Weight],[ImgID],");
                 sql.Append("[SaleCount],[VisitCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser]) ");
                 sql.Append("VALUES(@Psn,@CateID,@BrandID,@StoreID,@StorestID,@SkugID,@Name,@ShopPrice,@MarketPrice,");
-                sql.Append("@CostPrice,@State,@IsBest,@IsHot,@IsNew,@IsRecommend,@Sort,@Weight,@ShowImg,@SaleCount,@VisitCount,");
+                sql.Append("@CostPrice,@State,@IsBest,@IsHot,@IsNew,@IsRecommend,@Sort,@Weight,@ImgID,@SaleCount,@VisitCount,");
                 sql.Append("@Description,@OfficialGuarantee,@FAQs,@CreateDate,@CreateUser,@LastUpdateDate,@LastUpdateUser) SELECT @@IDENTITY AS ID ");
 
                 var pars = new List<SqlParameter>();
@@ -279,7 +279,7 @@ namespace YunXiu.DAL
                 pars.Add(new SqlParameter("@IsRecommend", product.IsRecommend));
                 pars.Add(new SqlParameter("@Sort", product.Sort));
                 pars.Add(new SqlParameter("@Weight", product.Weight));
-                pars.Add(new SqlParameter("@ShowImg", product.ShowImg));
+                pars.Add(new SqlParameter("@ImgID", product.ImgID));
                 pars.Add(new SqlParameter("@SaleCount", product.SaleCount));
                 pars.Add(new SqlParameter("@VisitCount", product.VisitCount));
                 pars.Add(new SqlParameter("@Description", product.Description));
@@ -322,7 +322,7 @@ namespace YunXiu.DAL
                 var nowDate = DateTime.Now;
                 var sql = new StringBuilder();
                 sql.Append("UPDATE Product SET [Psn]=@Psn,[CateID]=@CateID,[BrandID]=@BrandID,[StoreID]=@StoreID,[StorestID]=@StorestID,[SkugID]=@SkugID,[Name]=@Name,[ShopPrice]=@ShopPrice, ");
-                sql.Append("[MarketPrice]=@MarketPrice,[CostPrice]=@CostPrice,[State]=@State,[IsBest]=@IsBest,[IsHot]=@IsHot,[IsNew]=@IsNew,[IsRecommend]=@IsRecommend,[Sort]=@Sort,[Weight]=@Weight,[ShowImg]=@ShowImg, ");
+                sql.Append("[MarketPrice]=@MarketPrice,[CostPrice]=@CostPrice,[State]=@State,[IsBest]=@IsBest,[IsHot]=@IsHot,[IsNew]=@IsNew,[IsRecommend]=@IsRecommend,[Sort]=@Sort,[Weight]=@Weight,[ImgID]=@ImgID, ");
                 sql.Append("[SaleCount]=@SaleCount,[VisitCount]=@VisitCount,[Description]=@Description,[OfficialGuarantee]=@OfficialGuarantee,[FAQs]=@FAQs,[CreateDate]=@CreateDate,[CreateUser]=@CreateUser,[LastUpdateDate]=@LastUpdateDate,[LastUpdateUser]=@LastUpdateUser ");
                 sql.Append("WHERE PID=@PID");
 
@@ -345,7 +345,7 @@ namespace YunXiu.DAL
                 pars.Add(new SqlParameter("@IsRecommend", product.IsRecommend));
                 pars.Add(new SqlParameter("@Sort", product.Sort));
                 pars.Add(new SqlParameter("@Weight", product.Weight));
-                pars.Add(new SqlParameter("@ShowImg", product.ShowImg));
+                pars.Add(new SqlParameter("@ImgID", product.ImgID));
                 pars.Add(new SqlParameter("@SaleCount", product.SaleCount));
                 pars.Add(new SqlParameter("@VisitCount", product.VisitCount));
                 pars.Add(new SqlParameter("@Description", product.Description));
@@ -365,7 +365,6 @@ namespace YunXiu.DAL
             return result;
         }
 
-
         public List<Product> GetProductByCate(List<int> cateID)
         {
 
@@ -375,7 +374,7 @@ namespace YunXiu.DAL
                 var id = Utilities.ListToListStr(cateID);
                 var sql = new StringBuilder();
                 sql.Append("SELECT [PID],[Psn],[CateID],[BrandID],[StoreID],[StorestID],[SkugID],[Name],[ShopPrice],[MarketPrice]");
-                sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ShowImg],[SaleCount]");
+                sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ImgID],[SaleCount]");
                 sql.Append(string.Format(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[LastUpdateDate] FROM Product Where CateID IN({0}) AND [State]!=-1", id));
 
                 var dt = SQLHelper.GetTable(sql.ToString());
@@ -410,7 +409,7 @@ namespace YunXiu.DAL
                         IsNew = Convert.IsDBNull(dt.Rows[i]["IsNew"]) ? false : Convert.ToBoolean(dt.Rows[i]["IsNew"]),
                         Sort = Convert.IsDBNull(dt.Rows[i]["Sort"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Sort"]),
                         Weight = Convert.IsDBNull(dt.Rows[i]["Weight"]) ? 0 : Convert.ToSingle(dt.Rows[i]["Weight"]),
-                        ShowImg = Convert.IsDBNull(dt.Rows[i]["ShowImg"]) ? "" : Convert.ToString(dt.Rows[i]["ShowImg"]),
+                        //  ImgID = Convert.IsDBNull(dt.Rows[i]["ImgID"]) ? "" : Convert.ToString(dt.Rows[i]["ImgID"]),
                         SaleCount = Convert.IsDBNull(dt.Rows[i]["SaleCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["SaleCount"]),
                         VisitCount = Convert.IsDBNull(dt.Rows[i]["VisitCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["VisitCount"]),
                         Description = Convert.IsDBNull(dt.Rows[i]["Description"]) ? "" : Convert.ToString(dt.Rows[i]["Description"]),
@@ -436,7 +435,7 @@ namespace YunXiu.DAL
                 var id = Utilities.ListToListStr(cateID);
                 var sql = new StringBuilder();
                 sql.Append(string.Format("SELECT TOP {0} [PID],[Psn],[CateID],[BrandID],[StoreID],[StorestID],[SkugID],[Name],[ShopPrice],[MarketPrice]", count));
-                sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ShowImg],[SaleCount]");
+                sql.Append(",[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ImgID],[SaleCount]");
                 sql.Append(string.Format(",[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser] FROM Product Where CateID IN({0}) AND [State]<>1", id));
 
                 var dt = SQLHelper.GetTable(sql.ToString());
@@ -471,7 +470,7 @@ namespace YunXiu.DAL
                         IsNew = Convert.IsDBNull(dt.Rows[i]["IsNew"]) ? false : Convert.ToBoolean(dt.Rows[i]["IsNew"]),
                         Sort = Convert.IsDBNull(dt.Rows[i]["Sort"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Sort"]),
                         Weight = Convert.IsDBNull(dt.Rows[i]["Weight"]) ? 0 : Convert.ToSingle(dt.Rows[i]["Weight"]),
-                        ShowImg = Convert.IsDBNull(dt.Rows[i]["ShowImg"]) ? "" : Convert.ToString(dt.Rows[i]["ShowImg"]),
+                        //  ImgID = Convert.IsDBNull(dt.Rows[i]["ImgID"]) ? "" : Convert.ToString(dt.Rows[i]["ImgID"]),
                         SaleCount = Convert.IsDBNull(dt.Rows[i]["SaleCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["SaleCount"]),
                         VisitCount = Convert.IsDBNull(dt.Rows[i]["VisitCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["VisitCount"]),
                         Description = Convert.IsDBNull(dt.Rows[i]["Description"]) ? "" : Convert.ToString(dt.Rows[i]["Description"]),
@@ -497,7 +496,7 @@ namespace YunXiu.DAL
                 var id = string.Join(",", pID);
                 var sql = new StringBuilder();
                 sql.Append("SELECT c.[Name],c.[CateID],b.[BrandID] ,b[Name],s.[StoreID],s.[State],s.[Name],[PID],[Psn],[StorestID],[SkugID],p.[Name],[ShopPrice],[MarketPrice],");
-                sql.Append("[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ShowImg],[SaleCount],");
+                sql.Append("[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ImgID],[SaleCount],");
                 sql.Append("[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser] FROM Product p");
                 sql.Append("LEFT JOIN Category c ON c.[CateID]=p.[CateID] ");
                 sql.Append("LEFT JOIN Brand b ON b.[BrandID]=p.[BrandID] ");
@@ -553,7 +552,7 @@ namespace YunXiu.DAL
                         IsNew = Convert.IsDBNull(dt.Rows[i]["IsNew"]) ? false : Convert.ToBoolean(dt.Rows[i]["IsNew"]),
                         Sort = Convert.IsDBNull(dt.Rows[i]["Sort"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Sort"]),
                         Weight = Convert.IsDBNull(dt.Rows[i]["Weight"]) ? 0 : Convert.ToSingle(dt.Rows[i]["Weight"]),
-                        ShowImg = Convert.IsDBNull(dt.Rows[i]["ShowImg"]) ? "" : Convert.ToString(dt.Rows[i]["ShowImg"]),
+                        //  ImgID = Convert.IsDBNull(dt.Rows[i]["ImgID"]) ? "" : Convert.ToString(dt.Rows[i]["ImgID"]),
                         SaleCount = Convert.IsDBNull(dt.Rows[i]["SaleCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["SaleCount"]),
                         VisitCount = Convert.IsDBNull(dt.Rows[i]["VisitCount"]) ? 0 : Convert.ToInt32(dt.Rows[i]["VisitCount"]),
                         Description = Convert.IsDBNull(dt.Rows[i]["Description"]) ? "" : Convert.ToString(dt.Rows[i]["Description"]),
@@ -578,7 +577,7 @@ namespace YunXiu.DAL
             {
                 var sql = new StringBuilder();
                 sql.Append("SELECT p.[PID],p.[Psn],p.[CateID],p.[BrandID],p.[StorestID],p.[SkugID],p.[Name],p.[ShopPrice],p.[MarketPrice],p.[CostPrice],p.[ProductStateID],p.[IsBest],p.[IsHot],p.[IsNew],p.[Sort],");
-                sql.Append("p.[Weight],p.[ShowImg],p.[SaleCount],p.[VisitCount],p.[ReviewCount],p.[Description],p.[OfficialGuarantee],p.[FAQs],p.[CreateDate],");
+                sql.Append("p.[Weight],p.[ImgID],p.[SaleCount],p.[VisitCount],p.[ReviewCount],p.[Description],p.[OfficialGuarantee],p.[FAQs],p.[CreateDate],");
                 sql.Append("s.[StoreID],s.[State],s.[Name] ");
                 sql.Append("FROM Product p ");
                 sql.Append("LEFT JOIN Store s ON p.StoreID=s.StoreID ");
@@ -603,6 +602,21 @@ namespace YunXiu.DAL
 
             }
             return list;
+        }
+
+        public bool SetProductMainImage(int imgID)
+        {
+            var result = false;
+            try
+            {
+                var sql = string.Format("UPDATE Product SET ImgID={0}",imgID);
+                result = DapperHelper.Execute(sql);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
         }
     }
 }

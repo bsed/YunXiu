@@ -24,6 +24,7 @@ namespace OrderApi.Controllers
         Lazy<StoreStaff_BLL> storeStaffBll = new Lazy<StoreStaff_BLL>();
         Lazy<BuyApply_BLL> buyApplyBll = new Lazy<BuyApply_BLL>();
         Lazy<OrderPayOrder_BLL> orderPayOrderBll = new Lazy<OrderPayOrder_BLL>();
+        Lazy<Order_BLL> orderBll = new Lazy<Order_BLL>();
         public static string AESKey = CommomClass.GetConfigDictionary("orderAESKey");
         /// <summary>
         /// 创建订单
@@ -49,9 +50,9 @@ namespace OrderApi.Controllers
                 }
                 if (list != null)
                 {
-                  //  ProductStock_Cache p = new ProductStock_Cache();
-                 //   var updateResult = p.UdpateStock(0, GetUpdateProdcut(list));//修改结果
-                 //   resultList = GetSuccessOrder(updateResult, list);//获取修改成功的订单
+                    //  ProductStock_Cache p = new ProductStock_Cache();
+                    //   var updateResult = p.UdpateStock(0, GetUpdateProdcut(list));//修改结果
+                    //   resultList = GetSuccessOrder(updateResult, list);//获取修改成功的订单
                     #region 将订单加入到MQ,订单加入MQ之后则代表创建成功
                     //if (resultList.Count > 0)
                     //{
@@ -145,9 +146,9 @@ namespace OrderApi.Controllers
                             phoneList.Add(storeStaff[j].Phone);
                         }
                         SMS sms = new SMS { };
-                      //  sms.ReceiveNo = phoneList;
-                     //   sms.MSGContent = "";
-                        CommomClass.HttpPost(GlobalDictionary.GetSysConfVal("AccountApiAddr"),JsonConvert.SerializeObject(sms));//通知店铺员工发货                   
+                        //  sms.ReceiveNo = phoneList;
+                        //   sms.MSGContent = "";
+                        CommomClass.HttpPost(GlobalDictionary.GetSysConfVal("AccountApiAddr"), JsonConvert.SerializeObject(sms));//通知店铺员工发货                   
                     }
                 }
                 #endregion
@@ -272,6 +273,27 @@ namespace OrderApi.Controllers
             return response;
         }
 
+        /// <summary>
+        /// 获取用户订单
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetOrdersByUser()
+        {
+            HttpResponseMessage response = null;
+            List<Order> orders = null;
+            try
+            {
+                var uID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);//用户ID
+                orders = orderBll.Value.GetOrderByUser(uID);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(orders);
+            return response;
+        }
 
         private Dictionary<int, int> GetUpdateProdcut(List<Order> list)
         {
