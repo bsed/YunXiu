@@ -31,7 +31,7 @@ namespace YunXiu.Model
         /// <summary>
         /// 品牌动态
         /// </summary>
-        public string BrandDynamic { get; set; }
+        public string BrandDynamic { get; set; } = "";
         /// <summary>
         /// 是否在品牌动态展示
         /// </summary>

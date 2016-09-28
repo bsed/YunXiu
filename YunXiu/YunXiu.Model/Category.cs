@@ -14,7 +14,7 @@ namespace YunXiu.Model
         /// <summary>
         /// 商品分类ID
         /// </summary>
-        public int CateID { get; set; }
+        public int CateId { get; set; }
         /// <summary>
         /// 排序
         /// </summary>
@@ -26,7 +26,7 @@ namespace YunXiu.Model
         /// <summary>
         /// 上级ID
         /// </summary>
-        public int ParentID { get; set; }
+        public int ParentId { get; set; }
         /// <summary>
         /// 层级
         /// </summary>
@@ -38,6 +38,6 @@ namespace YunXiu.Model
         /// <summary>
         /// 是否有子节点
         /// </summary>
-        public bool HasChild { get; set; }
+        public int HasChild { get; set; }
     }
 }

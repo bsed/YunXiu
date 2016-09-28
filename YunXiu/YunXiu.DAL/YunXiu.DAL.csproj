@@ -68,6 +68,8 @@
     <Compile Include="BuyProduct_DAL.cs" />
     <Compile Include="CateAttribute_DAL.cs" />
     <Compile Include="Category_DAL.cs" />
+    <Compile Include="CertificateType_DAL.cs" />
+    <Compile Include="Certificate_DAL.cs" />
     <Compile Include="ConsultationReply_DAL.cs" />
     <Compile Include="ConsultationType_DAL.cs" />
     <Compile Include="Consultation_DAL.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="ShoppingCart_DAL.cs" />
     <Compile Include="SMS_DAL.cs" />
     <Compile Include="StoreHome_DAL.cs" />
+    <Compile Include="StoreImg_DAL.cs" />
     <Compile Include="StoreNavigation_DAL.cs" />
     <Compile Include="StoreStaff_DAL.cs" />
     <Compile Include="StoreUserGroupStoreUser_DAL.cs" />
@@ -103,6 +106,7 @@
     <Compile Include="Store_DAL.cs" />
     <Compile Include="TenderAccept_DAL.cs" />
     <Compile Include="Tender_DAL.cs" />
+    <Compile Include="TFUser_DAL.cs" />
     <Compile Include="UserRanks_DAL.cs" />
     <Compile Include="User_DAL.cs" />
     <Compile Include="VisitorBrowse_DAL.cs" />

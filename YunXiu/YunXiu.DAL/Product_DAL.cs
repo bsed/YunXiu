@@ -256,14 +256,14 @@ namespace YunXiu.DAL
                 var sql = new StringBuilder();
                 sql.Append("INSERT INTO Product([Psn],[CateID],[BrandID],[StoreID],[StorestID],[SkugID],[Name],[ShopPrice], ");
                 sql.Append("[MarketPrice],[CostPrice],[State],[IsBest],[IsHot],[IsNew],[IsRecommend],[Sort],[Weight],[ImgID],");
-                sql.Append("[SaleCount],[VisitCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser]) ");
+                sql.Append("[SaleCount],[VisitCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[CreateUserID],[LastUpdateDate]) ");
                 sql.Append("VALUES(@Psn,@CateID,@BrandID,@StoreID,@StorestID,@SkugID,@Name,@ShopPrice,@MarketPrice,");
                 sql.Append("@CostPrice,@State,@IsBest,@IsHot,@IsNew,@IsRecommend,@Sort,@Weight,@ImgID,@SaleCount,@VisitCount,");
-                sql.Append("@Description,@OfficialGuarantee,@FAQs,@CreateDate,@CreateUser,@LastUpdateDate,@LastUpdateUser) SELECT @@IDENTITY AS ID ");
+                sql.Append("@Description,@OfficialGuarantee,@FAQs,@CreateDate,@CreateUserID,@LastUpdateDate) SELECT @@IDENTITY AS ID ");
 
                 var pars = new List<SqlParameter>();
                 pars.Add(new SqlParameter("@Psn", product.Psn));
-                pars.Add(new SqlParameter("@CateID", product.Category != null ? product.Category.CateID : 0));
+                pars.Add(new SqlParameter("@CateID", product.Category != null ? product.Category.CateId : 0));
                 pars.Add(new SqlParameter("@BrandID", product.Brand != null ? product.Brand.BrandID : 0));
                 pars.Add(new SqlParameter("@StoreID", product.Store != null ? product.Store.StoreID : 0));
                 pars.Add(new SqlParameter("@StorestID", product.StoreStID));
@@ -286,9 +286,8 @@ namespace YunXiu.DAL
                 pars.Add(new SqlParameter("@OfficialGuarantee", product.OfficialGuarantee));
                 pars.Add(new SqlParameter("@FAQs", product.FAQs));
                 pars.Add(new SqlParameter("@CreateDate", nowDate));
-                pars.Add(new SqlParameter("@CreateUser", product.CreateUser != null ? product.CreateUser.UID : 0));
+                pars.Add(new SqlParameter("@CreateUserID", product.CreateUser != null ? product.CreateUser.UID : 0));
                 pars.Add(new SqlParameter("@LastUpdateDate", nowDate));
-                pars.Add(new SqlParameter("@LastUpdateUser", product.CreateUser != null ? product.CreateUser.UID : 0));
 
                 result = SQLHelper.ExcuteScalarSQL(sql.ToString(), pars.ToArray());
             }
@@ -329,7 +328,7 @@ namespace YunXiu.DAL
                 var pars = new List<SqlParameter>();
                 pars.Add(new SqlParameter("@PID", product.PID));
                 pars.Add(new SqlParameter("@Psn", product.Psn));
-                pars.Add(new SqlParameter("@CateID", product.Category != null ? product.Category.CateID : 0));
+                pars.Add(new SqlParameter("@CateID", product.Category != null ? product.Category.CateId : 0));
                 pars.Add(new SqlParameter("@BrandID", product.Brand != null ? product.Brand.BrandID : 0));
                 pars.Add(new SqlParameter("@StoreID", product.Store != null ? product.Store.StoreID : 0));
                 pars.Add(new SqlParameter("@StorestID", product.StoreStID));

@@ -56,6 +56,8 @@
     <Compile Include="BuyProduct.cs" />
     <Compile Include="CateAttribute.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="Certificate.cs" />
+    <Compile Include="CertificateType.cs" />
     <Compile Include="Class.cs" />
     <Compile Include="Consultation.cs" />
     <Compile Include="ConsultationReply.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="FavoriteStoreModel.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="Loginfaillogs.cs" />
+    <Compile Include="LoginModel.cs" />
     <Compile Include="Logistics.cs" />
     <Compile Include="MessageTb.cs" />
     <Compile Include="Order.cs" />
@@ -107,6 +110,7 @@
     <Compile Include="StoreBanners.cs" />
     <Compile Include="Storeclasses.cs" />
     <Compile Include="StoreHome.cs" />
+    <Compile Include="StoreImg.cs" />
     <Compile Include="Storeindustries.cs" />
     <Compile Include="Storekeepers.cs" />
     <Compile Include="StoreNavigation.cs" />
@@ -127,6 +131,7 @@
     <Compile Include="Tender.cs" />
     <Compile Include="TenderAccept.cs" />
     <Compile Include="TenderView.cs" />
+    <Compile Include="TFUser.cs" />
     <Compile Include="Timeproducts.cs" />
     <Compile Include="Topics.cs" />
     <Compile Include="Trace.cs" />

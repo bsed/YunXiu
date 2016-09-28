@@ -19,6 +19,11 @@ namespace YunXiu.Model
         public int UID { get; set; }
 
         /// <summary>
+        /// 基本用户信息
+        /// </summary>
+        public TFUser TFUser { get; set; }
+
+        /// <summary>
         /// 用户名称
         /// </summary>
         public string UserName { get; set; }

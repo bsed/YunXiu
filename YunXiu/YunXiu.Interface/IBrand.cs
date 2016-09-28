@@ -43,7 +43,7 @@ namespace YunXiu.Interface
         /// </summary>
         /// <param name="brand">品牌</param>
         /// <returns>是否添加成功</returns>
-        bool AddBrand(Brand brand);
+        int AddBrand(Brand brand);
 
         /// <summary>
         /// 修改品牌

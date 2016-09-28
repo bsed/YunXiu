@@ -22,7 +22,7 @@ namespace YunXiu.DAL
                 var pars = new List<SqlParameter>();
                 pars.Add(new SqlParameter("@Sort", category.Sort));
                 pars.Add(new SqlParameter("@Name", category.Name));
-                pars.Add(new SqlParameter("@ParentID", category.ParentID));
+                pars.Add(new SqlParameter("@ParentID", category.ParentId));
                 pars.Add(new SqlParameter("@Layer", category.Layer));
                 pars.Add(new SqlParameter("@Path", category.Path));
                 pars.Add(new SqlParameter("@HasChild", category.HasChild));
@@ -67,13 +67,13 @@ namespace YunXiu.DAL
                 {
                     var obj = new Category
                     {
-                        CateID = Convert.ToInt32(dt.Rows[i]["CateID"]),
+                        CateId = Convert.ToInt32(dt.Rows[i]["CateID"]),
                         Sort = Convert.IsDBNull(dt.Rows[i]["Sort"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Sort"]),
                         Name = Convert.IsDBNull(dt.Rows[i]["Name"]) ? "" : Convert.ToString(dt.Rows[i]["Name"]),
-                        ParentID = Convert.IsDBNull(dt.Rows[i]["ParentID"]) ? 0 : Convert.ToInt32(dt.Rows[i]["ParentID"]),
+                        ParentId = Convert.IsDBNull(dt.Rows[i]["ParentID"]) ? 0 : Convert.ToInt32(dt.Rows[i]["ParentID"]),
                         Layer = Convert.IsDBNull(dt.Rows[i]["Layer"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Layer"]),
                         Path = Convert.IsDBNull(dt.Rows[i]["Path"]) ? "" : Convert.ToString(dt.Rows[i]["Path"]),
-                        HasChild = Convert.IsDBNull(dt.Rows[i]["HasChild"]) ? false : Convert.ToBoolean(dt.Rows[i]["HasChild"]),
+                        HasChild = Convert.IsDBNull(dt.Rows[i]["HasChild"]) ? 0 : Convert.ToInt32(dt.Rows[i]["HasChild"]),
                         CreateDate = Convert.IsDBNull(dt.Rows[i]["CreateDate"]) ? new DateTime() : Convert.ToDateTime(dt.Rows[i]["CreateDate"]),
                         CreateUser = new User
                         {
@@ -106,13 +106,13 @@ namespace YunXiu.DAL
                 var dt = SQLHelper.GetTable(sql);
                 cate = new Category
                 {
-                    CateID = Convert.ToInt32(dt.Rows[0]["CateID"]),
+                    CateId = Convert.ToInt32(dt.Rows[0]["CateID"]),
                     Sort = Convert.ToInt32(dt.Rows[0]["Sort"]),
                     Name = Convert.ToString(dt.Rows[0]["Name"]),
-                    ParentID = Convert.ToInt32(dt.Rows[0]["ParentID"]),
+                    ParentId = Convert.ToInt32(dt.Rows[0]["ParentID"]),
                     Layer = Convert.ToInt32(dt.Rows[0]["Layer"]),
                     Path = Convert.ToString(dt.Rows[0]["Path"]),
-                    HasChild = Convert.ToBoolean(dt.Rows[0]["HasChild"]),
+                    HasChild = Convert.ToInt32(dt.Rows[0]["HasChild"]),
                     CreateDate = Convert.IsDBNull(dt.Rows[0]["CreateDate"]) ? new DateTime() : Convert.ToDateTime(dt.Rows[0]["CreateDate"]),
                     CreateUser = new User
                     {
@@ -175,10 +175,10 @@ namespace YunXiu.DAL
             {
                 var sql = "UPDATE Category SET [Sort]=@Sort,[Name]=@Name,[ParentID]=@ParentID,[Layer]=@Layer,[Path]=@Path,[HasChild]=@HasChild,[LastUpdateDate]=@LastUpdateDate,[LastUpdateUser]=@LastUpdateUser WHERE CateID=@CateID";
                 var pars = new List<SqlParameter>();
-                pars.Add(new SqlParameter("@CateID", category.CateID));
+                pars.Add(new SqlParameter("@CateID", category.CateId));
                 pars.Add(new SqlParameter("@Sort", category.Sort));
                 pars.Add(new SqlParameter("@Name", category.Name));
-                pars.Add(new SqlParameter("@ParentID", category.ParentID));
+                pars.Add(new SqlParameter("@ParentID", category.ParentId));
                 pars.Add(new SqlParameter("@Layer", category.Layer));
                 pars.Add(new SqlParameter("@Path", category.Path));
                 pars.Add(new SqlParameter("@HasChild", category.HasChild));

@@ -17,6 +17,9 @@ namespace AccountApi.Controllers
         Lazy<StoreHome_BLL> storeHomeBll = new Lazy<StoreHome_BLL>();
         Lazy<FavoriteStore_BLL> fStoreBll = new Lazy<FavoriteStore_BLL>();
         Lazy<StoreNavigation_BLL> navigationBll = new Lazy<StoreNavigation_BLL>();
+        Lazy<Certificate_BLL> certificateBll = new Lazy<Certificate_BLL>();
+        Lazy<StoreImg_BLL> imgBll = new Lazy<StoreImg_BLL>();
+
         /// <summary>
         /// 添加商铺
         /// </summary>
@@ -24,7 +27,7 @@ namespace AccountApi.Controllers
         [HttpPost]
         public HttpResponseMessage AddStore()
         {
-           
+
             HttpResponseMessage response = null;
             var result = false;
             try
@@ -131,6 +134,7 @@ namespace AccountApi.Controllers
             return response;
         }
 
+        #region 收藏
         /// <summary>
         /// 添加收藏店铺
         /// </summary>
@@ -153,8 +157,9 @@ namespace AccountApi.Controllers
             return response;
         }
 
+        #endregion
 
-       
+        #region 首页
         /// <summary>
         /// 获取商铺首页
         /// </summary>
@@ -192,7 +197,9 @@ namespace AccountApi.Controllers
             response = WebCommom.GetResponse(result);
             return response;
         }
+        #endregion
 
+        #region 导航
         /// <summary>
         /// 添加店铺导航
         /// </summary>
@@ -233,5 +240,101 @@ namespace AccountApi.Controllers
             response = WebCommom.GetJsonResponse(list);
             return response;
         }
+        #endregion
+
+        #region 证件
+        /// <summary>
+        /// 获取证件
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetCertificate()
+        {
+            HttpResponseMessage response = null;
+            List<Certificate> list = null;
+            try
+            {
+                var sID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                list = certificateBll.Value.GetCertificate(sID);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(list);
+            return response;
+        }
+
+        /// <summary>
+        /// 添加证件
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage AddCertificate()
+        {
+            HttpResponseMessage response = null;
+            var id = 0;
+            try
+            {
+                var certificate = WebCommom.HttpRequestBodyConvertToObj<Certificate>(HttpContext.Current);
+                if (certificate != null)
+                {
+                    id = certificateBll.Value.AddCertificate(certificate);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetResponse(id);
+            return response;
+        }
+
+        #endregion
+
+        #region 商铺图片
+        /// <summary>
+        /// 获取商铺图片
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetStoreImg()
+        {
+            HttpResponseMessage response = null;
+            List<StoreImg> images = null;
+            try
+            {
+                var sID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                images = imgBll.Value.GetStoreImg(sID);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(images);
+            return response;
+        }
+
+        /// <summary>
+        /// 添加商铺图片
+        /// </summary>
+        /// <returns></returns>
+        public HttpResponseMessage AddStoreImg()
+        {
+            HttpResponseMessage response = null;
+            var id = 0;
+            try
+            {
+                var img = WebCommom.HttpRequestBodyConvertToObj<StoreImg>(HttpContext.Current);
+                id = imgBll.Value.AddStoreImg(img);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetResponse(id);
+            return response;
+        }
+        #endregion
     }
 }

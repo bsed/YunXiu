@@ -48,6 +48,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICertificate.cs" />
+    <Compile Include="ICertificateType.cs" />
     <Compile Include="IAttributeValue.cs" />
     <Compile Include="IBanner.cs" />
     <Compile Include="IBid.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="ISMS.cs" />
     <Compile Include="IStore.cs" />
     <Compile Include="IStoreHome.cs" />
+    <Compile Include="IStoreImg.cs" />
     <Compile Include="IStoreNavigation.cs" />
     <Compile Include="IStoreStaff.cs" />
     <Compile Include="IStoreUser.cs" />
@@ -91,6 +94,7 @@
     <Compile Include="IStoreUserGroupStoreUser.cs" />
     <Compile Include="ITender.cs" />
     <Compile Include="ITenderAccept.cs" />
+    <Compile Include="ITFUser.cs" />
     <Compile Include="IUser.cs" />
     <Compile Include="IUserRanks.cs" />
     <Compile Include="IVisitorBrowse.cs" />

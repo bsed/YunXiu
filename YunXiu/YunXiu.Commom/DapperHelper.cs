@@ -107,10 +107,19 @@ namespace YunXiu.Commom
             return val;
         }
 
+     
+
         private static SqlConnection GetConn()
         {
             var connStr = Model.Global.GlobalDictionary.GetSysConfVal("DBCon");
             SqlConnection conn = new SqlConnection(connStr);
+            conn.Open();
+            return conn;
+        }
+
+        public static SqlConnection GetConn(string conStr)
+        {
+            SqlConnection conn = new SqlConnection(conStr);
             conn.Open();
             return conn;
         }

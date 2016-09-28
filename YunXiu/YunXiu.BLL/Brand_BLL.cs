@@ -12,7 +12,7 @@ namespace YunXiu.BLL
     public class Brand_BLL : IBrand
     {
         Brand_DAL dal = new Brand_DAL();
-        public bool AddBrand(Brand brand)
+        public int AddBrand(Brand brand)
         {
             return dal.AddBrand(brand);
         }

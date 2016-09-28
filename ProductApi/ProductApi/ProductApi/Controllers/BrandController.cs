@@ -211,7 +211,7 @@ namespace ProductApi.Controllers
             try
             {
                 Brand brand = null;
-                var result = false;
+                var bID = 0;
                 using (var ms = new MemoryStream())
                 {
                     HttpContext.Current.Request.GetBufferlessInputStream().CopyTo(ms);
@@ -222,10 +222,10 @@ namespace ProductApi.Controllers
                 }
                 if (brand != null)
                 {
-                    result = bll.Value.AddBrand(brand);
+                    bID = bll.Value.AddBrand(brand);
                 }
               
-                response = WebCommom.GetResponse(result);
+                response = WebCommom.GetResponse(bID);
             }
             catch (Exception ex)
             {

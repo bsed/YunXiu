@@ -98,5 +98,72 @@ namespace YunXiu.Model
         /// 店铺链接
         /// </summary>
         public string StoreLink { get; set; }
+
+        /// <summary>
+        /// 店铺介绍
+        /// </summary>
+        public string StoreIntroduction { get; set; }
+
+        /// <summary>
+        /// 成立时间
+        /// </summary>
+        public DateTime Established { get; set; }
+
+        /// <summary>
+        /// 注册资金
+        /// </summary>
+        public string RegisteredCapital { get; set; }
+
+        /// <summary>
+        /// 注册地址
+        /// </summary>
+        public string RegisteredAddr { get; set; }
+
+        /// <summary>
+        /// 法人
+        /// </summary>
+        public string LegalPerson { get; set; }
+
+        /// <summary>
+        /// 员工数
+        /// </summary>
+        public string StaffCount { get; set; }
+
+        /// <summary>
+        /// 经营品牌
+        /// </summary>
+        public string BrandOperation { get; set; }
+
+        /// <summary>
+        /// 经营范围
+        /// </summary>
+        public string BusinessScope { get; set; }
+
+        /// <summary>
+        /// 主营产品
+        /// </summary>
+        public string MainProducts { get; set; }
+
+        /// <summary>
+        /// 经营模式
+        /// </summary>
+        public string ManagementModel { get; set; }
+
+        /// <summary>
+        /// 主要客户群体
+        /// </summary>
+        public string MainCustomerGroups { get; set; }
+
+        /// <summary>
+        /// 主要市场
+        /// </summary>
+        public string MainMarket { get; set; }
+
+        /// <summary>
+        /// 年出口额
+        /// </summary>
+        public string HadAnnualExports { get; set; }
+
+        
     }
 }

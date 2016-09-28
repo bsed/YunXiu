@@ -9,7 +9,7 @@ using YunXiu.Model;
 
 namespace YunXiu.BLL
 {
-    class AttributeValue_BLL : IAttributeValue
+    public class AttributeValue_BLL : IAttributeValue
     {
         AttributeValue_DAL dal = new AttributeValue_DAL();
         public bool AddAttributeValue(AttributeValue av)
@@ -20,6 +20,11 @@ namespace YunXiu.BLL
         public bool DeleteAttributeValue(int avID)
         {
             return dal.DeleteAttributeValue(avID);
+        }
+
+        public List<AttributeValue> GetAttributeValue(List<int> attrID)
+        {
+            return dal.GetAttributeValue(attrID);
         }
 
         public bool UpdateAttributeValue(AttributeValue av)

@@ -33,7 +33,7 @@ namespace YunXiu.DAL
                 var pars = new List<SqlParameter>();
                 pars.Add(new SqlParameter("@KeyWord", tender.KeyWord));
                 pars.Add(new SqlParameter("@Title", tender.Title));
-                pars.Add(new SqlParameter("@CategoryID", tender.Category.CateID));
+                pars.Add(new SqlParameter("@CategoryID", tender.Category.CateId));
                 pars.Add(new SqlParameter("@State", tender.State));
                 pars.Add(new SqlParameter("@TenderArea", tender.TenderArea));
                 pars.Add(new SqlParameter("@TenderStartDate", tender.TenderStartDate));
@@ -98,7 +98,7 @@ namespace YunXiu.DAL
                 pars.Add(new SqlParameter("@ID", tender.TTId));
                 pars.Add(new SqlParameter("@KeyWord", tender.KeyWord));
                 pars.Add(new SqlParameter("@Title", tender.Title));
-                pars.Add(new SqlParameter("@CategoryID", tender.Category.CateID));
+                pars.Add(new SqlParameter("@CategoryID", tender.Category.CateId));
                 pars.Add(new SqlParameter("@State", tender.State));
                 pars.Add(new SqlParameter("@TenderArea", tender.TenderArea));
                 pars.Add(new SqlParameter("@TenderStartDate", tender.TenderStartDate));

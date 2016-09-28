@@ -14,5 +14,7 @@ namespace YunXiu.Interface
         bool UpdateAttributeValue(AttributeValue av);
 
         bool DeleteAttributeValue(int avID);
+
+        List<AttributeValue> GetAttributeValue(List<int> attrID);
     }
 }

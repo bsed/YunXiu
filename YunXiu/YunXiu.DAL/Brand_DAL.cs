@@ -7,39 +7,41 @@ using System.Data.SqlClient;
 using YunXiu.Model;
 using YunXiu.Commom;
 using YunXiu.Interface;
+using Dapper;
 
 namespace YunXiu.DAL
 {
     public class Brand_DAL : IBrand
     {
-        public bool AddBrand(Brand brand)
+        public int AddBrand(Brand brand)
         {
-            var result = false;
+            var bID = 0;
             try
             {
                 var nowDate = DateTime.Now;
-                var sql = "INSERT INTO Brand([Sort],[Name],[Logo],[IsHotBrand],[CateID],[BrandDynamic],[IsShowDynamic],[ShowDynamicSort],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser]) VALUES(@Sort,@Name,@Logo,@IsHotBrand,@CateID,@BrandDynamic,@IsShowDynamic,@ShowDynamicSort,@CreateDate,@CreateUser,@LastUpdateDate,@LastUpdateUser)";
-                var pars = new List<SqlParameter>();
-                pars.Add(new SqlParameter("@Sort", brand.Sort));
-                pars.Add(new SqlParameter("@Name", brand.Name));
-                pars.Add(new SqlParameter("@Logo", brand.Logo));
-                pars.Add(new SqlParameter("@IsHotBrand", brand.IsHotBrand));
-                pars.Add(new SqlParameter("@CateID", brand.Category != null ? brand.Category.CateID : 0));
-                pars.Add(new SqlParameter("@BrandDynamic", brand.BrandDynamic));
-                pars.Add(new SqlParameter("@IsShowDynamic", brand.IsShowDynamic));
-                pars.Add(new SqlParameter("@ShowDynamicSort", brand.ShowDynamicSort));
-                pars.Add(new SqlParameter("@CreateDate", nowDate));
-                pars.Add(new SqlParameter("@CreateUser", brand.CreateUser != null ? brand.CreateUser.UID : 0));
-                pars.Add(new SqlParameter("@LastUpdateDate", nowDate));
-                pars.Add(new SqlParameter("@LastUpdateUser", brand.LastUpdateUser != null ? brand.LastUpdateUser.UID : 0));
-
-                result = SQLHelper.ExcuteSQL(sql, pars.ToArray()) > 0;
+                var sql = "INSERT INTO Brand([Sort],[Name],[Logo],[IsHotBrand],[CateID],[BrandDynamic],[IsShowDynamic],[ShowDynamicSort],[CreateDate],[LastUpdateDate]) VALUES(@Sort,@Name,@Logo,@IsHotBrand,@CateID,@BrandDynamic,@IsShowDynamic,@ShowDynamicSort,@CreateDate,@LastUpdateDate) SELECT @@IDENTITY";
+                //var pars = new List<SqlParameter>();
+                //pars.Add(new SqlParameter("@Sort", brand.Sort));
+                //pars.Add(new SqlParameter("@Name", brand.Name));
+                //pars.Add(new SqlParameter("@Logo", brand.Logo));
+                //pars.Add(new SqlParameter("@IsHotBrand", brand.IsHotBrand));
+                //pars.Add(new SqlParameter("@CateID", brand.Category != null ? brand.Category.CateID : 0));
+                //pars.Add(new SqlParameter("@BrandDynamic", brand.BrandDynamic));
+                //pars.Add(new SqlParameter("@IsShowDynamic", brand.IsShowDynamic));
+                //pars.Add(new SqlParameter("@ShowDynamicSort", brand.ShowDynamicSort));
+                //pars.Add(new SqlParameter("@CreateDate", nowDate));
+                //pars.Add(new SqlParameter("@CreateUser", brand.CreateUser != null ? brand.CreateUser.UID : 0));
+                //pars.Add(new SqlParameter("@LastUpdateDate", nowDate));
+                //pars.Add(new SqlParameter("@LastUpdateUser", brand.LastUpdateUser != null ? brand.LastUpdateUser.UID : 0));
+                DynamicParameters pars = new DynamicParameters(brand);
+                pars.Add("@CateID",brand.Category.CateId);
+                bID = DapperHelper.ExecuteScalar(sql,pars);
             }
             catch (Exception ex)
             {
 
             }
-            return result;
+            return bID;
         }
 
         public bool DeleteBrand(int bID)

@@ -60,6 +60,8 @@
     <Compile Include="BuyProduct_BLL.cs" />
     <Compile Include="CateAttribute_BLL.cs" />
     <Compile Include="Category_BLL.cs" />
+    <Compile Include="CertificateType_BLL.cs" />
+    <Compile Include="Certificate_BLL.cs" />
     <Compile Include="ConsultationReply_BLL.cs" />
     <Compile Include="ConsultationType_BLL.cs" />
     <Compile Include="Consultation_BLL.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="ReceiptAddress_BLL.cs" />
     <Compile Include="SMS_BLL.cs" />
     <Compile Include="StoreHome_BLL.cs" />
+    <Compile Include="StoreImg_BLL.cs" />
     <Compile Include="StoreNavigation_BLL.cs" />
     <Compile Include="StoreStaff_BLL.cs" />
     <Compile Include="StoreUserGroup_BLL.cs" />
@@ -93,6 +96,7 @@
     <Compile Include="Product_BLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShoppingCart_BLL.cs" />
+    <Compile Include="TFUser_BLL.cs" />
     <Compile Include="UserRanks_BLL.cs" />
     <Compile Include="User_BLL.cs" />
     <Compile Include="VisitorBrowse_BLL.cs" />

@@ -25,7 +25,7 @@ namespace YunXiu.DAL
                 sql.Append("@ShPoint,@Honesties,@ValidityDate,@Theme,@Announcement,@Description,@StoreMoney,GEEDATE(),@CreateUserID) ");
                 DynamicParameters pars = new DynamicParameters(store);
                 pars.Add("@StoreManagerID", store.StoreManager.UID);
-                pars.Add("@CategoryID", store.Category.CateID);
+                pars.Add("@CategoryID", store.Category.CateId);
                 pars.Add("@StoreManager", store.StoreManager.UID);
                 result = DapperHelper.Execute<Store>(sql.ToString(), pars);
             }
@@ -137,7 +137,7 @@ namespace YunXiu.DAL
                 sql.Append("[ShPoint]=@ShPoint,[Honesties]=@Honesties,[ValidityDate]=@ValidityDate,[Theme]=@Theme,[Announcement]=@Announcement,[Description]=@Description,[LastUpdateDate]=GETDATE() WHERE [StoreID]=@StoreID");
                 DynamicParameters pars = new DynamicParameters();
                 pars.Add("@StoreManagerID", store.StoreManager.UID);
-                pars.Add("@CategoryID", store.Category.CateID);
+                pars.Add("@CategoryID", store.Category.CateId);
                 result = DapperHelper.Execute<Store>(sql.ToString(), pars);
             }
             catch (Exception ex)
