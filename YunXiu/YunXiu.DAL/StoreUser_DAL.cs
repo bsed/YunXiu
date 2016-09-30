@@ -133,17 +133,11 @@ namespace YunXiu.DAL
                         SUser = new User
                         {
                             UID = Convert.ToInt32(dt.Rows[i]["UID"]),
-                            UserName = Convert.ToString(dt.Rows[i]["UserName"]),
-                            Email = Convert.ToString(dt.Rows[i]["Email"]),
-                            Mobile = Convert.ToString(dt.Rows[i]["Mobile"]),
-                            Password = Convert.ToString(dt.Rows[i]["Password"]),
-                            UserRID = Convert.ToInt32(dt.Rows[i]["UserRID"]),
-                            NickName = Convert.IsDBNull(dt.Rows[i]["NickName"]) ? Convert.ToString(dt.Rows[i]["NickName"]) : "",
+                            
                             Avatar = Convert.IsDBNull(dt.Rows[i]["Avatar"]) ? Convert.ToString(dt.Rows[i]["Avatar"]) : "",
                             PayCredits = Convert.IsDBNull(dt.Rows[i]["PayCredits"]) ? Convert.ToInt32(dt.Rows[i]["PayCredits"]) : 0,
                             RankCredits = Convert.IsDBNull(dt.Rows[i]["RankCredits"]) ? Convert.ToInt32(dt.Rows[i]["RankCredits"]) : 0,
-                            IsVerifyEmail = Convert.IsDBNull(dt.Rows[i]["VerifyEmail"]) ? Convert.ToBoolean(dt.Rows[i]["VerifyEmail"]) : false,
-                            IsVerifyMobile = Convert.IsDBNull(dt.Rows[i]["IsVerifyMobile"]) ? Convert.ToBoolean(dt.Rows[i]["IsVerifyMobile"]) : false,
+                         
                             LiftBanTime = Convert.IsDBNull(dt.Rows[i]["LiftBanTime"]) ? Convert.ToDateTime(dt.Rows[i]["LiftBanTime"]) : nullDate,
                             Salt = Convert.IsDBNull(dt.Rows[i]["Salt"]) ? Convert.ToString(dt.Rows[i]["Salt"]) : "",
                         },

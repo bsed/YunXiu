@@ -101,9 +101,14 @@ namespace YunXiu.Model
         public float Weight { get; set; }
 
         /// <summary>
-        /// 主图
+        /// 主图ID
         /// </summary>
         public int ImgID { get; set; } = 0;
+
+        /// <summary>
+        /// 主图
+        /// </summary>
+        public string ImgName { get; set; }
 
         /// <summary>
         /// 销售数量

@@ -23,12 +23,12 @@ namespace YunXiu.DAL
                 pars.Add("@RProductID", review.RProduct.PID);
                 pars.Add("@RUserID", review.RUser.UID);
                 pars.Add("@ROrderID", review.ROrder.OID);
-                pars.Add("@Star",0);
-                pars.Add("@RContent",review.RContent);
-                pars.Add("@ReviewTime",review.ReviewTime);
-                pars.Add("@Parent",review.Parent);
+                pars.Add("@Star", 0);
+                pars.Add("@RContent", review.RContent);
+                pars.Add("@ReviewTime", review.ReviewTime);
+                pars.Add("@Parent", review.Parent);
                 pars.Add("@IsStoreReply", review.IsStoreReply);
-                result = DapperHelper.ExecuteProc(procName, pars);
+                result = DapperHelper.ExecuteProc(procName, pars) > 0;
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT pr.[RID],pr.[Star],pr.[RContent],pr.[ReviewTime],pr.[Parent],pr.[IsStoreReply],pr.[LikeCount],u.[UID],p.[PID],p.[Name],o.[OID] FROM ProductReview pr ");
+                sql.Append("SELECT pr.[RID],pr.[Star],pr.[RContent],pr.[ReviewTime],pr.[Parent],pr.[IsStoreReply],pr.[LikeCount],u.[UID],u.[client_guid],p.[PID],p.[Name],o.[OID] FROM ProductReview pr ");
                 sql.Append("LEFT JOIN [User] u ON u.[UID]=pr.[RUserID] ");
                 sql.Append("LEFT JOIN Product p ON p.[PID]=pr.[RProductID] ");
                 sql.Append("LEFT JOIN [Order] o ON o.[OID]=pr.[ROrderID] ");

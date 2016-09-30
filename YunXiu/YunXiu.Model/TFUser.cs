@@ -11,7 +11,7 @@ namespace YunXiu.Model
         /// <summary>
         /// 用户guid
         /// </summary>
-        public string client_guid { get; set; }
+        public Guid client_guid { get; set; }
 
         /// <summary>
         /// 用户名称，不同于登录名
@@ -26,12 +26,12 @@ namespace YunXiu.Model
         /// <summary>
         /// 用户角色
         /// </summary>
-        public string role_type { get; set; }
+        public Guid role_type { get; set; }
 
         /// <summary>
         /// 上次选择语言，null,默认，显示中文
         /// </summary>
-        public string last_lcid { get; set; }
+        public Guid last_lcid { get; set; }
 
         /// <summary>
         /// 性别

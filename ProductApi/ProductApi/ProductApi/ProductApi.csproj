@@ -267,7 +267,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\SysConfKey.xml" />
+    <Content Include="App_Data\SysConf.xml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="bin\PanGu.xml" />
     <Content Include="Content\bootstrap.css" />

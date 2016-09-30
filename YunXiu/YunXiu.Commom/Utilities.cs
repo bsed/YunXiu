@@ -10,17 +10,30 @@ namespace YunXiu.Commom
     public class Utilities
     {
         /// <summary>
-        /// 集合转换成字符串类型
+        /// 字符串集合转换成字符串类型
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static string ListToListStr(List<int> list)
+        public static string ListToListStr(List<string> list)
         {
             var str = "";
-            list.ForEach(s => str += s + ",");
+            list.ForEach(s => str +="'"+s+"'" + ",");
             str = str.Substring(0, str.Length - 1);
             return str;
         }
+
+        /// <summary>
+        /// GUID集合转换成字符串集合
+        /// </summary>
+        /// <param name="guidList"></param>
+        /// <returns></returns>
+        public static List<string> GuidListToStrList(List<Guid> guidList)
+        {
+            List<string> strList = new List<string>();
+            return strList;
+        }
+
+        
 
         /// <summary>
         /// 获取类的字段名称

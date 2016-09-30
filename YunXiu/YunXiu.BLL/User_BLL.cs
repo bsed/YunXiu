@@ -12,70 +12,26 @@ namespace YunXiu.BLL
 {
     public class User_BLL:IUser
     {
-        User_DAL _dal = new User_DAL();
-        public int InsertUser(User Item)
+        User_DAL dal = new User_DAL();
+
+        public bool CreateUser(string guid)
         {
-            return _dal.InsertUser(Item);
+            return dal.CreateUser(guid);
         }
 
-        public User GetUserByUid(int Uid)
+        public List<User> GetMultiUserByID(List<string> guid)
         {
-            return _dal.GetUserByUid(Uid);
+            return dal.GetMultiUserByID(guid);
         }
 
-        public User GetPartUserByAccountID(Guid Account_ClientGuid)
+        public List<User> GetUser()
         {
-            return _dal.GetPartUserByAccountID(Account_ClientGuid);
+            return dal.GetUser();
         }
 
-        public Userdetails GetUserDetailsByUid(int Uid)
+        public User GetUserByID(string guid)
         {
-            return _dal.GetUserDetailsByUid(Uid);
-        }
-
-        public int UpdateUserRankByUid(int Uid, int UserRid)
-        {
-            return _dal.UpdateUserRankByUid( Uid,  UserRid);
-        }
-
-        public int UpdateUserLiftBanTimeByUid(int Uid, DateTime liftBanTime)
-        {
-            return _dal.UpdateUserLiftBanTimeByUid(Uid, liftBanTime);
-        }
-
-        public int UpdateUserOnlineTime(int Uid, int OnlieTime)
-        {
-            return _dal.UpdateUserOnlineTime( Uid,  OnlieTime);
-        }
-
-        public int UpdatePartUser(User Item)
-        {
-            return _dal.UpdatePartUser(Item);
-        }
-
-        public int ChangePwd(int Uid, string Pwd)
-        {
-            return _dal.ChangePwd(Uid, Pwd);
-        }
-
-        public int UpdateUserEmailByUid(int Uid, string email)
-        {
-            return _dal.UpdateUserEmailByUid(Uid, email);
-        }
-
-        public int UpdateUserMobileByUid(int Uid, string mobile)
-        {
-            return _dal.UpdateUserMobileByUid(Uid, mobile);
-        }
-
-        public bool UpdateVerifyMobileState(int uID, bool isVerifyMobile)
-        {
-            return _dal.UpdateVerifyMobileState(uID,isVerifyMobile);
-        }
-
-        public bool UpdateVerifyEmailState(int uID, bool isVerifyEmail)
-        {
-            return _dal.UpdateVerifyEmailState(uID,isVerifyEmail);
+            return dal.GetUserByID(guid);
         }
     }
 }

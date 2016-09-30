@@ -18,24 +18,34 @@ namespace ProductApi.Controllers
         Lazy<Brand_BLL> bll = new Lazy<Brand_BLL>();
         Lazy<Category_BLL> cateBll = new Lazy<Category_BLL>();
 
-        [HttpPost]
+
         /// <summary>
         /// 获取商家品牌
         /// </summary>
         /// <returns></returns>
-        public string GetBrand()
+        [HttpPost]
+        public HttpResponseMessage GetBrand()
         {
-            var result = "";
+            HttpResponseMessage response = null; ;
+            List<Brand> list = null;
             try
             {
-                var list = bll.Value.GetBrand();
-                result = JsonConvert.SerializeObject(list);
+                var count = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                if (count != 0)
+                {
+                    list = bll.Value.GetBrand(count);
+                }
+                else
+                {
+                    list = bll.Value.GetBrand();
+                }                                 
             }
             catch (Exception ex)
             {
 
             }
-            return result;
+            response = WebCommom.GetJsonResponse(list);
+            return response;
         }
 
         [HttpPost]

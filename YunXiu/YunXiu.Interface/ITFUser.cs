@@ -11,11 +11,15 @@ namespace YunXiu.Interface
     {
         TFUser Login(string account, string pwd);
 
-        TFUser GetTFUser(int uid);
+        TFUser GetTFUserByID(int uid);
 
         TFUser EmailLogin(string email, string pwd);
 
         TFUser PhoneLogin(string phone,string pwd);
+
+        List<TFUser> GetTFUser(List<string> uIDList);
+
+        bool CheckTFUserAccount(string guid);
 
     }
 }

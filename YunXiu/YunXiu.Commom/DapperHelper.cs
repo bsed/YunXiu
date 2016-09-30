@@ -47,12 +47,12 @@ namespace YunXiu.Commom
             return result;
         }
 
-        public static bool ExecuteProc(string proc, DynamicParameters pars)
+        public static int ExecuteProc(string proc, DynamicParameters pars)
         {
-            var result = false;
+            var result = 0;
             using (IDbConnection conn = GetDbConnection())
             {
-                result = conn.Execute(proc, pars, null, null, CommandType.StoredProcedure) > 0;
+                result = conn.Execute(proc, pars, null, null, CommandType.StoredProcedure);               
             }
             return result;
         }

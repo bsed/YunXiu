@@ -12,14 +12,25 @@ namespace YunXiu.BLL
     public class TFUser_BLL : ITFUser
     {
         TFUser_DAL dal = new TFUser_DAL();
+
+        public bool CheckTFUserAccount(string guid)
+        {
+            return dal.CheckTFUserAccount(guid);
+        }
+
         public TFUser EmailLogin(string email, string pwd)
         {
             return dal.EmailLogin(email,pwd);
         }
 
-        public TFUser GetTFUser(int uid)
+        public List<TFUser> GetTFUser(List<string> uIDList)
         {
-            return dal.GetTFUser(uid);
+            return dal.GetTFUser(uIDList);
+        }
+
+        public TFUser GetTFUserByID(int uid)
+        {
+            return dal.GetTFUserByID(uid);
         }
 
         public TFUser Login(string account, string pwd)

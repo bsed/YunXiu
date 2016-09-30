@@ -70,7 +70,7 @@
     <Compile Include="FavoriteStoreModel.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="Loginfaillogs.cs" />
-    <Compile Include="LoginModel.cs" />
+    <Compile Include="LoginInfo.cs" />
     <Compile Include="Logistics.cs" />
     <Compile Include="MessageTb.cs" />
     <Compile Include="Order.cs" />

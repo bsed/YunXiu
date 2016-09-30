@@ -8,6 +8,7 @@ using YunXiu.Model;
 using YunXiu.Commom;
 using YunXiu.Interface;
 using Dapper;
+using System.Data;
 
 namespace YunXiu.DAL
 {
@@ -18,24 +19,11 @@ namespace YunXiu.DAL
             var bID = 0;
             try
             {
-                var nowDate = DateTime.Now;
                 var sql = "INSERT INTO Brand([Sort],[Name],[Logo],[IsHotBrand],[CateID],[BrandDynamic],[IsShowDynamic],[ShowDynamicSort],[CreateDate],[LastUpdateDate]) VALUES(@Sort,@Name,@Logo,@IsHotBrand,@CateID,@BrandDynamic,@IsShowDynamic,@ShowDynamicSort,@CreateDate,@LastUpdateDate) SELECT @@IDENTITY";
-                //var pars = new List<SqlParameter>();
-                //pars.Add(new SqlParameter("@Sort", brand.Sort));
-                //pars.Add(new SqlParameter("@Name", brand.Name));
-                //pars.Add(new SqlParameter("@Logo", brand.Logo));
-                //pars.Add(new SqlParameter("@IsHotBrand", brand.IsHotBrand));
-                //pars.Add(new SqlParameter("@CateID", brand.Category != null ? brand.Category.CateID : 0));
-                //pars.Add(new SqlParameter("@BrandDynamic", brand.BrandDynamic));
-                //pars.Add(new SqlParameter("@IsShowDynamic", brand.IsShowDynamic));
-                //pars.Add(new SqlParameter("@ShowDynamicSort", brand.ShowDynamicSort));
-                //pars.Add(new SqlParameter("@CreateDate", nowDate));
-                //pars.Add(new SqlParameter("@CreateUser", brand.CreateUser != null ? brand.CreateUser.UID : 0));
-                //pars.Add(new SqlParameter("@LastUpdateDate", nowDate));
-                //pars.Add(new SqlParameter("@LastUpdateUser", brand.LastUpdateUser != null ? brand.LastUpdateUser.UID : 0));
+
                 DynamicParameters pars = new DynamicParameters(brand);
-                pars.Add("@CateID",brand.Category.CateId);
-                bID = DapperHelper.ExecuteScalar(sql,pars);
+                pars.Add("@CateID", brand.Category.CateId);
+                bID = DapperHelper.ExecuteScalar(sql, pars);
             }
             catch (Exception ex)
             {
@@ -64,22 +52,26 @@ namespace YunXiu.DAL
             var list = new List<Brand>();
             try
             {
-                var sql = "SELECT [BrandID],[Sort],[Name],[Logo],[BrandDynamic],[IsShowDynamic],[ShowDynamicSort] FROM Brand ORDER BY [Sort]";
-                var dt = SQLHelper.GetTable(sql.ToString());
-                for (int i = 0; i < dt.Rows.Count; i++)
+                var sql = new StringBuilder();
+                sql.Append("SELECT b.[BrandID],b.[Sort],b.[Name],b.[Logo],b.[BrandDynamic],b.[IsShowDynamic],b.[ShowDynamicSort],c.[CateID],c.[Name] FROM Brand b ");
+                sql.Append("LEFT JOIN Category c ON c.[CateID]=b.[CateID] ");
+                sql.Append("ORDER BY [Sort]");
+
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
                 {
-                    var obj = new Brand
-                    {
-                        BrandID = Convert.ToInt32(dt.Rows[i]["BrandID"]),
-                        Sort = Convert.IsDBNull(dt.Rows[i]["Sort"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Sort"]),
-                        Name = Convert.IsDBNull(dt.Rows[i]["Name"]) ? "" : Convert.ToString(dt.Rows[i]["Name"]),
-                        Logo = Convert.IsDBNull(dt.Rows[i]["Logo"]) ? "" : Convert.ToString(dt.Rows[i]["Logo"]),
-                        BrandDynamic = Convert.IsDBNull(dt.Rows[i]["BrandDynamic"]) ? "" : Convert.ToString(dt.Rows[i]["BrandDynamic"]),
-                        IsShowDynamic = Convert.IsDBNull(dt.Rows[i]["IsShowDynamic"]) ? false : Convert.ToBoolean(dt.Rows[i]["IsShowDynamic"]),
-                        ShowDynamicSort = Convert.IsDBNull(dt.Rows[i]["ShowDynamicSort"]) ? 0 : Convert.ToInt32(dt.Rows[i]["ShowDynamicSort"])
-                    };
-                    list.Add(obj);
-                }
+                    list = conn.Query<Brand, Category, Brand>(sql.ToString(),
+                        (b, c) =>
+                        {
+                            b.Category = c;
+                            return b;
+                        },
+                        null,
+                        null,
+                        true,
+                        "BrandID,CateID",
+                        null
+                        ).ToList();
+                }          
             }
             catch (Exception ex)
             {
@@ -122,6 +114,7 @@ namespace YunXiu.DAL
                 cID.ForEach(s => listStr += s + ",");
                 listStr = listStr.Substring(0, listStr.Length - 1);
                 var sql = string.Format("SELECT [BrandID],[Sort],[Name],[Logo] FROM Brand WHERE CateID IN ({0}) ORDER BY [Sort]", listStr);
+
                 var dt = SQLHelper.GetTable(sql.ToString());
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {

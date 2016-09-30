@@ -10,6 +10,7 @@ using YunXiu.Commom;
 using YunXiu.Model;
 using YunXiu.BLL;
 using System.Threading;
+using YunXiu.Model.Global;
 
 namespace ProductApi
 {
@@ -23,20 +24,19 @@ namespace ProductApi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            #region  初始化系统配置
-            var sysConfPath = Server.MapPath("/App_Data/SysConfKey.xml");
-            var keys = YunXiu.Commom.CommomClass.GetXmlNodeValue(sysConfPath, "/keys/key");
-            var isLoad = YunXiu.Commom.CommomClass.LoadConfigDictionary(keys);
-            if (!isLoad)
+            #region 初始化配置
+            var sysConfPath = Server.MapPath("/App_Data/SysConf.xml");
+            ThreadPool.QueueUserWorkItem(o => 
             {
-                //如果配置没有加载成功通知运维
-            }
+                GlobalDictionary.SysConfDictionary = CommomClass.GetXmlNodeVal(sysConfPath, "/Sys");
+            });
             #endregion
 
             #region 初始化产品索引
             var indexPath = Server.MapPath("/IndexData/ProductIndex");
             ThreadPool.QueueUserWorkItem(o =>
             {
+           
                 CreateProductIndex(indexPath);
             });
 
@@ -65,6 +65,8 @@ namespace ProductApi
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.OfficialGuarantee), false);
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.SaleCount), false);
             needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.ImgID), false);
+            needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.ImgName), false);
+            needCreateField.Add(Utilities.GetPropertyName<Product>(f => f.ShopPrice), false);
             #endregion
             var isCreateSuccess = lucene.CreateIndexByData<Product>(products, needCreateField,true);
             if (!isCreateSuccess)

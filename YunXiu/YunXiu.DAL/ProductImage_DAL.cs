@@ -49,7 +49,7 @@ namespace YunXiu.DAL
             List<ProductImage> list = null;
             try
             {
-                var sql = string.Format("SELECT [IsMain],[Displayorder],[StoreID] FROM ProductImages WHERE [PID]={0}", pID);
+                var sql = string.Format("SELECT [PImgID],[ImgName],[IsMain],[Displayorder],[StoreID] FROM ProductImages WHERE [PID]={0}", pID);
                 list = DapperHelper.Query<ProductImage>(sql).ToList();
             }
             catch (Exception ex)

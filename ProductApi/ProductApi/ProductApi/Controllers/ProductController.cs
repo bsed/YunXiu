@@ -17,7 +17,6 @@ namespace ProductApi.Controllers
     public class ProductController : ApiController
     {
         Lazy<Product_BLL> bll = new Lazy<Product_BLL>();
-        Lazy<ShoppingCart_BLL> shoppingCartBll = new Lazy<ShoppingCart_BLL>();
         Lazy<Category_BLL> cateBll = new Lazy<Category_BLL>();
         Lazy<LuceneNet> lucene = new Lazy<LuceneNet>();
         Lazy<ProductReview_BLL> reviewBll = new Lazy<ProductReview_BLL>();
@@ -29,8 +28,10 @@ namespace ProductApi.Controllers
         Lazy<Consultation_BLL> cBll = new Lazy<Consultation_BLL>();
         Lazy<ConsultationReply_BLL> cReplyBll = new Lazy<ConsultationReply_BLL>();
         Lazy<ProductImage_BLL> imgBll = new Lazy<ProductImage_BLL>();
+        Lazy<TFUser_BLL> tfUserBll = new Lazy<TFUser_BLL>();
         //  Lazy<ProductState_BLL> productStateBll = new Lazy<ProductState_BLL>();
         static string indexPath = HttpContext.Current.Server.MapPath("/IndexData/ProductIndex");//商品索引 
+        string accountApi = YunXiu.Model.Global.GlobalDictionary.GetSysConfVal("AccountApi");
         #region 商品
 
         [HttpPost]
@@ -402,7 +403,6 @@ namespace ProductApi.Controllers
         }
         #endregion
 
-
         #region 产品咨询
 
         /// <summary>
@@ -499,98 +499,6 @@ namespace ProductApi.Controllers
 
         #endregion
 
-        #region 购物车
-        [HttpPost]
-        /// <summary>
-        /// 添加商品到购物车
-        /// </summary>
-        /// <returns></returns>
-        public HttpResponseMessage AddProductToShoppingCart()
-        {
-            HttpResponseMessage response = null;
-            var result = false;
-            try
-            {
-                var sc = WebCommom.HttpRequestBodyConvertToObj<ShoppingCart>(HttpContext.Current);
-                result = shoppingCartBll.Value.AddProductToShoppingCart(sc);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            response = WebCommom.GetResponse(result);
-            return response;
-        }
-
-        [HttpPost]
-        /// <summary>
-        /// 删除购物车商品
-        /// </summary>
-        /// <returns></returns>
-        public HttpResponseMessage DeleteShoppingCartProduct()
-        {
-            HttpResponseMessage response = null;
-            try
-            {
-                var pID = new List<int>();
-                var result = shoppingCartBll.Value.DeleteShoppingCartProduct(pID);
-                response = WebCommom.GetResponse(result);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return response;
-        }
-
-        [HttpPost]
-        /// <summary>
-        /// 根据用户ID获取购物车商品
-        /// </summary>
-        /// <returns></returns>
-        public HttpResponseMessage GetShoppingCartByUserID()
-        {
-            HttpResponseMessage response = null;
-            try
-            {
-                var userID = 0;
-                var list = shoppingCartBll.Value.GetShoppingCartByUserID(userID);
-                var result = JsonConvert.SerializeObject(list);
-                response = WebCommom.GetJsonResponse(result);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return response;
-        }
-
-
-        [HttpPost]
-        public HttpResponseMessage AddFavoriteProduct()
-        {
-            HttpResponseMessage response = null;
-            var result = false;
-            try
-            {
-                var fProduct = WebCommom.HttpRequestBodyConvertToObj<FavoriteProduct>(HttpContext.Current);
-                if (fProduct != null)
-                {
-                    result = fProductBll.Value.AddFavoriteProduct(fProduct);
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            response = WebCommom.GetResponse(result);
-            return response;
-        }
-
-
-
-        #endregion
-
         #region 商品评论
 
         [HttpPost]
@@ -624,6 +532,13 @@ namespace ProductApi.Controllers
             {
                 var pID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
                 list = reviewBll.Value.GetProductReviewByProductID(pID);
+                var guidList = GetProductReviewGuid(list).Distinct().ToList();
+                var tfUser = JsonConvert.DeserializeObject<List<TFUser>>(CommomClass.HttpPost(string.Format("{0}/Account/GetTFUser",accountApi), JsonConvert.SerializeObject(guidList)));
+
+                for (var i = 0; i < list.Count; i++)
+                {
+                    list[i].RUser.TFUser = tfUser.Where(tf => tf.client_guid == list[i].RUser.client_guid).ToList()[0];
+                }
             }
             catch (Exception ex)
             {
@@ -720,6 +635,21 @@ namespace ProductApi.Controllers
             catch (Exception ex) { }
             response = WebCommom.GetResponse(imgID);
             return response;
+        }
+        #endregion
+
+
+
+        #region Product控制器公共方法
+
+        public List<string> GetProductReviewGuid(List<ProductReview> list)
+        {
+            List<string> strList = new List<string>();
+            foreach (var r in list)
+            {
+                strList.Add(r.RUser.client_guid.ToString());
+            }
+            return strList;
         }
         #endregion
     }

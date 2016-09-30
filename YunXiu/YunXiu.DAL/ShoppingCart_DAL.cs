@@ -36,7 +36,7 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var id = Utilities.ListToListStr(pID);
+                var id = string.Join(",",pID);
                 var sql = string.Format("DELETE FROM ShoppingCart WHERE ProductID IN ({0})", id);
                 result = SQLHelper.ExcuteSQL(sql) > 0;
             }
@@ -52,7 +52,7 @@ namespace YunXiu.DAL
             var list = new List<ShoppingCart>();
             try
             {
-                var id = Utilities.ListToListStr(pID);
+                var id = string.Join(",",pID);
                 var sql = string.Format("SELECT [SID],[UserID],[ProductID],[CreateDate],[CreateUserID],[LastUpdateDate],[LastUpdateUserID] FROM ShoppingCart WHERE ProductID IN ({0})", id);
                 var dt = SQLHelper.GetTable(sql);
 

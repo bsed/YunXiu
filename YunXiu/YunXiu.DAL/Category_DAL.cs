@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 using YunXiu.Model;
 using YunXiu.Commom;
 using YunXiu.Interface;
-using System.Data.SqlClient;
+using Dapper;
 
 namespace YunXiu.DAL
 {
@@ -17,22 +18,24 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var nowData = DateTime.Now;
-                var sql = "INSERT INTO Category([Sort],[Name],[ParentID],[Layer],[Path],[HasChild],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser]) VALUES(@Sort,@Name,@ParentID,@Layer,@Path,@HasChild,@CreateDate,@CreateUser,@LastUpdateDate,@LastUpdateUser)";
-                var pars = new List<SqlParameter>();
-                pars.Add(new SqlParameter("@Sort", category.Sort));
-                pars.Add(new SqlParameter("@Name", category.Name));
-                pars.Add(new SqlParameter("@ParentID", category.ParentId));
-                pars.Add(new SqlParameter("@Layer", category.Layer));
-                pars.Add(new SqlParameter("@Path", category.Path));
-                pars.Add(new SqlParameter("@HasChild", category.HasChild));
-                pars.Add(new SqlParameter("@CreateDate", nowData));
-                pars.Add(new SqlParameter("@CreateUser", category.CreateUser != null ? category.CreateUser.UID : 0));
-                pars.Add(new SqlParameter("@LastUpdateDate", nowData));
-                pars.Add(new SqlParameter("@LastUpdateUser", category.LastUpdateUser != null ? category.LastUpdateUser.UID : 0));
-
-                result = SQLHelper.ExcuteSQL(sql, pars.ToArray()) > 0;
-
+                var procName = "AddCategory";
+                //var nowData = DateTime.Now;
+                //var sql = "INSERT INTO Category([Sort],[Name],[ParentID],[Layer],[Path],[HasChild],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser]) VALUES(@Sort,@Name,@ParentID,@Layer,@Path,@HasChild,@CreateDate,@CreateUser,@LastUpdateDate,@LastUpdateUser)";
+                //var pars = new List<SqlParameter>();
+                //pars.Add(new SqlParameter("@Sort", category.Sort));
+                //pars.Add(new SqlParameter("@Name", category.Name));
+                //pars.Add(new SqlParameter("@ParentID", category.ParentId));
+                //pars.Add(new SqlParameter("@Layer", category.Layer));
+                //pars.Add(new SqlParameter("@Path", category.Path));
+                //pars.Add(new SqlParameter("@HasChild", category.HasChild));
+                //pars.Add(new SqlParameter("@CreateDate", nowData));
+                //pars.Add(new SqlParameter("@CreateUser", category.CreateUser != null ? category.CreateUser.UID : 0));
+                //pars.Add(new SqlParameter("@LastUpdateDate", nowData));
+                //pars.Add(new SqlParameter("@LastUpdateUser", category.LastUpdateUser != null ? category.LastUpdateUser.UID : 0));
+                DynamicParameters pars = new DynamicParameters();
+                pars.Add("@Name", category.Name);
+                pars.Add("@ParentID", category.ParentId);
+                result = DapperHelper.ExecuteProc(procName, pars) > 0;
             }
             catch (Exception ex)
             {
@@ -61,7 +64,7 @@ namespace YunXiu.DAL
             var list = new List<Category>();
             try
             {
-                var sql = "SELECT [CateID],[Sort],[Name],[ParentID],[Layer],[Path],[HasChild],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser] FROM Category";
+                var sql = "SELECT [CateID],[Sort],[Name],[ParentID],[Layer],[Path],[HasChild],[CreateDate],[LastUpdateDate] FROM Category";
                 var dt = SQLHelper.GetTable(sql);
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
@@ -74,17 +77,9 @@ namespace YunXiu.DAL
                         Layer = Convert.IsDBNull(dt.Rows[i]["Layer"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Layer"]),
                         Path = Convert.IsDBNull(dt.Rows[i]["Path"]) ? "" : Convert.ToString(dt.Rows[i]["Path"]),
                         HasChild = Convert.IsDBNull(dt.Rows[i]["HasChild"]) ? 0 : Convert.ToInt32(dt.Rows[i]["HasChild"]),
-                        CreateDate = Convert.IsDBNull(dt.Rows[i]["CreateDate"]) ? new DateTime() : Convert.ToDateTime(dt.Rows[i]["CreateDate"]),
-                        CreateUser = new User
-                        {
-                            UID = Convert.IsDBNull(dt.Rows[i]["CreateUser"]) ? 0 : Convert.ToInt32(dt.Rows[i]["CreateUser"]),
-                        },
+                        CreateDate = Convert.IsDBNull(dt.Rows[i]["CreateDate"]) ? new DateTime() : Convert.ToDateTime(dt.Rows[i]["CreateDate"]),                    
                         LastUpdateDate = Convert.IsDBNull(dt.Rows[i]["LastUpdateDate"]) ? new DateTime() : Convert.ToDateTime(dt.Rows[i]["LastUpdateDate"]),
-                        LastUpdateUser = new User
-                        {
-                            UID = Convert.IsDBNull(dt.Rows[i]["LastUpdateUser"]) ? 0 : Convert.ToInt32(dt.Rows[i]["LastUpdateUser"])
-                        }
-
+                    
                     };
                     list.Add(obj);
                 }
@@ -98,32 +93,11 @@ namespace YunXiu.DAL
 
         public Category GetCategoryByID(int cID)
         {
-            var cate = new Category();
+            Category cate = null ;
             try
             {
-                var sql = string.Format("SELECT [CateID],[Sort],[Name],[ParentID],[Layer],[Path],[HasChild],[CreateDate],[CreateUser],[LastUpdateDate],[LastUpdateUser] FROM Category WHERE [CateID]={0}", cID);
-
-                var dt = SQLHelper.GetTable(sql);
-                cate = new Category
-                {
-                    CateId = Convert.ToInt32(dt.Rows[0]["CateID"]),
-                    Sort = Convert.ToInt32(dt.Rows[0]["Sort"]),
-                    Name = Convert.ToString(dt.Rows[0]["Name"]),
-                    ParentId = Convert.ToInt32(dt.Rows[0]["ParentID"]),
-                    Layer = Convert.ToInt32(dt.Rows[0]["Layer"]),
-                    Path = Convert.ToString(dt.Rows[0]["Path"]),
-                    HasChild = Convert.ToInt32(dt.Rows[0]["HasChild"]),
-                    CreateDate = Convert.IsDBNull(dt.Rows[0]["CreateDate"]) ? new DateTime() : Convert.ToDateTime(dt.Rows[0]["CreateDate"]),
-                    CreateUser = new User
-                    {
-                        UID = Convert.IsDBNull(dt.Rows[0]["CreateUser"]) ? 0 : Convert.ToInt32(dt.Rows[0]["CreateUser"]),
-                    },
-                    LastUpdateDate = Convert.IsDBNull(dt.Rows[0]["LastUpdateDate"]) ? new DateTime() : Convert.ToDateTime(dt.Rows[0]["LastUpdateDate"]),
-                    LastUpdateUser = new User
-                    {
-                        UID = Convert.ToInt32(dt.Rows[0]["LastUpdateUser"])
-                    }
-                };
+                var sql = string.Format("SELECT [CateID],[Sort],[Name],[ParentId],[Layer],[Path],[HasChild],[CreateDate],[LastUpdateDate] FROM Category WHERE [CateID]={0}", cID);
+                cate = DapperHelper.QuerySingle<Category>(sql);
             }
             catch (Exception ex)
             {

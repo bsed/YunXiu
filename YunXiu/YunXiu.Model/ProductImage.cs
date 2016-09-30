@@ -15,10 +15,14 @@ namespace YunXiu.Model
         public Product Product { get; set; }
 
         /// <summary>
-        /// 图片
+        /// 图片ID
         /// </summary>
         public string ImgID { get; set; }
 
+        /// <summary>
+        /// 图片名
+        /// </summary>
+        public string ImgName { get; set; }
         /// <summary>
         /// 是否为主图
         /// </summary>
