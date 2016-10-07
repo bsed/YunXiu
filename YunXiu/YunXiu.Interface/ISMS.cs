@@ -8,6 +8,6 @@ namespace YunXiu.Interface
 {
     public interface ISMS
     {
-        
+        bool Send(List<string> phones,string content);
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="IOrder.cs" />
     <Compile Include="IOrderPayOrder.cs" />
     <Compile Include="IPayOrder.cs" />
+    <Compile Include="IPermission.cs" />
     <Compile Include="IProduct.cs" />
     <Compile Include="IProductAttr.cs" />
     <Compile Include="IProductConsult.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="IPurchasePlan.cs" />
     <Compile Include="IPurchasePlanOffer.cs" />
     <Compile Include="IReceiptAddress.cs" />
+    <Compile Include="IRole.cs" />
     <Compile Include="IShoppingCart.cs" />
     <Compile Include="ISMS.cs" />
     <Compile Include="IStore.cs" />

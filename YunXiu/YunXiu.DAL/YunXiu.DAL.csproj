@@ -82,6 +82,7 @@
     <Compile Include="OrderPayOrder_DAL.cs" />
     <Compile Include="Order_DAL.cs" />
     <Compile Include="PayOrder_DAL.cs" />
+    <Compile Include="Permission_DAL.cs" />
     <Compile Include="ProductAttr_DAL.cs" />
     <Compile Include="ProductConsult_DAL.cs" />
     <Compile Include="ProductImage_DAL.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="PurchasePlanOffer_DAL.cs" />
     <Compile Include="ReceiptAddress_DAL.cs" />
     <Compile Include="PurchasePlan_DAL.cs" />
+    <Compile Include="Role_DAL.cs" />
     <Compile Include="ShoppingCart_DAL.cs" />
     <Compile Include="SMS_DAL.cs" />
     <Compile Include="StoreHome_DAL.cs" />

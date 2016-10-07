@@ -90,8 +90,7 @@
     <Compile Include="MD5.cs" />
     <Compile Include="MQ\MSMQ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SMS\MEILIAN\MEILIANSMS.cs" />
-    <Compile Include="SMS\SMSAgent.cs" />
+    <Compile Include="SMS\MEILIANSMS.cs" />
     <Compile Include="SQLHelper.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="WebCommom.cs" />

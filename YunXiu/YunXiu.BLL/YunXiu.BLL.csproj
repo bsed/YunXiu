@@ -74,6 +74,7 @@
     <Compile Include="OrderPayOrder_BLL.cs" />
     <Compile Include="Order_BLL.cs" />
     <Compile Include="PayOrder_BLL.cs" />
+    <Compile Include="Permission_BLL.cs" />
     <Compile Include="ProductAttr_BLL.cs" />
     <Compile Include="ProductConsult_BLL.cs" />
     <Compile Include="ProductImage_BLL.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="PurchasePlan_BLL.cs" />
     <Compile Include="ProductStorage_BLL.cs" />
     <Compile Include="ReceiptAddress_BLL.cs" />
+    <Compile Include="Role_BLL.cs" />
     <Compile Include="SMS_BLL.cs" />
     <Compile Include="StoreHome_BLL.cs" />
     <Compile Include="StoreImg_BLL.cs" />

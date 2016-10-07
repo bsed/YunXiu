@@ -8,5 +8,8 @@ namespace YunXiu.Model
 {
    public class SMS
     {
+        public List<string> Phones { get; set; }
+
+        public string Content { get; set; }
     }
 }

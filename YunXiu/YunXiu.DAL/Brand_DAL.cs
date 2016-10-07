@@ -71,7 +71,7 @@ namespace YunXiu.DAL
                         "BrandID,CateID",
                         null
                         ).ToList();
-                }          
+                }
             }
             catch (Exception ex)
             {
@@ -169,16 +169,27 @@ namespace YunXiu.DAL
             var brand = new Brand();
             try
             {
-                var sql = string.Format("SELECT [BrandID],[Sort],[Name],[Logo] FROM Brand WHERE [BrandID]={0} ORDER BY [Sort]", bID);
-                var dt = SQLHelper.GetTable(sql.ToString());
+                var sql = new StringBuilder();
+                sql.Append("SELECT b.[BrandID],b.[Sort],b.[Name],b.[Logo],b.[BrandDynamic],b.[IsShowDynamic],b.[ShowDynamicSort],c.[CateID],c.[Name] FROM Brand b ");
+                sql.Append("LEFT JOIN Category c ON c.[CateID]=b.[CateID] ");
+                sql.Append(string.Format("WHERE [BrandID]={0} ORDER BY [Sort] ", bID));
 
-                brand = new Brand
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
                 {
-                    BrandID = Convert.ToInt32(dt.Rows[0]["BrandID"]),
-                    Sort = Convert.ToInt32(dt.Rows[0]["Sort"]),
-                    Name = Convert.ToString(dt.Rows[0]["Name"]),
-                    Logo = Convert.ToString(dt.Rows[0]["Logo"])
-                };
+                    brand = conn.Query<Brand, Category, Brand>(sql.ToString(),
+                        (b, c) =>
+                        {
+                            b.Category = c;
+                            return b;
+                        },
+                        null,
+                        null,
+                        true,
+                        "BrandID,CateID",
+                        null
+                        ).SingleOrDefault();
+                }
+
             }
             catch (Exception ex)
             {

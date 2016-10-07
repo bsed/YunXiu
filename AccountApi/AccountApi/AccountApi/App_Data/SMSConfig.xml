@@ -2,7 +2,12 @@
 <SMS>
   <SMSProvider>
     <ProviderName>MEILIAN</ProviderName>
-    <IsUse>1</IsUse>    
+    <IsUse>1</IsUse>
+    <url>http://m.5c.com.cn/api/send/?</url>
+    <encode>UTF-8</encode>
+    <username></username>
+    <password_md5></password_md5>
+    <apikey></apikey>
   </SMSProvider>
   <SMSProvider></SMSProvider>
 </SMS>

@@ -38,7 +38,7 @@ namespace ProductApi.Controllers
                 else
                 {
                     list = bll.Value.GetBrand();
-                }                                 
+                }
             }
             catch (Exception ex)
             {
@@ -59,7 +59,7 @@ namespace ProductApi.Controllers
             var brand = new Brand();
             try
             {
-          
+
                 var str = "";
                 using (var ms = new MemoryStream())
                 {
@@ -73,7 +73,7 @@ namespace ProductApi.Controllers
                 {
                     var id = Convert.ToInt32(str);
                     brand = bll.Value.GetBrandByID(id);
-                }            
+                }
             }
             catch (Exception ex)
             {
@@ -102,7 +102,7 @@ namespace ProductApi.Controllers
                     if (ms.Length != 0)
                     {
                         str = WebCommom.HttpRequestBodyConvertToStr(ms);//获取Request Body
-                    }                 
+                    }
                 }
                 if (!string.IsNullOrWhiteSpace(str))
                 {
@@ -122,7 +122,7 @@ namespace ProductApi.Controllers
             }
             return response;
         }
-     
+
         [HttpPost]
         /// <summary>
         /// 根据类目获取品牌
@@ -142,7 +142,7 @@ namespace ProductApi.Controllers
                     if (ms.Length != 0)
                     {
                         str = WebCommom.HttpRequestBodyConvertToStr(ms);//获取Request Body
-                    }                 
+                    }
                 }
                 if (!string.IsNullOrWhiteSpace(str))
                 {
@@ -190,7 +190,7 @@ namespace ProductApi.Controllers
                     if (ms.Length != 0)
                     {
                         str = WebCommom.HttpRequestBodyConvertToStr(ms);//获取Request Body
-                    }              
+                    }
                 }
                 if (!string.IsNullOrWhiteSpace(str))
                 {
@@ -228,13 +228,13 @@ namespace ProductApi.Controllers
                     if (ms.Length != 0)
                     {
                         brand = WebCommom.HttpRequestBodyConvertToObj<Brand>(ms);//获取Request Body
-                    }                 
+                    }
                 }
                 if (brand != null)
                 {
                     bID = bll.Value.AddBrand(brand);
                 }
-              
+
                 response = WebCommom.GetResponse(bID);
             }
             catch (Exception ex)
@@ -262,14 +262,14 @@ namespace ProductApi.Controllers
                     if (ms.Length != 0)
                     {
                         brand = WebCommom.HttpRequestBodyConvertToObj<Brand>(ms);//获取转换后的Body
-                    }                
+                    }
                 }
 
                 if (brand != null)
                 {
-                   result = bll.Value.UpdateBrand(brand);
+                    result = bll.Value.UpdateBrand(brand);
                 }
-               
+
                 response = WebCommom.GetResponse(result);
             }
             catch (Exception ex)
@@ -287,9 +287,9 @@ namespace ProductApi.Controllers
         public HttpResponseMessage DeleteBrand()
         {
             HttpResponseMessage response = null;
+            var result = false;
             try
             {
-                var result = false;
                 var str = "";
                 using (var ms = new MemoryStream())
                 {
@@ -297,13 +297,13 @@ namespace ProductApi.Controllers
                     if (ms.Length != 0)
                     {
                         str = WebCommom.HttpRequestBodyConvertToStr(ms);//获取Request Body
-                    }         
+                    }
                 }
 
                 if (!string.IsNullOrWhiteSpace(str))
                 {
                     var bID = Convert.ToInt32(str);
-                    result = bll.Value.DeleteBrand(bID);           
+                    result = bll.Value.DeleteBrand(bID);
                 }
 
                 response = WebCommom.GetResponse(result);
@@ -312,6 +312,7 @@ namespace ProductApi.Controllers
             {
 
             }
+            response = WebCommom.GetResponse(result);
             return response;
         }
     }

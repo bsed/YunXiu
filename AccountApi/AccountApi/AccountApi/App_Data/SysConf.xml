@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sys>
-  <DbCon>Data Source=192.168.11.60;Initial Catalog=YunXiu;User ID=crmuser;Password=Tajima@559</DbCon>
+  <DBCon>Data Source=192.168.11.60;Initial Catalog=YunXiu;User ID=crmuser;Password=Tajima@559</DBCon>
   <TFDbCon>Data Source=192.168.11.60;Initial Catalog=TF_Account;User ID=crmuser;Password=Tajima@559</TFDbCon>
 </Sys>

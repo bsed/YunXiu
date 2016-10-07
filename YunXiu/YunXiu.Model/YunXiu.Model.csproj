@@ -78,6 +78,7 @@
     <Compile Include="OutStore.cs" />
     <Compile Include="PageResult.cs" />
     <Compile Include="PayOrder.cs" />
+    <Compile Include="Permission.cs" />
     <Compile Include="ProductAttr.cs" />
     <Compile Include="ProductConsults.cs" />
     <Compile Include="ProductConsultsModel.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="RefundProducts.cs" />
     <Compile Include="Regions.cs" />
     <Compile Include="Relateproducts.cs" />
+    <Compile Include="Role.cs" />
     <Compile Include="Searchhistories.cs" />
     <Compile Include="Shipaddresses.cs" />
     <Compile Include="Shipcompanies.cs" />
