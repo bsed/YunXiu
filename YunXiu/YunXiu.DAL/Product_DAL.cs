@@ -325,7 +325,7 @@ namespace YunXiu.DAL
                 var sql = new StringBuilder();
                 sql.Append("UPDATE Product SET [Psn]=@Psn,[CateID]=@CateID,[BrandID]=@BrandID,[StoreID]=@StoreID,[StorestID]=@StorestID,[SkugID]=@SkugID,[Name]=@Name,[ShopPrice]=@ShopPrice, ");
                 sql.Append("[MarketPrice]=@MarketPrice,[CostPrice]=@CostPrice,[State]=@State,[IsBest]=@IsBest,[IsHot]=@IsHot,[IsNew]=@IsNew,[IsRecommend]=@IsRecommend,[Sort]=@Sort,[Weight]=@Weight,[ImgID]=@ImgID, ");
-                sql.Append("[SaleCount]=@SaleCount,[VisitCount]=@VisitCount,[Description]=@Description,[OfficialGuarantee]=@OfficialGuarantee,[FAQs]=@FAQs,[CreateDate]=@CreateDate,[CreateUser]=@CreateUser,[LastUpdateDate]=@LastUpdateDate,[LastUpdateUser]=@LastUpdateUser ");
+                sql.Append("[SaleCount]=@SaleCount,[VisitCount]=@VisitCount,[Description]=@Description,[OfficialGuarantee]=@OfficialGuarantee,[FAQs]=@FAQs,[LastUpdateDate]=GETDATE() ");
                 sql.Append("WHERE PID=@PID");
 
                 var pars = new List<SqlParameter>();
@@ -354,9 +354,6 @@ namespace YunXiu.DAL
                 pars.Add(new SqlParameter("@OfficialGuarantee", product.OfficialGuarantee));
                 pars.Add(new SqlParameter("@FAQs", product.FAQs));
                 pars.Add(new SqlParameter("@CreateDate", nowDate));
-                pars.Add(new SqlParameter("@CreateUser", product.CreateUser != null ? product.CreateUser.UID : 0));
-                pars.Add(new SqlParameter("@LastUpdateDate", nowDate));
-                pars.Add(new SqlParameter("@LastUpdateUser", product.CreateUser != null ? product.CreateUser.UID : 0));
 
                 result = SQLHelper.ExcuteSQL(sql.ToString(), pars.ToArray()) > 0;
             }
@@ -583,20 +580,28 @@ namespace YunXiu.DAL
                 var sql = new StringBuilder();
                 sql.Append("SELECT p.[PID],p.[Psn],p.[CateID],p.[BrandID],p.[StorestID],p.[SkugID],p.[Name],p.[ShopPrice],p.[MarketPrice],p.[CostPrice],p.[ProductStateID],p.[IsBest],p.[IsHot],p.[IsNew],p.[Sort],");
                 sql.Append("p.[Weight],p.[ImgID],p.[ImgName],p.[SaleCount],p.[VisitCount],p.[ReviewCount],p.[Description],p.[OfficialGuarantee],p.[FAQs],p.[CreateDate],");
-                sql.Append("s.[StoreID],s.[State],s.[Name] ");
+                sql.Append("s.[StoreID],s.[State],s.[Name],c.[CateID],c.[Name],b.[BrandID],b.[Name] ");
                 sql.Append("FROM Product p ");
                 sql.Append("LEFT JOIN Store s ON p.StoreID=s.StoreID ");
+                sql.Append("LEFT JOIN Category c ON c.[CateID]=p.[CateID] ");
+                sql.Append("LEFT JOIN Brand b ON b.[BrandID]=p.[BrandID] ");
                 sql.Append(string.Format("WHERE p.[StoreID]={0}", storeID));
 
                 using (IDbConnection conn = DapperHelper.GetDbConnection())
                 {
-                    list = conn.Query<Product, Store, Product>(
+                    list = conn.Query<Product, Store, Category, Brand, Product>(
                         sql.ToString(),
-                        (p, s) => { p.Store = s; return p; },
+                        (p, s, c, b) =>
+                        {
+                            p.Store = s;
+                            p.Category = c;
+                            p.Brand = b;
+                            return p;
+                        },
                         null,
                         null,
                         true,
-                        "StoreID",
+                        "PID,StoreID,CateID,BrandID",
                         null,
                         null
                         ).ToList();
@@ -609,13 +614,17 @@ namespace YunXiu.DAL
             return list;
         }
 
-        public bool SetProductMainImage(int imgID)
+        public bool SetProductMainImage(int imgID,string imgName, int pID)
         {
             var result = false;
             try
             {
-                var sql = string.Format("UPDATE Product SET ImgID={0}", imgID);
-                result = DapperHelper.Execute(sql);
+                DynamicParameters pars = new DynamicParameters();
+                pars.Add("@imgID", imgID);
+                pars.Add("@imgName", imgName);
+                pars.Add("@pID", pID);
+                var procName = "SetProductMainImage";
+                result = DapperHelper.ExecuteProc(procName, pars) > 0;
             }
             catch (Exception ex)
             {

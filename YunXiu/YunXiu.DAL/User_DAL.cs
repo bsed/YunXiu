@@ -53,23 +53,52 @@ namespace YunXiu.DAL
 
         public User GetUserByID(string guid)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool CreateUser(string guid)
-        {
-            var result = false;
+            User user = null;
             try
             {
-                var sql = "INSERT INTO [User](client_guid) VALUES(@client_guid)";
+                var sql = new StringBuilder(); ;
+                sql.Append("SELECT u.[UID],u.[client_guid],u.[UserRID],u.[MallagID],u.[Avatar],u.[PayCredits],u.[RankCredits],u.[LiftBanTime],u.[Salt],u.[UState],u.[CreateDate],s.[StoreID],s.[Name] FROM [User] u ");
+                sql.Append("LEFT JOIN [Store] s ON s.[StoreID]=u.[UStoreID] ");
+                sql.Append("WHERE [client_guid]=@guid ");
+                DynamicParameters pars = new DynamicParameters();
+                pars.Add("@guid", guid);
+            
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
+                {
+                    user = conn.Query<User, Store, User>(sql.ToString(),
+                        (u, s) =>
+                        {
+                            u.UStore = s;
+                            return u;
+                        }, 
+                        pars,
+                        null,
+                        true, 
+                        "UID,StoreID",
+                        null).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return user;
+        }
+
+        public int CreateUser(string guid)
+        {
+            var uid = 0;
+            try
+            {
+                var sql = "INSERT INTO [User](client_guid,CreateDate) VALUES(@client_guid,GETDATE()) SELECT @@IDENTITY";
                 DynamicParameters pars = new DynamicParameters();
                 pars.Add("@client_guid", guid);
-                result = DapperHelper.Execute(sql, pars);
+                uid = DapperHelper.ExecuteScalar(sql, pars);
             }
             catch (Exception ex)
             {
             }
-            return result;
+            return uid;
         }
     }
 }

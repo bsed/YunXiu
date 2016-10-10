@@ -16,6 +16,6 @@ namespace YunXiu.Interface
 
         User GetUserByID(string guid);
 
-        bool CreateUser(string guid);
+        int CreateUser(string guid);
     }
 }

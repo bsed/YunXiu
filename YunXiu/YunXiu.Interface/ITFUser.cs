@@ -19,7 +19,7 @@ namespace YunXiu.Interface
 
         List<TFUser> GetTFUser(List<string> uIDList);
 
-        bool CheckTFUserAccount(string guid);
+        bool CheckTFUserAccount(string account);
 
     }
 }

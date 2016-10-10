@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YunXiu.Model
+namespace YunXiu.Cache
 {
-    class Class
+    public class Session
     {
+        public const string USERINFO = "USERINFO";
     }
 }

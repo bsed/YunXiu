@@ -63,6 +63,10 @@ namespace YunXiu.Model
         /// 用户管理商铺
         /// </summary>
         public Store UStore { get; set; }
+
+        public List<Permission> Permissions { get; set; }
+
+
         #endregion
     }
 }

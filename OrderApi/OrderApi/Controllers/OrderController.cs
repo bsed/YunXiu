@@ -44,7 +44,7 @@ namespace OrderApi.Controllers
                     if (ms.Length != 0)
                     {
                         var cText = WebCommom.HttpRequestBodyConvertToStr(ms);//密文
-                        var pText = AES.AESDecrypt(cText, AESKey);//明文
+                        var pText = Security.AESDecrypt(cText, AESKey);//明文
                         list = JsonConvert.DeserializeObject<List<Order>>(pText);
                     }
                 }
@@ -69,7 +69,7 @@ namespace OrderApi.Controllers
             {
 
             }
-            var responseCText = AES.AESEncrypt(JsonConvert.SerializeObject(resultList), AESKey);//结果密文
+            var responseCText = Security.AESEncrypt(JsonConvert.SerializeObject(resultList), AESKey);//结果密文
             response = WebCommom.GetResponse(responseCText);
             return response;
         }
@@ -92,7 +92,7 @@ namespace OrderApi.Controllers
                     if (ms.Length != 0)
                     {
                         var cText = WebCommom.HttpRequestBodyConvertToStr(ms);//密文
-                        var pText = AES.AESDecrypt(cText, AESKey);
+                        var pText = Security.AESDecrypt(cText, AESKey);
                         orders = JsonConvert.DeserializeObject<List<Order>>(pText);
                     }
                 }
@@ -106,7 +106,7 @@ namespace OrderApi.Controllers
             {
 
             }
-            var responseCText = AES.AESEncrypt(JsonConvert.SerializeObject(payOrder), AESKey);//返回密文
+            var responseCText = Security.AESEncrypt(JsonConvert.SerializeObject(payOrder), AESKey);//返回密文
             response = WebCommom.GetResponse(responseCText);
             return response;
         }
@@ -129,7 +129,7 @@ namespace OrderApi.Controllers
                     if (ms.Length != 0)
                     {
                         var cText = WebCommom.HttpRequestBodyConvertToStr(ms);//密文
-                        var pText = AES.AESDecrypt(cText, AESKey);
+                        var pText = Security.AESDecrypt(cText, AESKey);
                         payOrder = JsonConvert.DeserializeObject<PayOrder>(pText);
                     }
                 }

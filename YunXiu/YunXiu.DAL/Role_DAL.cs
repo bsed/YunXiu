@@ -27,6 +27,11 @@ namespace YunXiu.DAL
             return result;
         }
 
+        public bool AddRolePermission(int rID, int pID)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool DeleteRole(int rID)
         {
             var result = false;
@@ -40,6 +45,11 @@ namespace YunXiu.DAL
 
             }
             return result;
+        }
+
+        public bool DeleteRolePermission(int rpID)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Role> GetRole()

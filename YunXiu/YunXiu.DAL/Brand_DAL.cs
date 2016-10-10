@@ -311,7 +311,7 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = "UPDATE Brand SET [Sort]=@Sort,[Name]=@Name,[Logo]=@Logo,[BrandDynamic]=@BrandDynamic,[IsShowDynamic]=@IsShowDynamic,[ShowDynamicSort]=@ShowDynamicSort,[LastUpdateDate]=@LastUpdateDate,[LastUpdateUser]=@LastUpdateUser WHERE [BrandID]=@BrandID";
+                var sql = "UPDATE Brand SET [Sort]=@Sort,[Name]=@Name,[Logo]=@Logo,[BrandDynamic]=@BrandDynamic,[IsShowDynamic]=@IsShowDynamic,[ShowDynamicSort]=@ShowDynamicSort,[LastUpdateDate]=@LastUpdateDate WHERE [BrandID]=@BrandID";
                 var pars = new List<SqlParameter>();
                 pars.Add(new SqlParameter("@BrandID", brand.BrandID));
                 pars.Add(new SqlParameter("@Sort", brand.Sort));
@@ -321,7 +321,7 @@ namespace YunXiu.DAL
                 pars.Add(new SqlParameter("@IsShowDynamic", brand.IsShowDynamic));
                 pars.Add(new SqlParameter("@ShowDynamicSort", brand.ShowDynamicSort));
                 pars.Add(new SqlParameter("@LastUpdateDate", DateTime.Now));
-                pars.Add(new SqlParameter("@LastUpdateUser", brand.LastUpdateUser != null ? brand.LastUpdateUser.UID : 0));
+        
 
                 result = SQLHelper.ExcuteSQL(sql, pars.ToArray()) > 0;
             }

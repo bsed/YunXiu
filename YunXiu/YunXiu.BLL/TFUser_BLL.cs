@@ -13,9 +13,9 @@ namespace YunXiu.BLL
     {
         TFUser_DAL dal = new TFUser_DAL();
 
-        public bool CheckTFUserAccount(string guid)
+        public bool CheckTFUserAccount(string account)
         {
-            return dal.CheckTFUserAccount(guid);
+            return dal.CheckTFUserAccount(account);
         }
 
         public TFUser EmailLogin(string email, string pwd)

@@ -18,18 +18,19 @@ namespace YunXiu.DAL
     {
         string DbCon = Model.Global.GlobalDictionary.GetSysConfVal("TFDbCon");
 
-        public bool CheckTFUserAccount(string guid)
+        public bool CheckTFUserAccount(string account)
         {
             var result = false;
             try
             {
-                var sql = "SELECT COUNT(*) FROM [client_info] WHERE [client_guid]=@ID";
+             
+                var sql = "SELECT COUNT(*) FROM [client_info] WHERE [client_loginname]=@ID";
                 DynamicParameters pars = new DynamicParameters();
-                pars.Add("@ID", guid);
+                pars.Add("@ID", account);
 
                 using (IDbConnection conn = DapperHelper.GetConn(DbCon))
                 {
-                    result = conn.Query<int>(sql).FirstOrDefault() > 0;
+                    result = conn.Query<int>(sql,pars).FirstOrDefault() > 0;
                 }
             }
             catch (Exception ex)
@@ -100,7 +101,7 @@ namespace YunXiu.DAL
             TFUser user = null;
             try
             {
-                var sql = "SELECT [client_guid] FROM [client_info] WHERE [client_loginname]=@client_loginname AND [client_password]=@client_password AND [status]=1";
+                var sql = "SELECT [client_guid] FROM [client_info] WHERE [client_loginname]=@client_loginname AND [client_password]=@client_password ";
                 using (IDbConnection conn = DapperHelper.GetConn(DbCon))
                 {
                     DynamicParameters pars = new DynamicParameters();
@@ -110,7 +111,7 @@ namespace YunXiu.DAL
                     var guidStr = guid.ToString();
                     if (guidStr != null)
                     {
-                        var userInfoSql = string.Format("SELECT * FROM user_info WHERE [client_guid]='{0}'", guid);
+                        var userInfoSql = string.Format("SELECT * FROM user_info WHERE [client_guid]='{0}' AND [status]=1", guid);
                         user = conn.Query<TFUser>(userInfoSql).Single();
                     }
                 }

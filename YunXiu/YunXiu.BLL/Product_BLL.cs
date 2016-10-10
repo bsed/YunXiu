@@ -104,9 +104,9 @@ namespace YunXiu.BLL
             return dal.GetProductByStore(storeID);
         }
 
-        public bool SetProductMainImage(int imgID)
+        public bool SetProductMainImage(int imgID,string imgName,int pID)
         {
-            return dal.SetProductMainImage(imgID);
+            return dal.SetProductMainImage(imgID, imgName, pID);
         }
     }
 }

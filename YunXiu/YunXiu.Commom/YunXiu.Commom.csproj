@@ -77,19 +77,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AES.cs" />
-    <Compile Include="AlipayConfig.cs" />
-    <Compile Include="AlipayCore.cs" />
-    <Compile Include="AlipayNotify.cs" />
-    <Compile Include="AlipaySubmit.cs" />
     <Compile Include="CommomClass.cs" />
     <Compile Include="DapperHelper.cs" />
     <Compile Include="EmailHelper.cs" />
     <Compile Include="KdApi.cs" />
     <Compile Include="LuceneNet.cs" />
-    <Compile Include="MD5.cs" />
     <Compile Include="MQ\MSMQ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security.cs" />
     <Compile Include="SMS\MEILIANSMS.cs" />
     <Compile Include="SQLHelper.cs" />
     <Compile Include="Utilities.cs" />

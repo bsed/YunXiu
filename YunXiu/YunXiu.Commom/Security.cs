@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace YunXiu.Commom
 {
-    /// <summary>
-    /// AES加密解密
-    /// </summary>
-    public class AES
+    public class Security
     {
+        #region AES
         /// <summary>
         /// AES加密
         /// </summary>
@@ -22,7 +20,7 @@ namespace YunXiu.Commom
         {
             byte[] IV = new byte[16];
             byte[] bKey = Encoding.UTF8.GetBytes(Key);
-           // byte[] bIV = Encoding.UTF8.GetBytes(IV);
+            // byte[] bIV = Encoding.UTF8.GetBytes(IV);
             byte[] byteArray = Encoding.UTF8.GetBytes(plainStr);
 
             string encrypt = null;
@@ -62,11 +60,11 @@ namespace YunXiu.Commom
         /// </summary>
         /// <param name="encryptStr">密文字符串</param>
         /// <returns>明文</returns>
-        public static string AESDecrypt(string encryptStr,string Key)
+        public static string AESDecrypt(string encryptStr, string Key)
         {
             byte[] IV = new byte[16];
             byte[] bKey = Encoding.UTF8.GetBytes(Key);
-           // byte[] bIV = Encoding.UTF8.GetBytes(IV);
+            // byte[] bIV = Encoding.UTF8.GetBytes(IV);
             byte[] byteArray = Convert.FromBase64String(encryptStr);
 
             string decrypt = null;
@@ -95,10 +93,32 @@ namespace YunXiu.Commom
         /// <param name="encryptStr">密文字符串</param>
         /// <param name="returnNull">解密失败时是否返回 null，false 返回 String.Empty</param>
         /// <returns>明文</returns>
-        public static string AESDecrypt(string encryptStr, bool returnNull,string Key)
+        public static string AESDecrypt(string encryptStr, bool returnNull, string Key)
         {
             string decrypt = AESDecrypt(encryptStr, Key);
             return returnNull ? decrypt : (decrypt == null ? String.Empty : decrypt);
         }
+        #endregion
+
+        #region MD5
+        /// <summary>
+        /// MD5加密
+        /// </summary>
+        /// <param name="pText"></param>
+        /// <returns></returns>
+        public static string MD5Encrypt(string pText)
+        {
+            var cText = "";
+            byte[] result = Encoding.Default.GetBytes(pText);    //tbPass为输入密码的文本框  
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] output = md5.ComputeHash(result);
+            cText = BitConverter.ToString(output).Replace("-", "");
+            return cText;
+        }
+
+        #endregion
     }
+
+
+
 }

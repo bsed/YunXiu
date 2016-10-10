@@ -15,6 +15,8 @@ namespace YunXiu.Model
         /// </summary>
         public string PName { get; set; }
 
+        public string PKey { get; set; }
+
         /// <summary>
         /// 描述
         /// </summary>

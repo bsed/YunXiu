@@ -17,8 +17,8 @@ namespace YunXiu.DAL
             var imgID =0;
             try
             {
-                var sql = "INSERT INTO ProductImages([PID],[IsMain],[Displayorder],[StoreID]) VALUES(@PID,@ImgID,@IsMain,@Displayorder,@StoreID) SELECT @@IDENTITY ";
-                DynamicParameters pars = new DynamicParameters();
+                var sql = "INSERT INTO ProductImages([PID],[ImgName],[IsMain],[Displayorder],[StoreID]) VALUES(@PID,@ImgName,@IsMain,@Displayorder,@StoreID) SELECT @@IDENTITY ";
+                DynamicParameters pars = new DynamicParameters(img);
                 pars.Add("@PID", img.Product.PID);
                 imgID = DapperHelper.ExecuteScalar(sql, pars);
             }
@@ -34,7 +34,7 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = string.Format("DELETE FROM ProductImage WHERE [PImgID]={0}",piID);
+                var sql = string.Format("DELETE FROM ProductImages WHERE [PImgID]={0}",piID);
                 result = DapperHelper.Execute(sql);
             }
             catch (Exception ex)

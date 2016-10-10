@@ -17,8 +17,7 @@ namespace AccountApi.Controllers
     {
         Lazy<TFUser_BLL> tfUserBll = new Lazy<TFUser_BLL>();
         Lazy<User_BLL> userBll = new Lazy<User_BLL>();
-        Lazy<ShoppingCart_BLL> shoppingCartBll = new Lazy<ShoppingCart_BLL>();
-        Lazy<FavoriteProduct_BLL> fProductBll = new Lazy<FavoriteProduct_BLL>();
+        Lazy<Permission_BLL> permissionBll= new Lazy<Permission_BLL>();
         #region 用户
         /// <summary>
         /// 用户登录(目前只支持一种登录方法(账号))
@@ -37,24 +36,25 @@ namespace AccountApi.Controllers
                 {
                     var account = dic["account"];//登录账号
                     var pwd = dic["pwd"];//密码
+                    var cText = Security.MD5Encrypt(pwd);
                     var isExist = tfUserBll.Value.CheckTFUserAccount(account);//查看账号是否存在
                     if (isExist)
                     {
-                        tfUser = tfUserBll.Value.Login(account, pwd);
+                        tfUser = tfUserBll.Value.Login(account, cText);
                         if (tfUser != null)
                         {
                             var user = userBll.Value.GetUserByID(tfUser.client_guid.ToString());
+                           
                             if (user == null)//商城用户不存在则创建
                             {
-                                userBll.Value.CreateUser(tfUser.client_guid.ToString());
-                                user = new User
-                                {
-                                    client_guid = tfUser.client_guid
-                                };
+                                user = new User();
+                                user.UID=userBll.Value.CreateUser(tfUser.client_guid.ToString());
+                                user.client_guid = tfUser.client_guid;                               
                             }
                             info.LoginState = 1;
                             info.User = user;
-                            user.TFUser = tfUser;
+                            info.User.TFUser = tfUser;
+                            info.User.Permissions= permissionBll.Value.GetPermissionByUser(user.UID);
                         }
                         else
                         {
@@ -120,96 +120,6 @@ namespace AccountApi.Controllers
         }
         #endregion
 
-        #region 购物车
-        [HttpPost]
-        /// <summary>
-        /// 添加商品到购物车
-        /// </summary>
-        /// <returns></returns>
-        public HttpResponseMessage AddProductToShoppingCart()
-        {
-            HttpResponseMessage response = null;
-            var result = false;
-            try
-            {
-                var sc = WebCommom.HttpRequestBodyConvertToObj<ShoppingCart>(HttpContext.Current);
-                result = shoppingCartBll.Value.AddProductToShoppingCart(sc);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            response = WebCommom.GetResponse(result);
-            return response;
-        }
-
-        [HttpPost]
-        /// <summary>
-        /// 删除购物车商品
-        /// </summary>
-        /// <returns></returns>
-        public HttpResponseMessage DeleteShoppingCartProduct()
-        {
-            HttpResponseMessage response = null;
-            try
-            {
-                var pID = new List<int>();
-                var result = shoppingCartBll.Value.DeleteShoppingCartProduct(pID);
-                response = WebCommom.GetResponse(result);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return response;
-        }
-
-        [HttpPost]
-        /// <summary>
-        /// 根据用户ID获取购物车商品
-        /// </summary>
-        /// <returns></returns>
-        public HttpResponseMessage GetShoppingCartByUserID()
-        {
-            HttpResponseMessage response = null;
-            try
-            {
-                var userID = 0;
-                var list = shoppingCartBll.Value.GetShoppingCartByUserID(userID);
-                var result = JsonConvert.SerializeObject(list);
-                response = WebCommom.GetJsonResponse(result);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return response;
-        }
-
-
-        [HttpPost]
-        public HttpResponseMessage AddFavoriteProduct()
-        {
-            HttpResponseMessage response = null;
-            var result = false;
-            try
-            {
-                var fProduct = WebCommom.HttpRequestBodyConvertToObj<FavoriteProduct>(HttpContext.Current);
-                if (fProduct != null)
-                {
-                    result = fProductBll.Value.AddFavoriteProduct(fProduct);
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            response = WebCommom.GetResponse(result);
-            return response;
-        }
-
-
-
-        #endregion
+   
     }
 }

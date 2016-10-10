@@ -17,7 +17,7 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = "INSERT INTO Permission([PName],[Describe],[CreateDate]) VALUES(@PName,@Describe,GETDATE())";
+                var sql = "INSERT INTO Permission([PName],p.[PKey],[Describe],[CreateDate]) VALUES(@PName,@Describe,GETDATE())";
                 result = DapperHelper.Execute(sql, permission);
             }
             catch (Exception ex)
@@ -47,7 +47,7 @@ namespace YunXiu.DAL
             List<Permission> list = null;
             try
             {
-                var sql = "SELECT [PID],[PName],[Describe],[CreateDate] FROM Permission";
+                var sql = "SELECT [PID],[PName],[PKey],[Describe],[CreateDate] FROM Permission";
                 list = DapperHelper.Query<Permission>(sql);
             }
             catch (Exception ex)
@@ -63,7 +63,7 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT p.[PID],p.[PName],p.[Describe],p.[CreateDate] FROM RolePermission rp ");
+                sql.Append("SELECT p.[PID],p.[PName],p.[PKey],p.[Describe],p.[CreateDate] FROM RolePermission rp ");
                 sql.Append("LEFT JOIN Permission p ON p.[PID] = rp.[PID] ");
                 sql.Append(string.Format("WHERE rp.[RID]={0}", rID));
                 list = DapperHelper.Query<Permission>(sql.ToString());
@@ -81,9 +81,9 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT p.[PID],p.[PName],p.[Describe],p.[CreateDate] FROM UserPermission up ");
+                sql.Append("SELECT p.[PID],p.[PName],p.[PKey],p.[Describe],p.[CreateDate] FROM UserPermission up ");
                 sql.Append("LEFT JOIN Permission p ON p.[PID] = up.[PID] ");
-                sql.Append(string.Format("WHERE rp.[UID]={0}", uID));
+                sql.Append(string.Format("WHERE up.[UID]={0}", uID));
                 list = DapperHelper.Query<Permission>(sql.ToString());
             }
             catch (Exception ex)
@@ -98,7 +98,7 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = "UPDATE Permission SET [PName]=@PName,[Describe]=@Describe WHERE [PID]=@PID";
+                var sql = "UPDATE Permission SET [PName]=@PName,[PKey]=@PKey,[Describe]=@Describe WHERE [PID]=@PID";
                 result = DapperHelper.Execute(sql, permission);
             }
             catch (Exception ex)

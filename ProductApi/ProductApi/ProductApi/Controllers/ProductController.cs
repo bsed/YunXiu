@@ -533,7 +533,7 @@ namespace ProductApi.Controllers
                 var pID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
                 list = reviewBll.Value.GetProductReviewByProductID(pID);
                 var guidList = GetProductReviewGuid(list).Distinct().ToList();
-                var tfUser = JsonConvert.DeserializeObject<List<TFUser>>(CommomClass.HttpPost(string.Format("{0}/Account/GetTFUser",accountApi), JsonConvert.SerializeObject(guidList)));
+                var tfUser = JsonConvert.DeserializeObject<List<TFUser>>(CommomClass.HttpPost(string.Format("{0}/Account/GetTFUser", accountApi), JsonConvert.SerializeObject(guidList)));
 
                 for (var i = 0; i < list.Count; i++)
                 {
@@ -605,10 +605,13 @@ namespace ProductApi.Controllers
             var result = false;
             try
             {
-                var imgID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
-                if (imgID != 0)
+                var dic = WebCommom.HttpRequestBodyConvertToObj<Dictionary<string, string>>(HttpContext.Current);
+                if (dic.Count != 0)
                 {
-                    result = bll.Value.SetProductMainImage(imgID);
+                    var imgID =Convert.ToInt32(dic["imgID"]);
+                    var imgName = dic["imgName"];                
+                    var pID = Convert.ToInt32(dic["pID"]);
+                    result = bll.Value.SetProductMainImage(imgID, imgName, pID);
                 }
             }
             catch (Exception ex)
@@ -634,6 +637,24 @@ namespace ProductApi.Controllers
             }
             catch (Exception ex) { }
             response = WebCommom.GetResponse(imgID);
+            return response;
+        }
+
+        [HttpPost]
+        public HttpResponseMessage DeleteProductImg()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var imgID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                result = imgBll.Value.DeleteProductImg(imgID);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetResponse(result);
             return response;
         }
         #endregion

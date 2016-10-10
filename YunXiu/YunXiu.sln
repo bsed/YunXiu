@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunXiu.Commom", "YunXiu.Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunXiu.Interface", "YunXiu.Interface\YunXiu.Interface.csproj", "{299619C1-6D8C-4BCD-BB1F-2F4398AFCDF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunXiu.Cache", "YunXiu.Cache\YunXiu.Cache.csproj", "{89AF804C-A506-4010-A22E-8C8D6DCE35F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunXiu.Cache", "YunXiu.Cache\YunXiu.Cache.csproj", "{F3FEF4D0-A470-4B79-975B-AB297F48E998}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,13 +41,12 @@ Global
 		{299619C1-6D8C-4BCD-BB1F-2F4398AFCDF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{299619C1-6D8C-4BCD-BB1F-2F4398AFCDF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{299619C1-6D8C-4BCD-BB1F-2F4398AFCDF9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{89AF804C-A506-4010-A22E-8C8D6DCE35F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89AF804C-A506-4010-A22E-8C8D6DCE35F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89AF804C-A506-4010-A22E-8C8D6DCE35F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89AF804C-A506-4010-A22E-8C8D6DCE35F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3FEF4D0-A470-4B79-975B-AB297F48E998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3FEF4D0-A470-4B79-975B-AB297F48E998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3FEF4D0-A470-4B79-975B-AB297F48E998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3FEF4D0-A470-4B79-975B-AB297F48E998}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	
 EndGlobal

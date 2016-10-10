@@ -62,6 +62,6 @@ namespace YunXiu.Interface
 
         List<Product> GetProductByStore(int storeID);
 
-        bool SetProductMainImage(int imgID);
+        bool SetProductMainImage(int imgID,string imgName,int pID);
     }
 }

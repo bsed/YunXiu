@@ -262,6 +262,7 @@
     <Compile Include="Controllers\ProductConsultController.cs" />
     <Compile Include="Controllers\SMSController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

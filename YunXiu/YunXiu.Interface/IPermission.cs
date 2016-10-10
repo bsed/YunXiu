@@ -20,5 +20,7 @@ namespace YunXiu.Interface
         List<Permission> GetPermissionByRole(int rID);
 
         List<Permission> GetPermissionByUser(int uID);
+
+     
     }
 }

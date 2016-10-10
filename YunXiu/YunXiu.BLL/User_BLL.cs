@@ -14,7 +14,7 @@ namespace YunXiu.BLL
     {
         User_DAL dal = new User_DAL();
 
-        public bool CreateUser(string guid)
+        public int CreateUser(string guid)
         {
             return dal.CreateUser(guid);
         }

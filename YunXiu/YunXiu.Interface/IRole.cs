@@ -16,5 +16,9 @@ namespace YunXiu.Interface
         bool DeleteRole(int rID);
 
         List<Role> GetRole();
+
+        bool AddRolePermission(int rID, int pID);
+
+        bool DeleteRolePermission(int rpID);
     }
 }
