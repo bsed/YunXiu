@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using YunXiu.Interface;
 using YunXiu.Model;
 using YunXiu.Commom;
-
+using Dapper;
 
 namespace YunXiu.DAL
 {
@@ -18,7 +18,9 @@ namespace YunXiu.DAL
             try
             {
                 var sql = "UPDATE StoreHome SET [HomeHtml]=@HomeHtml WHERE StoreID=@StoreID";
-                result = DapperHelper.Execute(sql, home);
+                DynamicParameters pars = new DynamicParameters(home);
+                pars.Add("@StoreID", home.Store.StoreID);
+                result = DapperHelper.Execute(sql, pars);
             }
             catch (Exception ex)
             {

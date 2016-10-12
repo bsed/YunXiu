@@ -17,9 +17,34 @@ namespace YunXiu.BLL
             return dal.AddPermission(permission);
         }
 
+        public bool AddRolePermission(int rID, int pID)
+        {
+            return dal.AddRolePermission(rID,pID);
+        }
+
+        public bool AddUserPermission(int uID, int pID)
+        {
+            return dal.AddUserPermission(uID,pID);
+        }
+
+        public bool DeleteMultipleUserPermission(List<int> uIDList, int pID)
+        {
+            return dal.DeleteMultipleUserPermission(uIDList,pID);
+        }
+
         public bool DeletePermission(int pID)
         {
             return dal.DeletePermission(pID);
+        }
+
+        public bool DeleteRolePermission(int rID, int pID)
+        {
+            return dal.DeleteRolePermission(rID,pID);
+        }
+
+        public bool DeleteUserPermission(int uID, int pID)
+        {
+            return dal.DeleteUserPermission(uID,pID);
         }
 
         public List<Permission> GetPermission()

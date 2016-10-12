@@ -17,7 +17,7 @@ namespace AccountApi.Controllers
     {
         Lazy<TFUser_BLL> tfUserBll = new Lazy<TFUser_BLL>();
         Lazy<User_BLL> userBll = new Lazy<User_BLL>();
-        Lazy<Permission_BLL> permissionBll= new Lazy<Permission_BLL>();
+        Lazy<Permission_BLL> permissionBll = new Lazy<Permission_BLL>();
         #region 用户
         /// <summary>
         /// 用户登录(目前只支持一种登录方法(账号))
@@ -43,18 +43,18 @@ namespace AccountApi.Controllers
                         tfUser = tfUserBll.Value.Login(account, cText);
                         if (tfUser != null)
                         {
-                            var user = userBll.Value.GetUserByID(tfUser.client_guid.ToString());
-                           
+                            var user = userBll.Value.GetUserByTFID(tfUser.client_guid.ToString());
+
                             if (user == null)//商城用户不存在则创建
                             {
                                 user = new User();
-                                user.UID=userBll.Value.CreateUser(tfUser.client_guid.ToString());
-                                user.client_guid = tfUser.client_guid;                               
+                                user.UID = userBll.Value.CreateUser(tfUser.client_guid.ToString());
+                                user.client_guid = tfUser.client_guid;
                             }
                             info.LoginState = 1;
                             info.User = user;
                             info.User.TFUser = tfUser;
-                            info.User.Permissions= permissionBll.Value.GetPermissionByUser(user.UID);
+                            info.User.Permissions = permissionBll.Value.GetPermissionByUser(user.UID);
                         }
                         else
                         {
@@ -118,8 +118,66 @@ namespace AccountApi.Controllers
             response = WebCommom.GetJsonResponse(user);
             return response;
         }
+
+        /// <summary>
+        /// 获取用户信息 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetUser()
+        {
+            HttpResponseMessage response = null;
+            List<User> list = null;
+            try
+            {
+                var tempList = new List<string>();//用户GUID
+                list = userBll.Value.GetUser();
+                list.ForEach(u => tempList.Add(u.client_guid.ToString()));
+                var tfUserList = tfUserBll.Value.GetTFUser(tempList);
+                for (var i = 0; i < list.Count; i++)
+                {
+                    list[i].TFUser = tfUserList.Where(tf => tf.client_guid == list[i].client_guid).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(list);
+            return response;
+        }
+
+        /// <summary>
+        /// 根据ID获取用户信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetUserByID()
+        {
+            HttpResponseMessage response = null;
+            User user = null;
+            try
+            {
+                var uid = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                if (uid != 0)
+                {
+                    user = userBll.Value.GetUserByID(uid);
+                    if (user != null)
+                    {
+                        user.TFUser = tfUserBll.Value.GetTFUserByGUID(user.client_guid.ToString());
+                        user.Permissions = permissionBll.Value.GetPermissionByUser(user.UID);
+                    }
+                }                             
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(user);
+            return response;
+        }
         #endregion
 
-   
+
     }
 }

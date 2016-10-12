@@ -14,7 +14,9 @@ namespace YunXiu.Interface
 
         List<User> GetMultiUserByID(List<string> guid);
 
-        User GetUserByID(string guid);
+        User GetUserByTFID(string guid);
+
+        User GetUserByID(int uid);
 
         int CreateUser(string guid);
     }

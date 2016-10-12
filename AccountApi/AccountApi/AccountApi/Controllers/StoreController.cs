@@ -191,7 +191,12 @@ namespace AccountApi.Controllers
             try
             {
                 var home = WebCommom.HttpRequestBodyConvertToObj<StoreHome>(HttpContext.Current);
-                result = storeHomeBll.Value.UpdateStoreHome(home);
+                if (home != null)
+                {
+                    home.HomeHtml = HttpUtility.UrlDecode(home.HomeHtml);
+                    result = storeHomeBll.Value.UpdateStoreHome(home);
+                }
+             
             }
             catch (Exception ex) { }
             response = WebCommom.GetResponse(result);

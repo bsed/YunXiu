@@ -10,7 +10,7 @@ using YunXiu.Model;
 
 namespace YunXiu.BLL
 {
-    public class User_BLL:IUser
+    public class User_BLL : IUser
     {
         User_DAL dal = new User_DAL();
 
@@ -29,9 +29,14 @@ namespace YunXiu.BLL
             return dal.GetUser();
         }
 
-        public User GetUserByID(string guid)
+        public User GetUserByID(int uid)
         {
-            return dal.GetUserByID(guid);
+            return dal.GetUserByID(uid);
+        }
+
+        public User GetUserByTFID(string guid)
+        {
+            return dal.GetUserByTFID(guid);
         }
     }
 }

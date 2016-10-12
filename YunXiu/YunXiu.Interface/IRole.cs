@@ -11,14 +11,17 @@ namespace YunXiu.Interface
     {
         bool AddRole(Role role);
 
+        bool AddUserRole(int uID,int rID);
+
         bool UpdateRole(Role role);
 
         bool DeleteRole(int rID);
 
         List<Role> GetRole();
 
-        bool AddRolePermission(int rID, int pID);
+        List<Role> GetRoleByUser(int uID);
 
-        bool DeleteRolePermission(int rpID);
+        List<User> GetUserByRole(int rID);
+
     }
 }

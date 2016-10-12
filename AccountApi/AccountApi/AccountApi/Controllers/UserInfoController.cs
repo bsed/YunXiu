@@ -16,6 +16,8 @@ namespace AccountApi.Controllers
     {
         Lazy<ShoppingCart_BLL> shoppingCartBll = new Lazy<ShoppingCart_BLL>();
         Lazy<FavoriteProduct_BLL> fProductBll = new Lazy<FavoriteProduct_BLL>();
+        Lazy<ReceiptAddress_BLL> rAddrBll = new Lazy<ReceiptAddress_BLL>();
+        Lazy<ProductReview_BLL> reviewBll = new Lazy<ProductReview_BLL>();
 
         #region 购物车
         [HttpPost]
@@ -105,7 +107,143 @@ namespace AccountApi.Controllers
             return response;
         }
 
+        /// <summary>
+        /// 获取用户收藏商品
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetFavoriteProduct()
+        {
+            HttpResponseMessage response = null;
+            List<Product> list = null;
+            try
+            {
+                var uid = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                list = fProductBll.Value.GetFavoriteProduct(uid);
+            }
+            catch (Exception ex)
+            {
 
+            }
+            response = WebCommom.GetJsonResponse(list);
+            return response;
+        }
+
+        /// <summary>
+        /// 获取收货地址
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetReceiptAddress()
+        {
+            HttpResponseMessage response = null;
+            List<ReceiptAddress> list = null;
+            try
+            {
+                var uID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                list = rAddrBll.Value.GetReceiptAddress(uID);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(list);
+            return response;
+        }
+
+        /// <summary>
+        /// 添加收货地址
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage AddReceiptAddress()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var addr = WebCommom.HttpRequestBodyConvertToObj<ReceiptAddress>(HttpContext.Current);
+                result = rAddrBll.Value.AddReceiptAddress(addr);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(result);
+            return response;
+
+        }
+
+        /// <summary>
+        /// 修改收货地址
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage UpdateReceiptAddress()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var addr = WebCommom.HttpRequestBodyConvertToObj<ReceiptAddress>(HttpContext.Current);
+                result = rAddrBll.Value.UpdateReceiptAddress(addr);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(result);
+            return response;
+
+        }
+
+        /// <summary>
+        /// 删除收货地址
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage DeleteReceiptAddress()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            try
+            {
+                var rID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                result = rAddrBll.Value.DeleteReceiptAddress(rID);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(result);
+            return response;
+
+        }
+
+        /// <summary>
+        /// 获取用户产品评价
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetProductReviewByUser()
+        {
+            HttpResponseMessage response = null;
+            List<ProductReview> list = null;
+            try
+            {
+                var uid = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                if (uid != 0)
+                {
+                    list = reviewBll.Value.GetProductReviewByUserID(uid);
+                }             
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(list);
+            return response;
+        }
 
         #endregion
     }

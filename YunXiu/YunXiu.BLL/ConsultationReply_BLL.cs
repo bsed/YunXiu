@@ -27,6 +27,11 @@ namespace YunXiu.BLL
             return dal.GetConsultationReplyByProduct(pID);
         }
 
+        public List<ConsultationReply> GetConsultationReplyByUser(int uID)
+        {
+            return dal.GetConsultationReplyByUser(uID);
+        }
+
         public bool UpdateConsultationReply(ConsultationReply reply)
         {
             return dal.UpdateConsultationReply(reply);

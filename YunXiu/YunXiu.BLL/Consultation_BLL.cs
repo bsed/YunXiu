@@ -26,5 +26,10 @@ namespace YunXiu.BLL
         {
             return dal.GetConsultationByProduct(pID);
         }
+
+        public List<Consultation> GetConsultationByUser(int uID)
+        {
+            return dal.GetConsultationByUser(uID);
+        }
     }
 }

@@ -65,31 +65,9 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT [User],[Addr],[ZipCode],[ConsigneeName],[ConsigneePhone],[Region],[Province],[City],[District],[Street],");
-                sql.Append(string.Format("[IsDefault],[CreateDate],[CreateUser] FROM ReceiptAddress WHERE USER={0}", userID));
-
-                var dt = SQLHelper.GetTable(sql.ToString());
-                #region 提取数据
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    var obj = new ReceiptAddress
-                    {
-                        User = new User { },
-                        Addr = Convert.IsDBNull(dt.Rows[i]["Addr"]) ? "" : Convert.ToString(dt.Rows[i]["Addr"]),
-                        ZipCode = Convert.IsDBNull(dt.Rows[i]["ZipCode"]) ? "" : Convert.ToString(dt.Rows[i]["ZipCode"]),
-                        ConsigneeName = Convert.IsDBNull(dt.Rows[i]["ConsigneeName"]) ? "" : Convert.ToString(dt.Rows[i]["ConsigneeName"]),
-                        ConsigneePhone = Convert.IsDBNull(dt.Rows[i]["Addr"]) ? "" : Convert.ToString(dt.Rows[i]["Addr"]),
-                        Region = Convert.IsDBNull(dt.Rows[i]["Region"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Region"]),
-                        Province = Convert.IsDBNull(dt.Rows[i]["Province"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Province"]),
-                        City = Convert.IsDBNull(dt.Rows[i]["City"]) ? 0 : Convert.ToInt32(dt.Rows[i]["City"]),
-                        District = Convert.IsDBNull(dt.Rows[i]["District"]) ? 0 : Convert.ToInt32(dt.Rows[i]["District"]),
-                        Street = Convert.IsDBNull(dt.Rows[i]["Street"]) ? 0 : Convert.ToInt32(dt.Rows[i]["Street"]),
-                        IsDefault = Convert.IsDBNull(dt.Rows[i]["IsDefault"]) ? false : Convert.ToBoolean(dt.Rows[i]["IsDefault"]),
-                        CreateDate = Convert.IsDBNull(dt.Rows[i]["CreateDate"]) ? new DateTime() : Convert.ToDateTime(dt.Rows[i]["CreateDate"]),
-                    };
-                    list.Add(obj);
-                }
-                #endregion
+                sql.Append("SELECT [ID],[Addr],[ZipCode],[ConsigneeName],[ConsigneePhone],[Region],[Province],[City],[District],[Street],");
+                sql.Append(string.Format("[IsDefault],[CreateDate] FROM ReceiptAddress WHERE UserID={0}", userID));
+                list = DapperHelper.Query<ReceiptAddress>(sql.ToString());
             }
             catch (Exception ex)
             {

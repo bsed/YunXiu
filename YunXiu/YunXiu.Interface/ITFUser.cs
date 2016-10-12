@@ -11,7 +11,7 @@ namespace YunXiu.Interface
     {
         TFUser Login(string account, string pwd);
 
-        TFUser GetTFUserByID(int uid);
+        TFUser GetTFUserByGUID(string guid);
 
         TFUser EmailLogin(string email, string pwd);
 

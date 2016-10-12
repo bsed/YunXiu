@@ -30,17 +30,12 @@ namespace OrderApi
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             #region  初始化配置
-            var sysConfPath = Server.MapPath("/App_Data/SysConfKey.xml");
+            var sysConfPath = Server.MapPath("/App_Data/SysConf.xml");
             var SMSConfPath = Server.MapPath("/App_Data/SMSConfig.xml");
             ThreadPool.QueueUserWorkItem(o =>
             {
                 #region 系统配置
-                var keys = YunXiu.Commom.CommomClass.GetXmlNodeValue(sysConfPath, "/keys/key");
-                var isLoad = YunXiu.Commom.CommomClass.LoadConfigDictionary(keys);
-                if (!isLoad)
-                {
-                    //如果配置没有加载成功通知运维
-                }
+                GlobalDictionary.SysConfDictionary = CommomClass.GetXmlNodeVal(sysConfPath, "/Sys");
                 #endregion
 
                 #region 短信供应商配置
@@ -59,23 +54,23 @@ namespace OrderApi
             #endregion
 
             #region 读取MQ的订单(MSMQ)
-            MSMQ m = new MSMQ
-            {
-                MSMQIP = "192.168.9.32",
-                MSMQName = "orderQueue"
-            };
+            //MSMQ m = new MSMQ
+            //{
+            //    MSMQIP = "192.168.9.32",
+            //    MSMQName = "orderQueue"
+            //};
 
-            ThreadPool.QueueUserWorkItem(o =>
-            {
-                while (true)
-                {
-                    Thread.Sleep(100);
-                    m.BeginReceive("", "");
-                    m.receiveComplete += MQMQReceiveComplete;
-                }
+            //ThreadPool.QueueUserWorkItem(o =>
+            //{
+            //    while (true)
+            //    {
+            //        Thread.Sleep(100);
+            //        m.BeginReceive("", "");
+            //        m.receiveComplete += MQMQReceiveComplete;
+            //    }
 
 
-            });
+            //});
             #endregion
         }
 

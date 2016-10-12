@@ -476,6 +476,32 @@ namespace ProductApi.Controllers
         }
 
         /// <summary>
+        /// 获取用户的产品咨询和回复
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetConsultationByUser()
+        {
+            HttpResponseMessage response = null;
+            ConsultationResult result = new ConsultationResult();
+            try
+            {
+                var uID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                if (uID != 0)
+                {
+                    result.ConsultationList = cBll.Value.GetConsultationByUser(uID);
+                    result.ReplyList = cReplyBll.Value.GetConsultationReplyByUser(uID);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(result);
+            return response;
+        }
+
+        /// <summary>
         /// 添加产品咨询
         /// </summary>
         /// <returns></returns>
@@ -547,6 +573,8 @@ namespace ProductApi.Controllers
             response = WebCommom.GetResponse(list);
             return response;
         }
+
+
         #endregion
 
         #region 库存

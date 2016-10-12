@@ -58,7 +58,6 @@
     <Compile Include="Category.cs" />
     <Compile Include="Certificate.cs" />
     <Compile Include="CertificateType.cs" />
-    <Compile Include="Class.cs" />
     <Compile Include="Consultation.cs" />
     <Compile Include="ConsultationReply.cs" />
     <Compile Include="ConsultationResult.cs" />

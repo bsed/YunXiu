@@ -93,6 +93,36 @@ namespace YunXiu.DAL
             return list;
         }
 
+        public bool AddRolePermission(int rID, int pID)
+        {
+            var result = false;
+            try
+            {
+                var sql = string.Format("INSERT INTO RolePermission([RID],[PID]) VALUES({0},{1})", rID, pID);
+                result = DapperHelper.Execute(sql);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        public bool AddUserPermission(int uID, int pID)
+        {
+            var result = false;
+            try
+            {
+                var sql = string.Format("INSERT INTO UserPermission([PID],[UID]) VALUES({0},{1})", uID, pID);
+                result = DapperHelper.Execute(sql);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
         public bool UpdatePermission(Permission permission)
         {
             var result = false;
@@ -105,6 +135,44 @@ namespace YunXiu.DAL
             {
 
             }
+            return result;
+        }
+
+        public bool DeleteRolePermission(int rID, int pID)
+        {
+            var result = false;
+            try
+            {
+                var sql = string.Format("DELETE FROM RolePermission WHERE [RID]={0} AND [PID]={1}", rID, pID);
+                result = DapperHelper.Execute(sql);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        public bool DeleteUserPermission(int uID, int pID)
+        {
+            var result = false;
+            try
+            {
+                var sql = string.Format("DELETE FROM UserPermission WHERE [UID]={0} AND [PID]={1}", uID, pID);
+                result = DapperHelper.Execute(sql);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        public bool DeleteMultipleUserPermission(List<int> uIDList, int pID)
+        {
+            var result = false;
+            var sql = string.Format("DELETE FROM UserPermission WHERE [UID]= IN {0} AND [PID]={1}", string.Join(",", uIDList), pID);
+            result = DapperHelper.Execute(sql);
             return result;
         }
     }

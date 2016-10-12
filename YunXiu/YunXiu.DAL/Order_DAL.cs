@@ -65,14 +65,14 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT o.[OID],o.[OSN],o.[OrderState],o.[CreateDate],ra.[ID],ra.[Addr],ra.[ZipCode],ra.[ConsigneeName],p.[PID],p.[Name],p.[ImgID] FROM [Order] o");               
-                sql.Append("LEFT JOIN ReceiptAddress ra ON ra.[ID] = o.[ReceiptAddressID]");
-                sql.Append("LEFT JOIN Product p ON p.[PID] = o.[BuyProductID]");
-                sql.Append(string.Format("WHERE o.[BuyUserID] = {0}", userID));
+                sql.Append("SELECT o.[OID],o.[OSN],o.[OrderState],o.[CreateDate],ra.[ID],ra.[Addr],ra.[ZipCode],ra.[ConsigneeName],p.[PID],p.[Name],p.[ImgID] FROM [Order] o ");
+                sql.Append("LEFT JOIN ReceiptAddress ra ON ra.[ID] = o.[ReceiptAddressID] ");
+                sql.Append("LEFT JOIN Product p ON p.[PID] = o.[BuyProductID] ");
+                sql.Append(string.Format("WHERE o.[BuyUserID] = {0} ", userID));
                 using (IDbConnection conn = DapperHelper.GetDbConnection())
                 {
                     list = conn.Query<Order, ReceiptAddress, Product, Order>(sql.ToString(),
-                        (o,ra,p)=>
+                        (o, ra, p) =>
                         {
                             o.ReceiptAddress = ra;
                             o.BuyProduct = p;

@@ -306,8 +306,10 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = string.Format("DELETE FROM Product WHERE PID={0}", pID);
-                result = SQLHelper.ExcuteSQL(sql) > 0;
+                DynamicParameters pars = new DynamicParameters();
+                pars.Add("@PID",pID);
+                var procName = "DeleteProductImg";
+                result = DapperHelper.ExecuteProc(procName, pars) > 0;
             }
             catch (Exception ex)
             {

@@ -18,9 +18,10 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = "INSERT INTO ConsultationReply([RContent],[RConsultationID],[RProductID],[CreateDate]) VALUES(@RContent,@RConsultationID,@RProductID,GETDATE())";
+                var sql = "INSERT INTO ConsultationReply([RContent],[RUserID],[RConsultationID],[RProductID],[CreateDate]) VALUES(@RContent,@RUserID,@RConsultationID,@RProductID,GETDATE())";
                 DynamicParameters pars = new DynamicParameters();
                 pars.Add("@RContent",reply.RContent);
+                pars.Add("@RUserID", reply.RUser.UID);
                 pars.Add("@RConsultationID", reply.RConsultation.ID);
                 pars.Add("@RProductID", reply.RProduct.PID);
                 result = DapperHelper.Execute(sql,pars);
@@ -44,24 +45,63 @@ namespace YunXiu.DAL
             {
                 var str = "PID,CreateDate,ID";
                 var sql = new StringBuilder();
-                sql.Append("SELECT r.[RID],r.[RContent],r.[CreateDate],p.[PID],p.[Name],p.[ImgID],c.[ID],c.[CContent] FROM ConsultationReply r ");
+                sql.Append("SELECT r.[RID],r.[RContent],r.[CreateDate],p.[PID],p.[Name],p.[ImgID],c.[ID],c.[CContent],u.[UID],u.[client_guid] FROM ConsultationReply r ");
                 sql.Append("LEFT JOIN Product p ON r.[RProductID]=p.[PID] ");
                 sql.Append("LEFT JOIN Consultation c ON r.[RConsultationID]= c.[ID] ");
+                sql.Append("LEFT JOIN [User] u ON u.[UID]= r.[RUserID] ");
                 sql.Append(string.Format("WHERE r.[RProductID]={0}", pID));
 
                 using (IDbConnection conn = DapperHelper.GetDbConnection())
                 {
-                    list = conn.Query<ConsultationReply, Product, Consultation, ConsultationReply>(sql.ToString(),
-                        (r, p, c) =>
+                    list = conn.Query<ConsultationReply, Product, Consultation,User, ConsultationReply>(sql.ToString(),
+                        (r, p, c,u) =>
                         {
                             r.RProduct= p;
                             r.RConsultation = c;
+                            r.RUser = u;
                             return r;
                         },
                         null,
                         null,
                         true,
                         str,
+                        null,
+                        null).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+
+        public List<ConsultationReply> GetConsultationReplyByUser(int uID)
+        {
+            List<ConsultationReply> list = null;
+            try
+            {            
+                var sql = new StringBuilder();
+                sql.Append("SELECT r.[RID],r.[RContent],r.[CreateDate],p.[PID],p.[Name],p.[ImgID],c.[ID],c.[CContent],u.[UID],u.[client_guid] FROM ConsultationReply r ");
+                sql.Append("LEFT JOIN Product p ON r.[RProductID]=p.[PID] ");
+                sql.Append("LEFT JOIN Consultation c ON r.[RConsultationID]= c.[ID] ");
+                sql.Append("LEFT JOIN [User] u ON u.[UID]= r.[RUserID] ");
+                sql.Append(string.Format("WHERE r.[RUesrID]={0}", uID));
+
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
+                {
+                    list = conn.Query<ConsultationReply, Product, Consultation, User, ConsultationReply>(sql.ToString(),
+                        (r, p, c, u) =>
+                        {
+                            r.RProduct = p;
+                            r.RConsultation = c;
+                            r.RUser = u;
+                            return r;
+                        },
+                        null,
+                        null,
+                        true,
+                        "RID,PID,ID,UID",
                         null,
                         null).ToList();
                 }

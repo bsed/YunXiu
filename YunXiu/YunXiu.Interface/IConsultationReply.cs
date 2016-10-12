@@ -16,5 +16,7 @@ namespace YunXiu.Interface
         bool DeleteConsultationReply(int rID);
 
         List<ConsultationReply> GetConsultationReplyByProduct(int pID);
+
+        List<ConsultationReply> GetConsultationReplyByUser(int uID);
     }
 }

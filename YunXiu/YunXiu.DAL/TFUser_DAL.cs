@@ -76,17 +76,17 @@ namespace YunXiu.DAL
             return list;
         }
 
-        public TFUser GetTFUserByID(int uid)
+        public TFUser GetTFUserByGUID(string guid)
         {
             TFUser user = null;
             try
             {
-                var sql = "SELECT * FROM TFUser WHERE [client_guid] WHERE =@uid";
+                var sql = "SELECT * FROM TFUser WHERE [client_guid]=@guid";
                 DynamicParameters pars = new DynamicParameters();
-                pars.Add("@uid", uid);
+                pars.Add("@guid", guid);
                 using (IDbConnection conn = DapperHelper.GetConn(DbCon))
                 {
-                    user = conn.Query<TFUser>(sql, pars).SingleOrDefault();
+                    user = conn.Query<TFUser>(sql, pars).FirstOrDefault();
                 }
             }
             catch (Exception ex)

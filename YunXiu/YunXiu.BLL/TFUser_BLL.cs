@@ -28,9 +28,9 @@ namespace YunXiu.BLL
             return dal.GetTFUser(uIDList);
         }
 
-        public TFUser GetTFUserByID(int uid)
+        public TFUser GetTFUserByGUID(string guid)
         {
-            return dal.GetTFUserByID(uid);
+            return dal.GetTFUserByGUID(guid);
         }
 
         public TFUser Login(string account, string pwd)

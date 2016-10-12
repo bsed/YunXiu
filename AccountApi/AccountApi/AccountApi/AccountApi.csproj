@@ -259,7 +259,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MallController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
-    <Compile Include="Controllers\ProductConsultController.cs" />
     <Compile Include="Controllers\SMSController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />

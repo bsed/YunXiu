@@ -78,7 +78,36 @@ namespace YunXiu.DAL
 
         public List<ProductReview> GetProductReviewByUserID(int uID)
         {
-            throw new NotImplementedException();
+            List<ProductReview> list = null;
+            try
+            {
+                var sql = new StringBuilder();
+                sql.Append("SELECT pr.[RID],pr.[Star],pr.[RContent],pr.[ReviewTime],pr.[Parent],pr.[IsStoreReply],pr.[LikeCount],u.[UID],u.[client_guid],p.[PID],p.[Name],o.[OID] FROM ProductReview pr ");
+                sql.Append("LEFT JOIN [User] u ON u.[UID]=pr.[RUserID] ");
+                sql.Append("LEFT JOIN Product p ON p.[PID]=pr.[RProductID] ");
+                sql.Append("LEFT JOIN [Order] o ON o.[OID]=pr.[ROrderID] ");
+                sql.Append(string.Format("WHERE pr.[RUserID]={0} ORDER BY pr.[ReviewTime] DESC", uID));
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
+                {
+                    list = conn.Query<ProductReview, User, Product, Order, ProductReview>(sql.ToString(),
+                        (pr, u, p, o) =>
+                        {
+                            pr.RUser = u;
+                            pr.RProduct = p;
+                            pr.ROrder = o;
+                            return pr;
+                        },
+                        null,
+                        null,
+                        true,
+                        "RID,UID,PID,OID",
+                        null
+                        ).ToList();
+                }
+            }
+            catch (Exception ex)
+            { }
+            return list;
         }
 
         public bool ProductReviewLike(int pReviewID)

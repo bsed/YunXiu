@@ -71,5 +71,41 @@ namespace YunXiu.DAL
             }
             return list;
         }
+
+        public List<Consultation> GetConsultationByUser(int uID)
+        {
+            List<Consultation> list = null;
+            try
+            {
+                var sql = new StringBuilder();
+                sql.Append("SELECT c.[ID],c.[CContent],c.[CreateDate],ct.[ID],ct.[CTypeName],p.[PID],p.[Name],p.[ImgID],u.[UID],u.[client_guid] FROM Consultation c ");
+                sql.Append("LEFT JOIN Product p ON c.[CProductID]=p.[PID] ");
+                sql.Append("LEFT JOIN ConsultationType ct ON c.[CTypeID]= ct.[ID] ");
+                sql.Append("LEFT JOIN [User] u ON c.[CreateUserID]=u.[UID] ");
+                sql.Append(string.Format("WHERE c.[CreateUserID]={0}", uID));
+
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
+                {
+                    list = conn.Query<Consultation, ConsultationType, Product, User, Consultation>(sql.ToString(),
+                        (c, ct, p, u) =>
+                        {
+                            c.CProduct = p;
+                            c.CType = ct;
+                            c.CreateUser = u;
+                            return c;
+                        },
+                        null,
+                        null,
+                        true,
+                        "ID,CreateDate,PID,UID",
+                        null,
+                        null).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
     }
 }

@@ -273,12 +273,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ApiConfig.xml" />
-    <Content Include="App_Data\SMSConfig.xml" />
-    <Content Include="App_Data\SysConf.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_Data\SysConfKey.xml" />
+    <Content Include="App_Data\SysConf.xml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
