@@ -27,9 +27,9 @@ namespace YunXiu.BLL
             return dal.DeleteRole(rID);
         }
 
-        public bool DeleteRolePermission(int rpID)
+        public bool DeleteUserRole(int uID, int rID)
         {
-            return dal.DeleteRolePermission(rpID);
+            return dal.DeleteUserRole(uID,rID);
         }
 
         public List<Role> GetRole()

@@ -17,11 +17,15 @@ namespace YunXiu.Interface
 
         bool DeleteRole(int rID);
 
+        bool DeleteUserRole(int uID, int rID);
+
         List<Role> GetRole();
 
         List<Role> GetRoleByUser(int uID);
 
         List<User> GetUserByRole(int rID);
+
+
 
     }
 }

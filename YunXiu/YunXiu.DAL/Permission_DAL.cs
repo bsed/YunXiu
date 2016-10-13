@@ -114,7 +114,7 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = string.Format("INSERT INTO UserPermission([PID],[UID]) VALUES({0},{1})", uID, pID);
+                var sql = string.Format("INSERT INTO UserPermission([UID],[PID]) VALUES({0},{1})", uID, pID);
                 result = DapperHelper.Execute(sql);
             }
             catch (Exception ex)
@@ -182,7 +182,7 @@ namespace YunXiu.DAL
             var result = false;
             DataTable table = new DataTable();
             table.Columns.Add(new DataColumn("UPID"));
-            table.Columns.Add(new DataColumn("PID")); 
+            table.Columns.Add(new DataColumn("PID"));
             table.Columns.Add(new DataColumn("UID"));
             for (var i = 0; i < uIDList.Count; i++)
             {
@@ -191,9 +191,37 @@ namespace YunXiu.DAL
                 r["UID"] = uIDList[i];
                 table.Rows.Add(r);
             }
-         
+
             SQLHelper.BulkToDB(table, "UserPermission");
             result = true;
+            return result;
+        }
+
+        public bool AddMultipleUserPermission(int uID, List<int> pID)
+        {
+            var result = false;
+            DataTable table = new DataTable();
+            table.Columns.Add(new DataColumn("UPID"));
+            table.Columns.Add(new DataColumn("PID"));
+            table.Columns.Add(new DataColumn("UID"));
+            for (var i = 0; i < pID.Count; i++)
+            {
+                DataRow r = table.NewRow();
+                r["PID"] = pID[i];
+                r["UID"] = uID;
+                table.Rows.Add(r);
+            }
+
+            SQLHelper.BulkToDB(table, "UserPermission");
+            result = true;
+            return result;
+        }
+
+        public bool DeleteMultipleUserPermission(int uID, List<int> pID)
+        {
+            var result = false;
+            var sql = string.Format("DELETE FROM UserPermission WHERE [UID] = {0} AND [PID] IN ({1})", uID, string.Join(",", pID));
+            result = DapperHelper.Execute(sql);
             return result;
         }
     }

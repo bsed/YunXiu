@@ -18,6 +18,7 @@ namespace AccountApi.Controllers
         Lazy<TFUser_BLL> tfUserBll = new Lazy<TFUser_BLL>();
         Lazy<User_BLL> userBll = new Lazy<User_BLL>();
         Lazy<Permission_BLL> permissionBll = new Lazy<Permission_BLL>();
+        Lazy<Role_BLL> roleBll = new Lazy<Role_BLL>();
         #region 用户
         /// <summary>
         /// 用户登录(目前只支持一种登录方法(账号))
@@ -166,6 +167,7 @@ namespace AccountApi.Controllers
                     {
                         user.TFUser = tfUserBll.Value.GetTFUserByGUID(user.client_guid.ToString());
                         user.Permissions = permissionBll.Value.GetPermissionByUser(user.UID);
+                        user.Roles = roleBll.Value.GetRoleByUser(user.UID);
                     }
                 }                             
             }

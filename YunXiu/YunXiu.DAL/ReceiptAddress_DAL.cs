@@ -18,23 +18,22 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("INSERT INTO ReceiptAddress([User],[Addr],[ZipCode],[ConsigneeName],[ConsigneePhone],[Region],[Province],");
-                sql.Append("[City],[District],[Street],[IsDefault],[CreateDate],[CreateUser],[LastUpdateUser],[LastUpdateDate])  ");
-                sql.Append("VALUES(@User,@Addr,@ZipCode,@ConsigneeName,@ConsigneePhone,@Region,@Province,@City,@District,@Street,@IsDefault,@CreateDate,@CreateUser,@LastUpdateUser,@LastUpdateDate)");
+                sql.Append("INSERT INTO ReceiptAddress([UserID],[Addr],[ZipCode],[ConsigneeName],[ConsigneePhone],[Region],[Province],");
+                sql.Append("[City],[District],[Street],[IsDefault],[CreateDate])  ");
+                sql.Append("VALUES(@UserID,@Addr,@ZipCode,@ConsigneeName,@ConsigneePhone,@Region,@Province,@City,@District,@Street,@IsDefault,@CreateDate)");
                 var pars = new List<SqlParameter>();
-                pars.Add(new SqlParameter("@User", receiptAddress.User != null ? receiptAddress.User.UID : 0));
+                pars.Add(new SqlParameter("@UserID", receiptAddress.User != null ? receiptAddress.User.UID : 0));
                 pars.Add(new SqlParameter("@Addr", receiptAddress.Addr));
                 pars.Add(new SqlParameter("@ZipCode", receiptAddress.ZipCode));
                 pars.Add(new SqlParameter("@ConsigneeName", receiptAddress.ConsigneeName));
                 pars.Add(new SqlParameter("@ConsigneePhone", receiptAddress.ConsigneePhone));
                 pars.Add(new SqlParameter("@Region", receiptAddress.Region));
                 pars.Add(new SqlParameter("@Province", receiptAddress.Province));
+                pars.Add(new SqlParameter("@City", receiptAddress.City));
                 pars.Add(new SqlParameter("@District", receiptAddress.District));
                 pars.Add(new SqlParameter("@Street", receiptAddress.Street));
                 pars.Add(new SqlParameter("@IsDefault", receiptAddress.IsDefault));
-                pars.Add(new SqlParameter("@CreateDate", receiptAddress.CreateDate));
-                pars.Add(new SqlParameter("@CreateUser", receiptAddress.CreateUser.UID));
-                pars.Add(new SqlParameter("@LastUpdateDate", receiptAddress.LastUpdateDate));
+                pars.Add(new SqlParameter("@CreateDate",DateTime.Now ));
                 result = SQLHelper.ExcuteSQL(sql.ToString(), pars.ToArray()) > 0;
             }
             catch (Exception ex)

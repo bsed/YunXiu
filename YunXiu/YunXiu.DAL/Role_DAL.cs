@@ -52,9 +52,12 @@ namespace YunXiu.DAL
             return result;
         }
 
-        public bool DeleteRolePermission(int rpID)
+        public bool DeleteUserRole(int uID, int rID)
         {
-            throw new NotImplementedException();
+            var result = false;
+            var sql =string.Format("DELETE FROM UserRole WHERE [UID]={0} AND [RID]={1}",uID,rID);
+            result = DapperHelper.Execute(sql);
+            return result;
         }
 
         public List<Role> GetRole()

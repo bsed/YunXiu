@@ -13,6 +13,11 @@ namespace YunXiu.BLL
     {
         Permission_DAL dal = new Permission_DAL();
 
+        public bool AddMultipleUserPermission(int uID, List<int> pID)
+        {
+            return dal.AddMultipleUserPermission(uID,pID);
+        }
+
         public bool AddMultipleUserPermission(List<int> uIDList, int pID)
         {
             return dal.AddMultipleUserPermission(uIDList,pID);
@@ -31,6 +36,11 @@ namespace YunXiu.BLL
         public bool AddUserPermission(int uID, int pID)
         {
             return dal.AddUserPermission(uID,pID);
+        }
+
+        public bool DeleteMultipleUserPermission(int uID, List<int> pID)
+        {
+            return dal.DeleteMultipleUserPermission(uID,pID);
         }
 
         public bool DeleteMultipleUserPermission(List<int> uIDList, int pID)

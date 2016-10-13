@@ -90,7 +90,7 @@ namespace AccountApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public HttpResponseMessage GetRole()
+        public HttpResponseMessage GetRoles()
         {
             HttpResponseMessage response = null;
             List<Role> list = null;
@@ -362,6 +362,40 @@ namespace AccountApi.Controllers
             if (list.Count > 0)
             {
                 result = roleBll.Value.AddUserRole(list[0], list[1]);
+                result = roleBll.Value.DeleteUserRole(list[0], list[1]);
+                if (result)
+                {
+                    var pList = permissionBll.Value.GetPermissionByRole(list[1]);
+                    var tempList = new List<int>();
+                    pList.ForEach(p => tempList.Add(p.PID));
+                    result = permissionBll.Value.AddMultipleUserPermission(list[0], tempList);
+                }
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+
+
+        /// <summary>
+        /// 删除用户角色
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage DeleteUserRole()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            var list = WebCommom.HttpRequestBodyConvertToObj<List<int>>(HttpContext.Current);
+            if (list.Count > 0)
+            {
+                result = roleBll.Value.DeleteUserRole(list[0], list[1]);
+                if (result)
+                {
+                    var pList = permissionBll.Value.GetPermissionByRole(list[1]);
+                    var tempList = new List<int>();
+                    pList.ForEach(p => tempList.Add(p.PID));
+                    result = permissionBll.Value.DeleteMultipleUserPermission(list[0], tempList);
+                }
             }
             response = WebCommom.GetResponse(result);
             return response;

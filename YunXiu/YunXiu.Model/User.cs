@@ -66,7 +66,7 @@ namespace YunXiu.Model
 
         public List<Permission> Permissions { get; set; }
 
-
+        public List<Role> Roles { get; set; }
         #endregion
     }
 }
