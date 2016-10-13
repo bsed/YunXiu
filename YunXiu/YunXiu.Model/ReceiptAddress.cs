@@ -32,23 +32,23 @@ namespace YunXiu.Model
         /// <summary>
         /// 区域
         /// </summary>
-        public int Region { get; set; }
+        public string Region { get; set; }
         /// <summary>
         /// 省份
         /// </summary>
-        public int Province { get; set; }
+        public string Province { get; set; }
         /// <summary>
         /// 城市
         /// </summary>
-        public int City { get; set; }
+        public string City { get; set; }
         /// <summary>
         /// 城区
         /// </summary>
-        public int District { get; set; }
+        public string District { get; set; }
         /// <summary>
         /// 街道
         /// </summary>
-        public int Street { get; set; }
+        public string Street { get; set; }
         /// <summary>
         /// 是否为默认收货地址
         /// </summary>

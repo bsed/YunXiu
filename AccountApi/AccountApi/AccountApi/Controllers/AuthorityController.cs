@@ -276,6 +276,13 @@ namespace AccountApi.Controllers
             if (list.Count > 0)
             {
                 result = permissionBll.Value.AddRolePermission(list[0], list[1]);
+                if (result)
+                {
+                    var users = roleBll.Value.GetUserByRole(list[1]);
+                    List<int> uIDList = new List<int>();
+                    users.ForEach(u => uIDList.Add(u.UID));
+                    result = permissionBll.Value.AddMultipleUserPermission(uIDList, list[1]);
+                }
             }
             response = WebCommom.GetResponse(result);
             return response;
@@ -317,7 +324,7 @@ namespace AccountApi.Controllers
                     var users = roleBll.Value.GetUserByRole(list[1]);
                     List<int> uIDList = new List<int>();
                     users.ForEach(u => uIDList.Add(u.UID));
-                    result = permissionBll.Value.DeleteMultipleUserPermission(uIDList, list[0]);
+                    result = permissionBll.Value.DeleteMultipleUserPermission(uIDList, list[1]);
                 }
             }
             response = WebCommom.GetResponse(result);

@@ -24,6 +24,7 @@ namespace YunXiu.Interface
         bool AddRolePermission(int rID,int pID);
 
         bool AddUserPermission(int uID,int pID);
+        bool AddMultipleUserPermission(List<int> uIDList, int pID);
 
         bool DeleteRolePermission(int rID,int pID);
 

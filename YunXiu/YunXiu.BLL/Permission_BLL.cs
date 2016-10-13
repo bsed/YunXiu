@@ -12,6 +12,12 @@ namespace YunXiu.BLL
     public class Permission_BLL : IPermission
     {
         Permission_DAL dal = new Permission_DAL();
+
+        public bool AddMultipleUserPermission(List<int> uIDList, int pID)
+        {
+            return dal.AddMultipleUserPermission(uIDList,pID);
+        }
+
         public bool AddPermission(Permission permission)
         {
             return dal.AddPermission(permission);

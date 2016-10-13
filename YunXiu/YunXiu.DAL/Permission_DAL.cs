@@ -7,6 +7,7 @@ using YunXiu.Interface;
 using YunXiu.Model;
 using YunXiu.Commom;
 using Dapper;
+using System.Data;
 
 namespace YunXiu.DAL
 {
@@ -171,8 +172,28 @@ namespace YunXiu.DAL
         public bool DeleteMultipleUserPermission(List<int> uIDList, int pID)
         {
             var result = false;
-            var sql = string.Format("DELETE FROM UserPermission WHERE [UID]= IN {0} AND [PID]={1}", string.Join(",", uIDList), pID);
+            var sql = string.Format("DELETE FROM UserPermission WHERE [UID] IN ({0}) AND [PID]={1}", string.Join(",", uIDList), pID);
             result = DapperHelper.Execute(sql);
+            return result;
+        }
+
+        public bool AddMultipleUserPermission(List<int> uIDList, int pID)
+        {
+            var result = false;
+            DataTable table = new DataTable();
+            table.Columns.Add(new DataColumn("UPID"));
+            table.Columns.Add(new DataColumn("PID")); 
+            table.Columns.Add(new DataColumn("UID"));
+            for (var i = 0; i < uIDList.Count; i++)
+            {
+                DataRow r = table.NewRow();
+                r["PID"] = pID;
+                r["UID"] = uIDList[i];
+                table.Rows.Add(r);
+            }
+         
+            SQLHelper.BulkToDB(table, "UserPermission");
+            result = true;
             return result;
         }
     }
