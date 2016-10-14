@@ -42,7 +42,7 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT c.[ID],c.[CContent],c.[CreateDate],ct.[ID],ct.[CTypeName],p.[PID],p.[Name],p.[ImgID],u.[UID],u.[client_guid] FROM Consultation c ");
+                sql.Append("SELECT c.[ID],c.[CContent],c.[CreateDate],ct.[ID],ct.[CTypeName],p.[PID],p.[Name],p.[ImgName],u.[UID],u.[client_guid] FROM Consultation c ");
                 sql.Append("LEFT JOIN Product p ON c.[CProductID]=p.[PID] ");
                 sql.Append("LEFT JOIN ConsultationType ct ON c.[CTypeID]= ct.[ID] ");
                 sql.Append("LEFT JOIN [User] u ON c.[CreateUserID]=u.[UID] ");
@@ -78,7 +78,7 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT c.[ID],c.[CContent],c.[CreateDate],ct.[ID],ct.[CTypeName],p.[PID],p.[Name],p.[ImgID],u.[UID],u.[client_guid] FROM Consultation c ");
+                sql.Append("SELECT c.[ID],c.[CContent],c.[CreateDate],ct.[ID],ct.[CTypeName],p.[PID],p.[Name],p.[ImgName],u.[UID],u.[client_guid] FROM Consultation c ");
                 sql.Append("LEFT JOIN Product p ON c.[CProductID]=p.[PID] ");
                 sql.Append("LEFT JOIN ConsultationType ct ON c.[CTypeID]= ct.[ID] ");
                 sql.Append("LEFT JOIN [User] u ON c.[CreateUserID]=u.[UID] ");

@@ -17,6 +17,7 @@ namespace YunXiu.Model
 
         public string PKey { get; set; }
 
+        public PermissionType PType { get; set; }
         /// <summary>
         /// 描述
         /// </summary>

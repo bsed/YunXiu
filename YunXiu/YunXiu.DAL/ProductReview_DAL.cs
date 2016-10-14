@@ -48,7 +48,7 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT pr.[RID],pr.[Star],pr.[RContent],pr.[ReviewTime],pr.[Parent],pr.[IsStoreReply],pr.[LikeCount],u.[UID],u.[client_guid],p.[PID],p.[Name],o.[OID] FROM ProductReview pr ");
+                sql.Append("SELECT pr.[RID],pr.[Star],pr.[RContent],pr.[ReviewTime],pr.[Parent],pr.[IsStoreReply],pr.[LikeCount],u.[UID],u.[client_guid],p.[PID],p.[Name],p.[ImgName],o.[OID],o.[CreateDate] FROM ProductReview pr ");
                 sql.Append("LEFT JOIN [User] u ON u.[UID]=pr.[RUserID] ");
                 sql.Append("LEFT JOIN Product p ON p.[PID]=pr.[RProductID] ");
                 sql.Append("LEFT JOIN [Order] o ON o.[OID]=pr.[ROrderID] ");
@@ -82,7 +82,7 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT pr.[RID],pr.[Star],pr.[RContent],pr.[ReviewTime],pr.[Parent],pr.[IsStoreReply],pr.[LikeCount],u.[UID],u.[client_guid],p.[PID],p.[Name],o.[OID] FROM ProductReview pr ");
+                sql.Append("SELECT pr.[RID],pr.[Star],pr.[RContent],pr.[ReviewTime],pr.[Parent],pr.[IsStoreReply],pr.[LikeCount],u.[UID],u.[client_guid],p.[PID],p.[Name],p.[ImgName],o.[OID] FROM ProductReview pr ");
                 sql.Append("LEFT JOIN [User] u ON u.[UID]=pr.[RUserID] ");
                 sql.Append("LEFT JOIN Product p ON p.[PID]=pr.[RProductID] ");
                 sql.Append("LEFT JOIN [Order] o ON o.[OID]=pr.[ROrderID] ");

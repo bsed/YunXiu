@@ -15,6 +15,7 @@ namespace AccountApi.Controllers
     {
         Lazy<Role_BLL> roleBll = new Lazy<Role_BLL>();
         Lazy<Permission_BLL> permissionBll = new Lazy<Permission_BLL>();
+        Lazy<PermissionType_BLL> typeBll = new Lazy<PermissionType_BLL>();
 
         #region  角色
         /// <summary>
@@ -275,13 +276,39 @@ namespace AccountApi.Controllers
             var list = WebCommom.HttpRequestBodyConvertToObj<List<int>>(HttpContext.Current);
             if (list.Count > 0)
             {
-                result = permissionBll.Value.AddRolePermission(list[0], list[1]);
-                if (result)
+                var users = roleBll.Value.GetUserByRole(list[0]);//获取拥有该角色的用户                            
+                if (users.Count < 1)
                 {
-                    var users = roleBll.Value.GetUserByRole(list[1]);
-                    List<int> uIDList = new List<int>();
-                    users.ForEach(u => uIDList.Add(u.UID));
-                    result = permissionBll.Value.AddMultipleUserPermission(uIDList, list[1]);
+                    result = permissionBll.Value.AddRolePermission(list[0], list[1]);
+                }
+                else
+                {
+                    for (var i = 0; i < users.Count; i++)
+                    {
+                        var isAddPermission = true;
+                        var userR = roleBll.Value.GetRoleByUser(users[i].UID);
+                        for (int j = 0; j < userR.Count; j++)
+                        {
+                            var roleP = permissionBll.Value.GetPermissionByRole(userR[j].RID);//获取用户角色权限
+                            for (int l = 0; l < roleP.Count; l++)
+                            {
+                                if (list[1] == roleP[l].PID)
+                                {
+                                    isAddPermission = false;
+                                    break;
+                                }
+                            }
+                            if (!isAddPermission)
+                            {
+                                break;
+                            }
+                        }
+                        if (isAddPermission)
+                        {
+                            result = permissionBll.Value.AddRolePermission(list[0], list[1]);
+                            result = permissionBll.Value.AddUserPermission(users[i].UID, list[1]);
+                        }
+                    }
                 }
             }
             response = WebCommom.GetResponse(result);
@@ -321,10 +348,13 @@ namespace AccountApi.Controllers
                 result = permissionBll.Value.DeleteRolePermission(list[0], list[1]);
                 if (result)
                 {
-                    var users = roleBll.Value.GetUserByRole(list[1]);
-                    List<int> uIDList = new List<int>();
-                    users.ForEach(u => uIDList.Add(u.UID));
-                    result = permissionBll.Value.DeleteMultipleUserPermission(uIDList, list[1]);
+                    var users = roleBll.Value.GetUserByRole(list[0]);
+                    if (users.Count > 0)
+                    {
+                        List<int> uIDList = new List<int>();
+                        users.ForEach(u => uIDList.Add(u.UID));
+                        result = permissionBll.Value.DeleteMultipleUserPermission(uIDList, list[1]);
+                    }                            
                 }
             }
             response = WebCommom.GetResponse(result);
@@ -361,15 +391,48 @@ namespace AccountApi.Controllers
             var list = WebCommom.HttpRequestBodyConvertToObj<List<int>>(HttpContext.Current);
             if (list.Count > 0)
             {
-                result = roleBll.Value.AddUserRole(list[0], list[1]);
-                result = roleBll.Value.DeleteUserRole(list[0], list[1]);
-                if (result)
+
+                //  if (result)
+                //  {
+                var pList = permissionBll.Value.GetPermissionByRole(list[1]);
+                //var users = roleBll.Value.GetUserByRole(list[1]);//获取拥有该角色的用户
+                //  for (int i = 0; i < users.Count; i++)
+                //{
+                var userR = roleBll.Value.GetRoleByUser(list[0]); //获取该用户的所有角色
+                userR.RemoveAll(r => r.RID == list[1]);
+                for (int j = 0; j < userR.Count; j++)
                 {
-                    var pList = permissionBll.Value.GetPermissionByRole(list[1]);
+                    var roleP = permissionBll.Value.GetPermissionByRole(userR[j].RID);//获取用户角色权限
+                    for (int l = 0; l < roleP.Count; l++)
+                    {
+                        pList.RemoveAll(p => p.PID == roleP[l].PID);
+                        if (pList.Count == 0)
+                        {
+                            break;
+                        }
+                    }
+                    if (pList.Count == 0)
+                    {
+                        break;
+                    }
+                }
+                //if (pList.Count == 0)
+                //{
+                //    break;
+                //}
+                if (pList.Count > 0)
+                {
                     var tempList = new List<int>();
                     pList.ForEach(p => tempList.Add(p.PID));
                     result = permissionBll.Value.AddMultipleUserPermission(list[0], tempList);
                 }
+
+                // }
+                result = roleBll.Value.AddUserRole(list[0], list[1]);
+                //var tempList = new List<int>();
+                //pList.ForEach(p => tempList.Add(p.PID));
+                //result = permissionBll.Value.AddMultipleUserPermission(list[0], tempList);
+                //  }
             }
             response = WebCommom.GetResponse(result);
             return response;
@@ -388,16 +451,62 @@ namespace AccountApi.Controllers
             var list = WebCommom.HttpRequestBodyConvertToObj<List<int>>(HttpContext.Current);
             if (list.Count > 0)
             {
-                result = roleBll.Value.DeleteUserRole(list[0], list[1]);
-                if (result)
+
+                //  
+                //  if (result)
+                //   {
+                var pList = permissionBll.Value.GetPermissionByRole(list[1]);//获取角色权限
+                                                                             //   var users = roleBll.Value.GetUserByRole(list[1]);//获取拥有该角色的用户            
+                                                                             //  for (int i = 0; i < users.Count; i++)
+                                                                             //    {
+                var userR = roleBll.Value.GetRoleByUser(list[0]); //获取该用户的所有角色
+                userR.RemoveAll(r => r.RID == list[1]);
+                for (int j = 0; j < userR.Count; j++)
                 {
-                    var pList = permissionBll.Value.GetPermissionByRole(list[1]);
+                    var roleP = permissionBll.Value.GetPermissionByRole(userR[j].RID);//获取用户角色权限
+                    for (int l = 0; l < roleP.Count; l++)
+                    {
+                        pList.RemoveAll(p => p.PID == roleP[l].PID);
+                        if (pList.Count == 0)
+                        {
+                            break;
+                        }
+                    }
+                    if (pList.Count == 0)
+                    {
+                        break;
+                    }
+                }
+                //if (pList.Count == 0)
+                //{
+                //    break;
+                //}
+                if (pList.Count > 0)
+                {
                     var tempList = new List<int>();
                     pList.ForEach(p => tempList.Add(p.PID));
                     result = permissionBll.Value.DeleteMultipleUserPermission(list[0], tempList);
                 }
+
+                // }
+                result = roleBll.Value.DeleteUserRole(list[0], list[1]);
+                //   }
             }
             response = WebCommom.GetResponse(result);
+            return response;
+        }
+
+        /// <summary>
+        /// 获取权限类型
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetPermissionType()
+        {
+            HttpResponseMessage response = null;
+            List<PermissionType> list = null;
+            list = typeBll.Value.GetPermissionType();
+            response = WebCommom.GetJsonResponse(list);
             return response;
         }
         #endregion

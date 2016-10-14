@@ -18,6 +18,7 @@ namespace AccountApi.Controllers
         Lazy<FavoriteProduct_BLL> fProductBll = new Lazy<FavoriteProduct_BLL>();
         Lazy<ReceiptAddress_BLL> rAddrBll = new Lazy<ReceiptAddress_BLL>();
         Lazy<ProductReview_BLL> reviewBll = new Lazy<ProductReview_BLL>();
+        Lazy<FavoriteStore_BLL> fStoreBll = new Lazy<FavoriteStore_BLL>();
 
         #region 购物车
         [HttpPost]
@@ -50,16 +51,18 @@ namespace AccountApi.Controllers
         public HttpResponseMessage DeleteShoppingCartProduct()
         {
             HttpResponseMessage response = null;
+            var result = false;
             try
             {
-                var pID = new List<int>();
-                var result = shoppingCartBll.Value.DeleteShoppingCartProduct(pID);
-                response = WebCommom.GetResponse(result);
+                var list = WebCommom.HttpRequestBodyConvertToObj<List<int>>(HttpContext.Current);
+                result = shoppingCartBll.Value.DeleteShoppingCartProduct(list[0], list[1]);
+
             }
             catch (Exception ex)
             {
 
             }
+            response = WebCommom.GetResponse(result);
             return response;
         }
 
@@ -71,17 +74,17 @@ namespace AccountApi.Controllers
         public HttpResponseMessage GetShoppingCartByUserID()
         {
             HttpResponseMessage response = null;
+            List<ShoppingCart> list = null;
             try
             {
-                var userID = 0;
-                var list = shoppingCartBll.Value.GetShoppingCartByUserID(userID);
-                var result = JsonConvert.SerializeObject(list);
-                response = WebCommom.GetJsonResponse(result);
+                var userID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                list = shoppingCartBll.Value.GetShoppingCartByUserID(userID);
             }
             catch (Exception ex)
             {
 
             }
+            response = WebCommom.GetJsonResponse(list);
             return response;
         }
 
@@ -120,6 +123,28 @@ namespace AccountApi.Controllers
             {
                 var uid = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
                 list = fProductBll.Value.GetFavoriteProduct(uid);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            response = WebCommom.GetJsonResponse(list);
+            return response;
+        }
+
+        /// <summary>
+        /// 获取收藏商铺
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetFavoriteStore()
+        {
+            HttpResponseMessage response = null;
+            List<FavoriteStore> list = null;
+            try
+            {
+                var uid = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+                list = fStoreBll.Value.GetFavoriteStore(uid);
             }
             catch (Exception ex)
             {
@@ -235,7 +260,7 @@ namespace AccountApi.Controllers
                 if (uid != 0)
                 {
                     list = reviewBll.Value.GetProductReviewByUserID(uid);
-                }             
+                }
             }
             catch (Exception ex)
             {

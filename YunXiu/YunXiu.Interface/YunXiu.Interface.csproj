@@ -72,6 +72,7 @@
     <Compile Include="IOrderPayOrder.cs" />
     <Compile Include="IPayOrder.cs" />
     <Compile Include="IPermission.cs" />
+    <Compile Include="IPermissionType.cs" />
     <Compile Include="IProduct.cs" />
     <Compile Include="IProductAttr.cs" />
     <Compile Include="IProductConsult.cs" />

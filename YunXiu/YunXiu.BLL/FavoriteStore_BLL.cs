@@ -19,12 +19,12 @@ namespace YunXiu.BLL
 
         public bool DeleteFavoriteStore(int fID)
         {
-            throw new NotImplementedException();
+            return dal.DeleteFavoriteStore(fID);
         }
 
         public List<FavoriteStore> GetFavoriteStore(int uID)
         {
-            throw new NotImplementedException();
+            return dal.GetFavoriteStore(uID);
         }
     }
 }

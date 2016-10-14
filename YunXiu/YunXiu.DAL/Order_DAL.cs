@@ -65,7 +65,7 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT o.[OID],o.[OSN],o.[OrderState],o.[CreateDate],ra.[ID],ra.[Addr],ra.[ZipCode],ra.[ConsigneeName],p.[PID],p.[Name],p.[ImgID] FROM [Order] o ");
+                sql.Append("SELECT o.[OID],o.[OSN],o.[OrderState],o.[CreateDate],o.[BuyUnitPrice],ra.[ID],ra.[Addr],ra.[ZipCode],ra.[ConsigneeName],p.[PID],p.[Name],p.[ImgName] FROM [Order] o ");
                 sql.Append("LEFT JOIN ReceiptAddress ra ON ra.[ID] = o.[ReceiptAddressID] ");
                 sql.Append("LEFT JOIN Product p ON p.[PID] = o.[BuyProductID] ");
                 sql.Append(string.Format("WHERE o.[BuyUserID] = {0} ", userID));

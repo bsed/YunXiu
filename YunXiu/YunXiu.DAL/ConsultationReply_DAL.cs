@@ -43,9 +43,8 @@ namespace YunXiu.DAL
             List<ConsultationReply> list = null;
             try
             {
-                var str = "PID,CreateDate,ID";
                 var sql = new StringBuilder();
-                sql.Append("SELECT r.[RID],r.[RContent],r.[CreateDate],p.[PID],p.[Name],p.[ImgID],c.[ID],c.[CContent],u.[UID],u.[client_guid] FROM ConsultationReply r ");
+                sql.Append("SELECT r.[RID],r.[RContent],r.[CreateDate],p.[PID],p.[Name],p.[ImgName],c.[ID],c.[CContent],u.[UID],u.[client_guid] FROM ConsultationReply r ");
                 sql.Append("LEFT JOIN Product p ON r.[RProductID]=p.[PID] ");
                 sql.Append("LEFT JOIN Consultation c ON r.[RConsultationID]= c.[ID] ");
                 sql.Append("LEFT JOIN [User] u ON u.[UID]= r.[RUserID] ");
@@ -64,7 +63,7 @@ namespace YunXiu.DAL
                         null,
                         null,
                         true,
-                        str,
+                        "RID,PID,ID,UID",
                         null,
                         null).ToList();
                 }

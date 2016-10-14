@@ -32,8 +32,11 @@ namespace YunXiu.DAL
         public bool AddUserRole(int uID, int rID)
         {
             var result = false;
-            var sql = string.Format("INSERT INTO UserRole([UID],[RID],[CreateDate]) VALUES({0},{1},GETDATE())", uID, rID);
-            result = DapperHelper.Execute(sql);
+            var procName = "AddUserRole";
+            DynamicParameters pars = new DynamicParameters();
+            pars.Add("@uID",uID);
+            pars.Add("@rID", rID);
+            result = DapperHelper.ExecuteProc(procName, pars)>0;
             return result;
         }
 

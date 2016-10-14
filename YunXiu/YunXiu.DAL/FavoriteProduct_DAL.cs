@@ -49,7 +49,7 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT p.[PID],p.[SkugID],p.[Name],p.[ShopPrice],p.[MarketPrice],p.[CostPrice] FROM FavoriteProducts f ");
+                sql.Append("SELECT p.[PID],p.[SkugID],p.[Name],p.[ShopPrice],p.[MarketPrice],p.[CostPrice],p.[ImgName] FROM FavoriteProducts f ");
                 sql.Append("LEFT JOIN Product p ON f.[FProductID]= p.[PID] ");
                 sql.Append(string.Format("WHERE [FUserID]={0}",uID));
 

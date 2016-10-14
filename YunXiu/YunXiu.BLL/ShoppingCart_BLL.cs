@@ -23,12 +23,12 @@ namespace YunXiu.BLL
             return result;
         }
 
-        public bool DeleteShoppingCartProduct(List<int> pID)
+        public bool DeleteShoppingCartProduct(int uID,int pID)
         {
             var result = false;
             try
             {
-                result = dal.DeleteShoppingCartProduct(pID);
+                result = dal.DeleteShoppingCartProduct(uID,pID);
             }
             catch (Exception ex)
             {

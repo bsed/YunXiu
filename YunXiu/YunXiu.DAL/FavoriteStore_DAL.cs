@@ -7,6 +7,7 @@ using YunXiu.Model;
 using YunXiu.Interface;
 using YunXiu.Commom;
 using Dapper;
+using System.Data;
 
 namespace YunXiu.DAL
 {
@@ -21,7 +22,7 @@ namespace YunXiu.DAL
                 DynamicParameters pars = new DynamicParameters();
                 pars.Add("@UID", store.User.UID);
                 pars.Add("@SID", store.User.UID);
-                result = DapperHelper.Execute(sql,pars);
+                result = DapperHelper.Execute(sql, pars);
             }
             catch (Exception ex)
             {
@@ -37,7 +38,27 @@ namespace YunXiu.DAL
 
         public List<FavoriteStore> GetFavoriteStore(int uID)
         {
-            throw new NotImplementedException();
+            List<FavoriteStore> list = null;
+            var sql = new StringBuilder();
+            sql.Append("SELECT fs.[FID],fs.[CreateDate],s.[StoreID],s.[Name],s.[Logo] FROM FavoriteStore fs ");
+            sql.Append("LEFT JOIN Store s ON s.[StoreID]= fs.[SID] ");
+            sql.Append(string.Format("WHERE fs.[UID]={0}", uID));
+            using (IDbConnection conn = DapperHelper.GetDbConnection())
+            {
+                list = conn.Query<FavoriteStore, Store, FavoriteStore>(sql.ToString(),
+                    (fs, s) =>
+                    {
+                        fs.Store = s;
+                        return fs;
+                    },
+                    null,
+                    null,
+                    true,
+                    "FID,StoreID",
+                    null,
+                    null).ToList();
+            }
+            return list;
         }
     }
 }

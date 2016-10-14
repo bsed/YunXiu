@@ -78,6 +78,7 @@
     <Compile Include="PageResult.cs" />
     <Compile Include="PayOrder.cs" />
     <Compile Include="Permission.cs" />
+    <Compile Include="PermissionType.cs" />
     <Compile Include="ProductAttr.cs" />
     <Compile Include="ProductConsults.cs" />
     <Compile Include="ProductConsultsModel.cs" />

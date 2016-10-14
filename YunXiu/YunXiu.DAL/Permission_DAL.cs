@@ -18,8 +18,10 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = "INSERT INTO Permission([PName],p.[PKey],[Describe],[CreateDate]) VALUES(@PName,@Describe,GETDATE())";
-                result = DapperHelper.Execute(sql, permission);
+                var sql = "INSERT INTO Permission([PName],[PKey],[PTypeID],[Describe],[CreateDate]) VALUES(@PName,@PKey,@PTypeID,@Describe,GETDATE())";
+                DynamicParameters pars = new DynamicParameters(permission);
+                pars.Add("@PTypeID", permission.PType.TID);
+                result = DapperHelper.Execute(sql, pars);
             }
             catch (Exception ex)
             {
@@ -48,8 +50,25 @@ namespace YunXiu.DAL
             List<Permission> list = null;
             try
             {
-                var sql = "SELECT [PID],[PName],[PKey],[Describe],[CreateDate] FROM Permission";
-                list = DapperHelper.Query<Permission>(sql);
+                var sql = new StringBuilder();
+                sql.Append("SELECT p.[PID],p.[PName],p.[PKey],p.[Describe],p.[CreateDate],pt.[TID],pt.[TName] FROM Permission p ");
+                sql.Append("LEFT JOIN PermissionType pt ON pt.[TID]= p.[PTypeID]");
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
+                {
+                    list = conn.Query<Permission, PermissionType, Permission>(sql.ToString(),
+                        (p, pt) =>
+                        {
+                            p.PType = pt;
+                            return p;
+                        },
+                        null,
+                        null,
+                        true,
+                        "PID,TID",
+                        null,
+                        null
+                        ).ToList();
+                }
             }
             catch (Exception ex)
             {
@@ -64,10 +83,26 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT p.[PID],p.[PName],p.[PKey],p.[Describe],p.[CreateDate] FROM RolePermission rp ");
+                sql.Append("SELECT p.[PID],p.[PName],p.[PKey],p.[Describe],p.[CreateDate],pt.[TID],pt.[TName] FROM RolePermission rp ");
                 sql.Append("LEFT JOIN Permission p ON p.[PID] = rp.[PID] ");
+                sql.Append("LEFT JOIN PermissionType pt ON pt.[TID]= p.[PTypeID] ");
                 sql.Append(string.Format("WHERE rp.[RID]={0}", rID));
-                list = DapperHelper.Query<Permission>(sql.ToString());
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
+                {
+                    list = conn.Query<Permission, PermissionType, Permission>(sql.ToString(),
+                        (p, pt) =>
+                        {
+                            p.PType = pt;
+                            return p;
+                        },
+                        null,
+                        null,
+                        true,
+                        "PID,TID",
+                        null,
+                        null
+                        ).ToList();
+                }
             }
             catch (Exception ex)
             {
@@ -82,10 +117,26 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT p.[PID],p.[PName],p.[PKey],p.[Describe],p.[CreateDate] FROM UserPermission up ");
+                sql.Append("SELECT p.[PID],p.[PName],p.[PKey],p.[Describe],p.[CreateDate],pt.[TID],pt.[TName] FROM UserPermission up ");
                 sql.Append("LEFT JOIN Permission p ON p.[PID] = up.[PID] ");
+                sql.Append("LEFT JOIN PermissionType pt ON pt.[TID]= p.[PTypeID] ");
                 sql.Append(string.Format("WHERE up.[UID]={0}", uID));
-                list = DapperHelper.Query<Permission>(sql.ToString());
+                using (IDbConnection conn = DapperHelper.GetDbConnection())
+                {
+                    list = conn.Query<Permission, PermissionType, Permission>(sql.ToString(),
+                        (p, pt) =>
+                        {
+                            p.PType = pt;
+                            return p;
+                        },
+                        null,
+                        null,
+                        true,
+                        "PID,TID",
+                        null,
+                        null
+                        ).ToList();
+                }
             }
             catch (Exception ex)
             {
@@ -99,8 +150,11 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = string.Format("INSERT INTO RolePermission([RID],[PID]) VALUES({0},{1})", rID, pID);
-                result = DapperHelper.Execute(sql);
+                var procName = "AddRolePermission";
+                DynamicParameters pars = new DynamicParameters();
+                pars.Add("@rID", rID);
+                pars.Add("@pID", pID);
+                result = DapperHelper.ExecuteProc(procName, pars) > 0;
             }
             catch (Exception ex)
             {
@@ -129,8 +183,10 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = "UPDATE Permission SET [PName]=@PName,[PKey]=@PKey,[Describe]=@Describe WHERE [PID]=@PID";
-                result = DapperHelper.Execute(sql, permission);
+                var sql = "UPDATE Permission SET [PName]=@PName,[PKey]=@PKey,[PTypeID]=@PTypeID,[Describe]=@Describe WHERE [PID]=@PID";
+                DynamicParameters pars = new DynamicParameters(permission);
+                pars.Add("@PTypeID",permission.PType.TID);
+                result = DapperHelper.Execute(sql, pars);
             }
             catch (Exception ex)
             {

@@ -21,7 +21,7 @@ namespace YunXiu.Interface
         /// </summary>
         /// <param name="pID">产品ID</param>
         /// <returns>是否删除成功</returns>
-        bool DeleteShoppingCartProduct(List<int> pID);
+        bool DeleteShoppingCartProduct(int uID,int pID);
 
         /// <summary>
         /// 添加商品到购物车

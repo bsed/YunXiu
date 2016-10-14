@@ -82,6 +82,7 @@
     <Compile Include="OrderPayOrder_DAL.cs" />
     <Compile Include="Order_DAL.cs" />
     <Compile Include="PayOrder_DAL.cs" />
+    <Compile Include="PermissionType_DAL.cs" />
     <Compile Include="Permission_DAL.cs" />
     <Compile Include="ProductAttr_DAL.cs" />
     <Compile Include="ProductConsult_DAL.cs" />
