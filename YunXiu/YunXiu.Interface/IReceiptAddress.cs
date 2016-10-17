@@ -36,5 +36,7 @@ namespace YunXiu.Interface
         /// <param name="userID">用户ID</param>
         /// <returns>收货地址集合</returns>
         List<ReceiptAddress> GetReceiptAddress(int userID);
+
+        bool SetDefaultAddr(int uID,int id);
     }
 }

@@ -246,6 +246,25 @@ namespace AccountApi.Controllers
         }
 
         /// <summary>
+        /// 设置默认收货地址 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage SetDefaultAddr()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            var list = WebCommom.HttpRequestBodyConvertToObj<List<int>>(HttpContext.Current);
+            if (list.Count > 0)
+            {
+                result = rAddrBll.Value.SetDefaultAddr(list[0], list[1]);
+            }
+          
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+
+        /// <summary>
         /// 获取用户产品评价
         /// </summary>
         /// <returns></returns>

@@ -27,6 +27,11 @@ namespace YunXiu.BLL
             return dal.GetReceiptAddress(userID);
         }
 
+        public bool SetDefaultAddr(int uID, int id)
+        {
+            return dal.SetDefaultAddr(uID,id);
+        }
+
         public bool UpdateReceiptAddress(ReceiptAddress receiptAddress)
         {
             return dal.UpdateReceiptAddress(receiptAddress);

@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using YunXiu.Model;
 using YunXiu.Interface;
 using YunXiu.Commom;
+using Dapper;
 
 namespace YunXiu.DAL
 {
@@ -33,7 +34,7 @@ namespace YunXiu.DAL
                 pars.Add(new SqlParameter("@District", receiptAddress.District));
                 pars.Add(new SqlParameter("@Street", receiptAddress.Street));
                 pars.Add(new SqlParameter("@IsDefault", receiptAddress.IsDefault));
-                pars.Add(new SqlParameter("@CreateDate",DateTime.Now ));
+                pars.Add(new SqlParameter("@CreateDate", DateTime.Now));
                 result = SQLHelper.ExcuteSQL(sql.ToString(), pars.ToArray()) > 0;
             }
             catch (Exception ex)
@@ -73,6 +74,17 @@ namespace YunXiu.DAL
 
             }
             return list;
+        }
+
+        public bool SetDefaultAddr(int uID, int id)
+        {
+            var result = false;
+            var procName = "SetDefaultAddr";
+            DynamicParameters pars = new DynamicParameters();
+            pars.Add("@uID", uID);
+            pars.Add("@id", id);
+            result = DapperHelper.ExecuteProc(procName, pars)>0;
+            return result;
         }
 
         public bool UpdateReceiptAddress(ReceiptAddress receiptAddress)
