@@ -115,7 +115,7 @@ namespace YunXiu.DAL
                         null,
                         null,
                         true,
-                        "Name,CateID",
+                        "CateID,StoreID",
                         null,
                         null).SingleOrDefault();
                 }

@@ -14,7 +14,7 @@ namespace YunXiu.Interface
         /// </summary>
         /// <param name="orders">订单集合</param>
         /// <returns>是否创建成功</returns>
-        bool CreateOrder(List<Order> orders);
+        bool CreateOrder(Order order);
         /// <summary>
         /// 获取用户订单信息
         /// </summary>

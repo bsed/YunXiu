@@ -14,43 +14,19 @@ namespace YunXiu.DAL
 {
     public class Order_DAL : IOrder
     {
-        public bool CreateOrder(List<Order> orders)
+        public bool CreateOrder(Order order)
         {
             var result = false;
             try
             {
-                var nowDate = DateTime.Now.ToString("yyyy-MM-dd");
-                DataTable dt = new DataTable();
-                dt.Columns.Add("OID");
-                dt.Columns.Add("OSN");
-                dt.Columns.Add("BuyUserID");
-                dt.Columns.Add("OrderState");
-                dt.Columns.Add("BuyProductID");
-                dt.Columns.Add("ReceiptAddressID");
-                dt.Columns.Add("BuyNumber");
-                dt.Columns.Add("BuyUnitPrice");
-                dt.Columns.Add("CreateDate");
-                dt.Columns.Add("CreateUserID");
-                dt.Columns.Add("LastUpdateUserID");
-                dt.Columns.Add("LastUpdateDate");
-                for (int i = 0; i < orders.Count; i++)
-                {
-                    DataRow dr = dt.NewRow();
-                    dr["OSN"] = orders[i].OSN;
-                    dr["BuyUserID"] = orders[i].BuyUser != null ? orders[i].BuyUser.UID : 0;
-                    dr["OrderState"] = orders[i].OrderState;
-                    dr["BuyProductID"] = orders[i].BuyProduct != null ? orders[i].BuyProduct.PID : 0;
-                    dr["ReceiptAddressID"] = orders[i].ReceiptAddress != null ? orders[i].ReceiptAddress.ID : 0;
-                    dr["BuyNumber"] = orders[i].BuyNumber;
-                    dr["BuyUnitPrice"] = orders[i].BuyUnitPrice;
-                    dr["CreateDate"] = nowDate;
-                    dr["CreateUserID"] = orders[i].CreateUser != null ? orders[i].CreateUser.UID : 0;
-                    dr["LastUpdateUserID"] = orders[i].LastUpdateUser != null ? orders[i].CreateUser.UID : 0;
-                    dr["LastUpdateDate"] = nowDate;
-                    dt.Rows.Add(dr);
-                }
-                SQLHelper.BulkToDB(dt, "[Order]");
-                result = true;
+                var procName = "CreateOrder";
+                DynamicParameters pars = new DynamicParameters();
+                pars.Add("@uID",order.BuyUser.UID);
+                pars.Add("@pID", order.BuyProduct.PID);
+                pars.Add("@buyCount", order.BuyNumber);
+                pars.Add("@addrID", order.ReceiptAddress.ID);
+                pars.Add("@buyUnitPrice", order.BuyUnitPrice);
+                result = DapperHelper.ExecuteProc(procName, pars) > 0;
             }
             catch (Exception ex)
             {

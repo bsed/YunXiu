@@ -114,7 +114,6 @@ namespace ProductApi.Controllers
         /// <summary>
         /// 根据商品ID获取商品
         /// </summary>
-        /// <param name="pID">商品ID</param>
         /// <returns></returns>
         public HttpResponseMessage GetProductByID()
         {
@@ -150,7 +149,20 @@ namespace ProductApi.Controllers
             return response;
         }
 
-
+        /// <summary>
+        /// 根据商品ID获取商品
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetProductsByID()
+        {
+            HttpResponseMessage response = null;
+            List<Product> list = null;
+            var idList = WebCommom.HttpRequestBodyConvertToObj<List<int>>(HttpContext.Current);
+            list = bll.Value.GetProductsByID(idList);
+            response = WebCommom.GetJsonResponse(list);
+            return response;
+        }
 
         [HttpPost]
         /// <summary>
@@ -636,8 +648,8 @@ namespace ProductApi.Controllers
                 var dic = WebCommom.HttpRequestBodyConvertToObj<Dictionary<string, string>>(HttpContext.Current);
                 if (dic.Count != 0)
                 {
-                    var imgID =Convert.ToInt32(dic["imgID"]);
-                    var imgName = dic["imgName"];                
+                    var imgID = Convert.ToInt32(dic["imgID"]);
+                    var imgName = dic["imgName"];
                     var pID = Convert.ToInt32(dic["pID"]);
                     result = bll.Value.SetProductMainImage(imgID, imgName, pID);
                 }

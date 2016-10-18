@@ -303,7 +303,7 @@ namespace YunXiu.DAL
             try
             {
                 DynamicParameters pars = new DynamicParameters();
-                pars.Add("@PID",pID);
+                pars.Add("@PID", pID);
                 var procName = "DeleteProductImg";
                 result = DapperHelper.ExecuteProc(procName, pars) > 0;
             }
@@ -491,17 +491,17 @@ namespace YunXiu.DAL
             {
                 var id = string.Join(",", pID);
                 var sql = new StringBuilder();
-                sql.Append("SELECT c.[Name],c.[CateID],b.[BrandID] ,b[Name],s.[StoreID],s.[State],s.[Name],[PID],[Psn],[StorestID],[SkugID],p.[Name],[ShopPrice],[MarketPrice],");
-                sql.Append("[CostPrice],[State],[IsBest],[IsHot],[IsNew],[Sort],[Weight],[ImgName],[SaleCount],");
-                sql.Append("[VisitCount],[ReviewCount],[Description],[OfficialGuarantee],[FAQs],[CreateDate],[LastUpdateDate] FROM Product p");
+                sql.Append("SELECT c.[Name],c.[CateID],b.[BrandID] ,b[Name],s.[StoreID],s.[State],s.[Name],p.[PID],p.[Psn],p.[StorestID],p.[SkugID],p.[Name],p.[ShopPrice],p.[MarketPrice],");
+                sql.Append("p.[CostPrice],p.[State],p.[IsBest],p.[IsHot],p.[IsNew],p.[Sort],p.[Weight],p.[ImgName],p.[SaleCount],");
+                sql.Append("p.[VisitCount],p.[ReviewCount],p.[Description],p.[OfficialGuarantee],p.[FAQs],p.[CreateDate],p.[LastUpdateDate] FROM Product p ");
                 sql.Append("LEFT JOIN Category c ON c.[CateID]=p.[CateID] ");
                 sql.Append("LEFT JOIN Brand b ON b.[BrandID]=p.[BrandID] ");
                 sql.Append("LEFT JOIN Store s ON s.[StoreID]=p.[StoreID] ");
                 sql.Append(string.Format("WHERE p.[PID] IN({0}) ", id));
                 using (IDbConnection dbConn = DapperHelper.GetDbConnection())
                 {
-                    products = dbConn.Query<Product, Category, Brand, Store, Product>(sql.ToString(),
-                        (p, c, b, s) =>
+                    products = dbConn.Query<Category, Brand, Store, Product, Product>(sql.ToString(),
+                        (c, b, s, p) =>
                         {
                             p.Category = c;
                             p.Brand = b;
@@ -511,7 +511,7 @@ namespace YunXiu.DAL
                         null,
                         null,
                         true,
-                        "ID,CreateDate,CreateUser,LastUpdateDate,LastUpdateUser,State,Name",
+                        "CateID,BrandID,StoreID",
                         null,
                         null).ToList();
                 }
@@ -608,7 +608,7 @@ namespace YunXiu.DAL
             return list;
         }
 
-        public bool SetProductMainImage(int imgID,string imgName, int pID)
+        public bool SetProductMainImage(int imgID, string imgName, int pID)
         {
             var result = false;
             try

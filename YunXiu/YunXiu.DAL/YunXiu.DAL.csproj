@@ -99,6 +99,7 @@
     <Compile Include="Role_DAL.cs" />
     <Compile Include="ShoppingCart_DAL.cs" />
     <Compile Include="SMS_DAL.cs" />
+    <Compile Include="StoreDynamics_DAL.cs" />
     <Compile Include="StoreHome_DAL.cs" />
     <Compile Include="StoreImg_DAL.cs" />
     <Compile Include="StoreNavigation_DAL.cs" />

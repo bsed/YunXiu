@@ -12,9 +12,9 @@ namespace YunXiu.BLL
     public class Order_BLL : IOrder
     {
         Order_DAL dal = new Order_DAL();
-        public bool CreateOrder(List<Order> orders)
+        public bool CreateOrder(Order order)
         {
-            return dal.CreateOrder(orders);
+            return dal.CreateOrder(order);
         }
 
         public Order GetOrder(int oID)

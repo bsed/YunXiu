@@ -88,6 +88,7 @@
     <Compile Include="IShoppingCart.cs" />
     <Compile Include="ISMS.cs" />
     <Compile Include="IStore.cs" />
+    <Compile Include="IStoreDynamics.cs" />
     <Compile Include="IStoreHome.cs" />
     <Compile Include="IStoreImg.cs" />
     <Compile Include="IStoreNavigation.cs" />

@@ -33,43 +33,29 @@ namespace OrderApi.Controllers
         [HttpPost]
         public HttpResponseMessage CreateOrder()
         {
-            List<Order> resultList = new List<Order>();//创建成功的订单
+            Dictionary<Order,bool> resultDic = new Dictionary<Order, bool>();//创建成功的订单
             HttpResponseMessage response = null;
             try
             {
-                List<Order> list = null;
-                using (var ms = new MemoryStream())
+
+                var cText = WebCommom.HttpRequestBodyConvertToObj<string>(HttpContext.Current);//密文
+                var pText = Security.AESDecrypt(cText, AESKey);//明文
+                var orders = JsonConvert.DeserializeObject<List<Order>>(pText);
+
+                if (orders.Count > 0)
                 {
-                    HttpContext.Current.Request.GetBufferlessInputStream().CopyTo(ms);
-                    if (ms.Length != 0)
+                    for (int i = 0; i < orders.Count; i++)
                     {
-                        var cText = WebCommom.HttpRequestBodyConvertToStr(ms);//密文
-                        var pText = Security.AESDecrypt(cText, AESKey);//明文
-                        list = JsonConvert.DeserializeObject<List<Order>>(pText);
+                        var isCreateSuccess = orderBll.Value.CreateOrder(orders[i]);
+                        resultDic.Add(orders[i], isCreateSuccess);
                     }
-                }
-                if (list != null)
-                {
-                    //  ProductStock_Cache p = new ProductStock_Cache();
-                    //   var updateResult = p.UdpateStock(0, GetUpdateProdcut(list));//修改结果
-                    //   resultList = GetSuccessOrder(updateResult, list);//获取修改成功的订单
-                    #region 将订单加入到MQ,订单加入MQ之后则代表创建成功
-                    //if (resultList.Count > 0)
-                    //{
-                    //    YunXiu.Commom.MQ.MSMQ mq = new YunXiu.Commom.MQ.MSMQ();
-                    //    mq.MSMQIP = "192.168.9.32";
-                    //    mq.MSMQName = "OrderQueue";
-                    //    mq.MSG = JsonConvert.SerializeObject(resultList);
-                    //    mq.SendToMSMQ();
-                    //}
-                    #endregion
                 }
             }
             catch (Exception ex)
             {
 
             }
-            var responseCText = Security.AESEncrypt(JsonConvert.SerializeObject(resultList), AESKey);//结果密文
+            var responseCText = Security.AESEncrypt(JsonConvert.SerializeObject(resultDic), AESKey);//结果密文
             response = WebCommom.GetResponse(responseCText);
             return response;
         }

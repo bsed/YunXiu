@@ -111,6 +111,7 @@
     <Compile Include="Storeadminlogs.cs" />
     <Compile Include="StoreBanners.cs" />
     <Compile Include="Storeclasses.cs" />
+    <Compile Include="StoreDynamics.cs" />
     <Compile Include="StoreHome.cs" />
     <Compile Include="StoreImg.cs" />
     <Compile Include="Storeindustries.cs" />

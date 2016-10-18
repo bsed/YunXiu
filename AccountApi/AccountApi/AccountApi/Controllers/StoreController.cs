@@ -19,6 +19,7 @@ namespace AccountApi.Controllers
         Lazy<StoreNavigation_BLL> navigationBll = new Lazy<StoreNavigation_BLL>();
         Lazy<Certificate_BLL> certificateBll = new Lazy<Certificate_BLL>();
         Lazy<StoreImg_BLL> imgBll = new Lazy<StoreImg_BLL>();
+        Lazy<StoreDynamics_BLL> dynamicsBll = new Lazy<StoreDynamics_BLL>();
 
         /// <summary>
         /// 添加商铺
@@ -196,7 +197,7 @@ namespace AccountApi.Controllers
                     home.HomeHtml = HttpUtility.UrlDecode(home.HomeHtml);
                     result = storeHomeBll.Value.UpdateStoreHome(home);
                 }
-             
+
             }
             catch (Exception ex) { }
             response = WebCommom.GetResponse(result);
@@ -341,5 +342,80 @@ namespace AccountApi.Controllers
             return response;
         }
         #endregion
+
+        #region 商铺动态
+
+        /// <summary>
+        /// 获取商铺动态
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetStoreDynamics()
+        {
+            HttpResponseMessage response = null;
+            List<StoreDynamics> list = null;
+            var sID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+            if (sID != 0)
+            {
+                list = dynamicsBll.Value.GetStoreDynamics(sID);
+            }
+            response = WebCommom.GetJsonResponse(list);
+            return response;
+        }
+
+        /// <summary>
+        /// 添加商铺动态
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage AddStoreDynamics()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            var dynamics = WebCommom.HttpRequestBodyConvertToObj<StoreDynamics>(HttpContext.Current);
+            if (dynamics != null)
+            {
+                result = dynamicsBll.Value.AddStoreDynamics(dynamics);
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+
+        /// <summary>
+        /// 删除商铺动态
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage DeleteStoreDynamics()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            var dID = WebCommom.HttpRequestBodyConvertToObj<int>(HttpContext.Current);
+            if (dID != 0)
+            {
+                result = dynamicsBll.Value.DeleteStoreDynamics(dID);
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+
+        /// <summary>
+        /// 修改商铺动态
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage UpdateStoreDynamics()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            var dynamics = WebCommom.HttpRequestBodyConvertToObj<StoreDynamics>(HttpContext.Current);
+            if (dynamics != null)
+            {
+                result = dynamicsBll.Value.UpdateStoreDynamics(dynamics);
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+            #endregion
+        }
     }
 }

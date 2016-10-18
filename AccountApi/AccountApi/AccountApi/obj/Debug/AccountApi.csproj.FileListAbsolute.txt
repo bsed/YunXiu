@@ -251,6 +251,6 @@ D:\Projdct_GIT\YunXiu\AccountApi\AccountApi\AccountApi\bin\zh-Hans\Microsoft.Owi
 D:\Projdct_GIT\YunXiu\AccountApi\AccountApi\AccountApi\bin\zh-Hans\Microsoft.Owin.Security.Twitter.resources.dll
 D:\Projdct_GIT\YunXiu\AccountApi\AccountApi\AccountApi\bin\zh-Hans\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 D:\Projdct_GIT\YunXiu\AccountApi\AccountApi\AccountApi\bin\zh-Hans\System.Web.Http.Owin.resources.dll
-D:\Projdct_GIT\YunXiu\AccountApi\AccountApi\AccountApi\obj\Debug\AccountApi.csprojResolveAssemblyReference.cache
 D:\Projdct_GIT\YunXiu\AccountApi\AccountApi\AccountApi\obj\Debug\AccountApi.dll
 D:\Projdct_GIT\YunXiu\AccountApi\AccountApi\AccountApi\obj\Debug\AccountApi.pdb
+D:\Projdct_GIT\YunXiu\AccountApi\AccountApi\AccountApi\obj\Debug\AccountApi.csprojResolveAssemblyReference.cache
