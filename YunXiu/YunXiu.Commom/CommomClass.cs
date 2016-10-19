@@ -110,74 +110,7 @@ namespace YunXiu.Commom
             return doc;
         }
 
-        /// <summary>
-        /// 获取XML节点值
-        /// </summary>
-        /// <param name="xmlFilePath">XML路径</param>
-        /// <param name="xmlFilePath">路径表达式</param>
-        /// <returns></returns>
-        public static List<string> GetXmlNodeValue(string xmlFilePath, string xpath)
-        {
-            var list = new List<string>();
-            try
-            {
-                var doc = LoadXml(xmlFilePath);
-                var nodes = doc.SelectNodes(xpath);
-                for (int i = 0; i < nodes.Count; i++)
-                {
-                    list.Add(nodes[i].InnerText);
-                }
-            }
-            catch (Exception ex)
-            {
 
-            }
-            return list;
-        }
-
-        /// <summary>
-        /// 读取系统配置
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static string GetConfigDictionary(string key)
-        {
-            var value = "";
-            try
-            {
-                value = Model.Global.GlobalDictionary.SysConfDictionary[key];
-                if (value == "")//如果字典里面没有这个配置则重新读取web.conf至字典
-                {
-                    value = ConfigurationManager.AppSettings[key];
-                    Model.Global.GlobalDictionary.SysConfDictionary[key] = value;
-                }
-            }
-            catch (Exception ex) { }
-            return value;
-        }
-        /// <summary>
-        /// 加载系统配置
-        /// </summary>
-        /// <param name="needLoadConfigList">需要加载的配置</param>
-        /// <returns></returns>
-        public static bool LoadConfigDictionary(List<string> needLoadConfigList)
-        {
-            var isLoadSuccess = false;//配置是否加载成功
-            try
-            {
-                for (int i = 0; i < needLoadConfigList.Count; i++)
-                {
-                    var value = ConfigurationManager.AppSettings[needLoadConfigList[i]];
-                    Model.Global.GlobalDictionary.SysConfDictionary[needLoadConfigList[i]] = value;
-                }
-                isLoadSuccess = true;
-            }
-            catch (Exception ex)
-            {
-                isLoadSuccess = false;
-            }
-            return isLoadSuccess;
-        }
 
         public static Dictionary<string, string> GetXmlNodeVal(string filePath, string xPath)
         {
@@ -190,8 +123,29 @@ namespace YunXiu.Commom
                 {
                     dic.Add(node.ChildNodes[i].Name, node.ChildNodes[i].InnerText);
                 }
-            }       
+            }
             return dic;
+        }
+
+        public static Dictionary<string, Dictionary<string, string>> CreateDictionaries(string filePath, string xPath)
+        {
+            Dictionary<string, Dictionary<string, string>> dictionaries = new Dictionary<string, Dictionary<string, string>>();
+            var doc = LoadXml(filePath);
+            var nodes = doc.SelectNodes(xPath);
+            if (nodes != null)
+            {
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    var node = nodes[i];
+                    var dic = new Dictionary<string, string>();
+                    for (int j = 0; j < node.ChildNodes.Count; j++)
+                    {
+                        dic.Add(node.ChildNodes[j].Name, node.ChildNodes[j].InnerText);
+                    }
+                    dictionaries.Add(node.FirstChild.InnerText, dic);
+                }
+            }
+            return dictionaries;
         }
 
         public static Stream BytesToStream(byte[] bytes)

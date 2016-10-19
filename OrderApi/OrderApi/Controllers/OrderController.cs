@@ -25,7 +25,7 @@ namespace OrderApi.Controllers
         Lazy<BuyApply_BLL> buyApplyBll = new Lazy<BuyApply_BLL>();
         Lazy<OrderPayOrder_BLL> orderPayOrderBll = new Lazy<OrderPayOrder_BLL>();
         Lazy<Order_BLL> orderBll = new Lazy<Order_BLL>();
-        public static string AESKey = CommomClass.GetConfigDictionary("orderAESKey");
+        public static string AESKey = GlobalDictionary.GetSysConfVal("OrderAESKey");
         /// <summary>
         /// 创建订单
         /// </summary>
@@ -71,17 +71,9 @@ namespace OrderApi.Controllers
             PayOrder payOrder = new PayOrder();
             try
             {
-                List<Order> orders = null;
-                using (var ms = new MemoryStream())
-                {
-                    HttpContext.Current.Request.GetBufferlessInputStream().CopyTo(ms);
-                    if (ms.Length != 0)
-                    {
-                        var cText = WebCommom.HttpRequestBodyConvertToStr(ms);//密文
-                        var pText = Security.AESDecrypt(cText, AESKey);
-                        orders = JsonConvert.DeserializeObject<List<Order>>(pText);
-                    }
-                }
+                var cText = WebCommom.HttpRequestBodyConvertToObj<string>(HttpContext.Current);//密文
+                var pText = Security.AESDecrypt(cText, AESKey);//明文
+                var orders = JsonConvert.DeserializeObject<List<Order>>(pText);
                 if (orders != null)
                 {
                     payOrder.Orders = orders;

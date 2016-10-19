@@ -37,8 +37,8 @@ namespace YunXiu.DAL
             List<StoreDynamics> list = null;
             var sql = new StringBuilder();
             sql.Append("SELECT sd.[DID],sd.[Title],sd.[DContent],sd.[CreateDate],sd.[LastUpdateDate],u.[UID],u.[client_guid],u2.[UID],u2.[client_guid] FROM StoreDynamics sd ");
-            sql.Append("LEFT JOIN User u ON u.[UID]= sd.[CreateUserID] ");
-            sql.Append("LEFT JOIN User u2 ON u2.[UID]= sd.[LastUpdateUserID] ");
+            sql.Append("LEFT JOIN [User] u ON u.[UID]= sd.[CreateUserID] ");
+            sql.Append("LEFT JOIN [User] u2 ON u2.[UID]= sd.[LastUpdateUserID] ");
             sql.Append(string.Format("WHERE sd.[StoreID]={0}", sID));
             using (IDbConnection conn = DapperHelper.GetDbConnection())
             {

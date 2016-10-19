@@ -20,7 +20,7 @@ namespace OrderApi
     public class WebApiApplication : System.Web.HttpApplication
     {
         Lazy<Order_BLL> bll = new Lazy<Order_BLL>();
-        Lazy<StoreUser_BLL> sUserBll = new Lazy<StoreUser_BLL>();
+        //Lazy<StoreUser_BLL> sUserBll = new Lazy<StoreUser_BLL>();
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

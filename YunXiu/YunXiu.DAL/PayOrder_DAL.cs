@@ -108,20 +108,17 @@ namespace YunXiu.DAL
 
             var nowDate = DateTime.Now;
             var sql = new StringBuilder();
-            sql.Append("INSERT INTO PayOrder([BuyUserID],[PayAmount],[TradeStatus],[PayType],[PayOrderNo],[Describe],[CreateUserID],[CreateDate],[LastUpdateDate],[LastUpdateUserID]) ");
-            sql.Append("VALUES(@BuyUserID,@PayAmount,@TradeStatus,@PayType,@PayOrderNo,@Describe,@CreateUserID,@CreateDate,@LastUpdateDate,@LastUpdateUserID)  SELECT @@IDENTITY AS ID");
+            sql.Append("INSERT INTO PayOrder([BuyUserID],[PayAmount],[TradeStatus],[PayType],[PayOrderNo],[Describe],[CreateDate]) ");
+            sql.Append("VALUES(@BuyUserID,@PayAmount,@TradeStatus,@PayType,@PayOrderNo,@Describe,@CreateDate)  SELECT @@IDENTITY AS ID");
 
             var pars = new List<SqlParameter>();
             pars.Add(new SqlParameter("@BuyUserID", pay.BuyUser != null ? pay.BuyUser.UID : 0));
             pars.Add(new SqlParameter("@PayAmount", pay.PayAmount));
-            pars.Add(new SqlParameter("@TradeStatus", pay.TradeStatus));
+            pars.Add(new SqlParameter("@TradeStatus", 0));
             pars.Add(new SqlParameter("@PayType", pay.PayType));
             pars.Add(new SqlParameter("@PayOrderNo", pay.PayOrderNo));
             pars.Add(new SqlParameter("@Describe", pay.Describe));
-            pars.Add(new SqlParameter("@CreateUserID", pay.CreateUser != null ? pay.CreateUser.UID : 0));
             pars.Add(new SqlParameter("@CreateDate", nowDate));
-            pars.Add(new SqlParameter("@LastUpdateDate", nowDate));
-            pars.Add(new SqlParameter("@LastUpdateUserID", pay.LastUpdateUser != null ? pay.LastUpdateUser.UID : 0));
             #region 事务
             using (SqlConnection conn = SQLHelper.GetConnection())
             {
@@ -175,12 +172,16 @@ namespace YunXiu.DAL
             var result = false;
             try
             {
-                var sql = "UPDATE PayOrder SET [TradeStatus]=@TradeStatus,[PayOrderNo]=@PayOrderNo WHERE ID=@ID";
-                var pars = new List<SqlParameter>();
-                pars.Add(new SqlParameter("@ID", payOrder.ID));
-                pars.Add(new SqlParameter("@TradeStatus", payOrder.TradeStatus));
-                pars.Add(new SqlParameter("@PayOrderNo", payOrder.PayOrderNo));
-                result = SQLHelper.ExcuteSQL(sql,pars.ToArray()) > 0;
+                //var sql = "UPDATE PayOrder SET [TradeStatus]=@TradeStatus,[PayOrderNo]=@PayOrderNo WHERE ID=@ID";
+                //var pars = new List<SqlParameter>();
+                //pars.Add(new SqlParameter("@ID", payOrder.ID));
+                //pars.Add(new SqlParameter("@TradeStatus", payOrder.TradeStatus));
+                //pars.Add(new SqlParameter("@PayOrderNo", payOrder.PayOrderNo));
+                //result = SQLHelper.ExcuteSQL(sql,pars.ToArray()) > 0;
+                using (SqlConnection conn = SQLHelper.GetConnection())
+                {
+
+                }
             }
             catch (Exception ex)
             {
