@@ -78,7 +78,6 @@
     <Compile Include="FavoriteStore_DAL.cs" />
     <Compile Include="Invoice_DAL.cs" />
     <Compile Include="Logistics_DAL.cs" />
-    <Compile Include="MessageTb_DAL.cs" />
     <Compile Include="OrderPayOrder_DAL.cs" />
     <Compile Include="Order_DAL.cs" />
     <Compile Include="PayOrder_DAL.cs" />
@@ -111,7 +110,6 @@
     <Compile Include="TenderAccept_DAL.cs" />
     <Compile Include="Tender_DAL.cs" />
     <Compile Include="TFUser_DAL.cs" />
-    <Compile Include="UserRanks_DAL.cs" />
     <Compile Include="User_DAL.cs" />
     <Compile Include="VisitorBrowse_DAL.cs" />
     <Compile Include="WithdrawalsApply_DAL.cs" />

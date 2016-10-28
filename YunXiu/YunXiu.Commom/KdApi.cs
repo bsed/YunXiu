@@ -21,7 +21,7 @@ namespace YunXiu.Commom
         /// Json方式 查询订单物流轨迹
         /// </summary>
         /// <returns></returns>
-        public string getOrderTracesByJson()
+        public string getOrderTracesByJson(string orderCode,string shipperCode,string logisticCode)
         {
             string requestData = "{'OrderCode':'','ShipperCode':'SF','LogisticCode':'589707398027'}";
 

@@ -67,7 +67,6 @@
     <Compile Include="IFavoriteStore.cs" />
     <Compile Include="IInvoice.cs" />
     <Compile Include="ILogistics.cs" />
-    <Compile Include="IMessageTb.cs" />
     <Compile Include="IOrder.cs" />
     <Compile Include="IOrderPayOrder.cs" />
     <Compile Include="IPayOrder.cs" />
@@ -100,7 +99,6 @@
     <Compile Include="ITenderAccept.cs" />
     <Compile Include="ITFUser.cs" />
     <Compile Include="IUser.cs" />
-    <Compile Include="IUserRanks.cs" />
     <Compile Include="IVisitorBrowse.cs" />
     <Compile Include="IWithdrawalsApply.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

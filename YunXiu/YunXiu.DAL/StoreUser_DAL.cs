@@ -61,7 +61,7 @@ namespace YunXiu.DAL
             {
                 var nullDate = new DateTime();
                 var sql = new StringBuilder();
-                sql.Append("SELECT s2.[StoreID],s2.[State],s2.[Name],s2.[RegionID],s2.[StorerID],s2.[Logo],s2.[Mobile],s2.[Phone],s2.[QQ],");
+                sql.Append("SELECT s2.[StoreID],s2.[State],s2.[Name],s2.[StorerID],s2.[Logo],s2.[Mobile],s2.[Phone],s2.[QQ],");
                 sql.Append("s2.[WW],s2.[DePoint],s2.[SePoint],s2.[ShPoint],s2.[Honesties],s2.[ValidityDate],s2.[Announcement],s2.[Description],s2.[CreateDate] s.[CreateDate] AS SCreateDate FROM StoreUser s ");
                 sql.Append("LEFT JOIN Store s2 ON s.Store = s2.StoreID ");
                 sql.Append(string.Format("WHERE User={0}", userID));
@@ -78,7 +78,7 @@ namespace YunXiu.DAL
                             StoreID = Convert.ToInt32(dt.Rows[i]["StoreID"]),
                             State = Convert.ToInt32(dt.Rows[i]["State"]),
                             Name = Convert.ToString(dt.Rows[i]["Name"]),
-                            RegionID = Convert.ToInt32(dt.Rows[i]["RegionID"]),
+                         
                             StorerID = Convert.ToInt32(dt.Rows[i]["StorerID"]),
                           
                             Logo = Convert.ToString(dt.Rows[i]["Logo"]),

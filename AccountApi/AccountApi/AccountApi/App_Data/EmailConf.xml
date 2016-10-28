@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Emails>
+  <Email>
+    <IsEnable>true</IsEnable>
+    <EmailAgent>Own</EmailAgent>
+    <MailFrom>info@tipflex.com</MailFrom>
+    <MailPwd>Tip@@015</MailPwd>
+    <Host>smtp.tipflex.com</Host>
+  </Email>
+  <Email>
+    <IsEnable>false</IsEnable>
+    <MailFrom>info@tipflex.com</MailFrom>
+    <MailPwd></MailPwd>
+    <Host></Host>
+  </Email>
+</Emails>

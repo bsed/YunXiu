@@ -123,10 +123,9 @@ namespace OrderApi.Controllers
                         {
                             phoneList.Add(storeStaff[j].Phone);
                         }
-                        SMS sms = new SMS { };
-                        //  sms.ReceiveNo = phoneList;
-                        //   sms.MSGContent = "";
-                        CommomClass.HttpPost(GlobalDictionary.GetSysConfVal("AccountApiAddr"), JsonConvert.SerializeObject(sms));//通知店铺员工发货                   
+                        SMS sms = new SMS();
+                        sms.Phones = phoneList;
+                        CommomClass.HttpPost(string.Format("{0}/SMS/Send", GlobalDictionary.GetSysConfVal("AccountApiAddr")), JsonConvert.SerializeObject(sms));//通知店铺员工发货                   
                     }
                 }
                 #endregion

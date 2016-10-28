@@ -276,6 +276,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\EmailConf.xml" />
     <Content Include="App_Data\SMSConfig.xml" />
     <Content Include="App_Data\SysConf.xml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />

@@ -19,9 +19,9 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("INSERT INTO Store([StoreID],[StoreManagerID],[State],[Name],[RegionID],[StorerID],[CategoryID],[Logo],[Mobile],[Phone],[QQ],[DePoint],[SePoint],");
+                sql.Append("INSERT INTO Store([StoreID],[StoreManagerID],[State],[Name],[StorerID],[CategoryID],[Logo],[Mobile],[Phone],[QQ],[DePoint],[SePoint],");
                 sql.Append("[ShPoint],[Honesties],[ValidityDate],[Theme],[Announcement],[Description],[StoreMoney],[CreateDate],[CreateUserID]) ");
-                sql.Append("VALUES(@StoreID,@StoreManagerID,@State,@Name,@RegionID,@StorerID,@CategoryID,@Logo,@Mobile,@Phone,@QQ,@DePoint,@SePoint,");
+                sql.Append("VALUES(@StoreID,@StoreManagerID,@State,@Name,@StorerID,@CategoryID,@Logo,@Mobile,@Phone,@QQ,@DePoint,@SePoint,");
                 sql.Append("@ShPoint,@Honesties,@ValidityDate,@Theme,@Announcement,@Description,@StoreMoney,GEEDATE(),@CreateUserID) ");
                 DynamicParameters pars = new DynamicParameters(store);
                 pars.Add("@StoreManagerID", store.StoreManager.UID);
@@ -63,7 +63,7 @@ namespace YunXiu.DAL
                 using (IDbConnection conn = DapperHelper.GetDbConnection())
                 {
                     list = conn.Query<Store, Category, Store>(sql.ToString(),
-                        (s,c)=> 
+                        (s, c) =>
                         {
                             s.Category = c;
                             return s;
@@ -99,15 +99,15 @@ namespace YunXiu.DAL
             try
             {
                 var sql = new StringBuilder();
-                sql.Append("SELECT c.[CateID],c.[Sort],c.[Name],s.[StoreID],s.[StoreManagerID],s.[State],s.[Name],s.[RegionID],s.[StorerID],s.[Logo],s.[Mobile],s.[Phone],s.[QQ],s.[DePoint],s.[SePoint],s.[ShPoint],");
-                sql.Append("s.[Honesties],s.[ValidityDate],s.[Theme],s.[Announcement],s.[Description],s.[StoreMoney],s.[CreateDate] FROM Store s ");
+                sql.Append("SELECT c.[CateID],c.[Sort],c.[Name],s.[StoreID],s.[StoreManagerID],s.[State],s.[Name],s.[StorerID],s.[Logo],s.[Mobile],s.[Phone],s.[QQ],s.[DePoint],s.[SePoint],s.[ShPoint],");
+                sql.Append("s.[Honesties],s.[ValidityDate],s.[Theme],s.[Announcement],s.[Description],s.[StoreMoney],s.[Addr],s.[CreateDate] FROM Store s ");
                 sql.Append("LEFT JOIN Category c ON s.[CategoryID] = c.[CateID] ");
-                sql.Append(string.Format("WHERE s.[StoreID]={0}",sID));
+                sql.Append(string.Format("WHERE s.[StoreID]={0}", sID));
 
                 using (IDbConnection conn = DapperHelper.GetDbConnection())
                 {
-                    store = conn.Query<Store, Category, Store>(sql.ToString(),
-                        (s, c) =>
+                    store = conn.Query<Category, Store, Store>(sql.ToString(),
+                        (c, s) =>
                         {
                             s.Category = c;
                             return s;
@@ -144,6 +144,14 @@ namespace YunXiu.DAL
             {
 
             }
+            return result;
+        }
+
+        public bool UpdateStoreAmount(int storeID, decimal money)
+        {
+            var result = false;
+            var sql = string.Format("UPDATE Store SET [StoreMoney]=StoreMoney+{0} WHERE [StoreID]={1}", money, storeID);
+            result = DapperHelper.Execute(sql);
             return result;
         }
     }

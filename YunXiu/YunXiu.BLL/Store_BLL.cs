@@ -41,5 +41,10 @@ namespace YunXiu.BLL
         {
             return dal.UpdateStore(store);
         }
+
+        public bool UpdateStoreAmount(int storeID, decimal money)
+        {
+            return dal.UpdateStoreAmount(storeID,money);
+        }
     }
 }

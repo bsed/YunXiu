@@ -27,9 +27,9 @@ namespace YunXiu.BLL
             return dal.GetWithdrawalsApplyByUser(uID);
         }
 
-        public bool UpdateIWithdrawalsApply(WithdrawalsApply apply)
+        public bool UpdateWithdrawalsApply(WithdrawalsApply apply)
         {
-            return dal.UpdateIWithdrawalsApply(apply);
+            return dal.UpdateWithdrawalsApply(apply);
         }
     }
 }

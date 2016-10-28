@@ -11,9 +11,6 @@ namespace YunXiu.Model
     /// </summary>
     public class PurchasePlan:Base
     {
-        /// <summary>
-        /// 表ID
-        /// </summary>
         public int PPId { get; set; }
 
         /// <summary>
@@ -99,6 +96,11 @@ namespace YunXiu.Model
         /// 状态
         /// </summary>
         public string State { get; set; }
+
+        /// <summary>
+        /// 附件
+        /// </summary>
+        public string Attachment { get; set; }
 
     }
 }

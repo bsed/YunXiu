@@ -20,7 +20,9 @@ namespace AccountApi.Controllers
         Lazy<Certificate_BLL> certificateBll = new Lazy<Certificate_BLL>();
         Lazy<StoreImg_BLL> imgBll = new Lazy<StoreImg_BLL>();
         Lazy<StoreDynamics_BLL> dynamicsBll = new Lazy<StoreDynamics_BLL>();
+        Lazy<WithdrawalsApply_BLL> wApplyBll = new Lazy<WithdrawalsApply_BLL>();
 
+        #region 商铺
         /// <summary>
         /// 添加商铺
         /// </summary>
@@ -134,6 +136,8 @@ namespace AccountApi.Controllers
             response = WebCommom.GetResponse(store);
             return response;
         }
+
+        #endregion
 
         #region 收藏
         /// <summary>
@@ -415,7 +419,56 @@ namespace AccountApi.Controllers
             }
             response = WebCommom.GetResponse(result);
             return response;
-            #endregion
+
+
         }
+        #endregion
+
+
+        #region 提现
+        /// <summary>
+        /// 提现申请
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage AddWithdrawalsApply()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            var apply = WebCommom.HttpRequestBodyConvertToObj<WithdrawalsApply>(HttpContext.Current);
+            if (apply != null)
+            {
+                var userStore = bll.Value.GetStoreByID(apply.ApplyUser.UStore.StoreID);
+                if (userStore.StoreManager.UID == apply.ApplyUser.UID || userStore.StoreMoney >= apply.ApplyAmount)//店主才可以申请提现
+                {
+                    result = wApplyBll.Value.AddWithdrawalsApply(apply);
+                }
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+
+        }
+
+        /// <summary>
+        /// 修改提现申请
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage UpdateWithdrawalsApply()
+        {
+            HttpResponseMessage response = null;
+            var result = false;
+            var apply = WebCommom.HttpRequestBodyConvertToObj<WithdrawalsApply>(HttpContext.Current);
+            if (apply != null)
+            {
+                //这里先判断是否有修改权限
+
+                result = wApplyBll.Value.UpdateIWithdrawalsApply(apply);
+
+            }
+            response = WebCommom.GetResponse(result);
+            return response;
+        }
+        #endregion
     }
 }

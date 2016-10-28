@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using YunXiu.Interface;
 using YunXiu.Model;
+using YunXiu.Commom;
+using Dapper;
 
 namespace YunXiu.DAL
 {
@@ -12,7 +14,11 @@ namespace YunXiu.DAL
     {
         public bool AddWithdrawalsApply(WithdrawalsApply apply)
         {
-            throw new NotImplementedException();
+            var result = false;
+            var sql = "INSERT INTO WithdrawalsApply([ApplyUserID],[ApplyAmount],[ApplyStatus]) VALUES(@ApplyUserID,@ApplyAmount,@ApplyStatus)";
+            DynamicParameters pars = new DynamicParameters(apply);
+            pars.Add("@ApplyUserID", apply.ApplyUser.UID);
+            return result;
         }
 
         public bool DeleteWithdrawalsApply(int aID)
@@ -25,7 +31,7 @@ namespace YunXiu.DAL
             throw new NotImplementedException();
         }
 
-        public bool UpdateIWithdrawalsApply(WithdrawalsApply apply)
+        public bool UpdateWithdrawalsApply(WithdrawalsApply apply)
         {
             throw new NotImplementedException();
         }

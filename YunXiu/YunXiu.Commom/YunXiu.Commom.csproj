@@ -80,6 +80,7 @@
     <Compile Include="CommomClass.cs" />
     <Compile Include="DapperHelper.cs" />
     <Compile Include="EmailHelper.cs" />
+    <Compile Include="Email\SMTPEmail.cs" />
     <Compile Include="KdApi.cs" />
     <Compile Include="LuceneNet.cs" />
     <Compile Include="MQ\MSMQ.cs" />

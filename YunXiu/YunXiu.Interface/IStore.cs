@@ -20,5 +20,7 @@ namespace YunXiu.Interface
         List<Store> GetStore();
 
         Store GetStoreByID(int sID);
+
+        bool UpdateStoreAmount(int storeID,decimal money);
     }
 }

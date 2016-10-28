@@ -27,10 +27,6 @@ namespace YunXiu.Model
         /// </summary>
         public string Name { get; set; }
 
-        /// <summary>
-        /// 地区ID
-        /// </summary>
-        public int RegionID { get; set; }
 
         /// <summary>
         /// 店铺等级ID
@@ -164,6 +160,9 @@ namespace YunXiu.Model
         /// </summary>
         public string HadAnnualExports { get; set; }
 
-        
+        /// <summary>
+        /// 地址
+        /// </summary>
+        public string Addr { get; set; }
     }
 }

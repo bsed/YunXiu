@@ -47,6 +47,9 @@ namespace YunXiu.Commom
                 FSDirectory directory = null;
                 IndexWriter writer = GetIndexWriter(out directory);
                 CreateIndexDocument(list, createIndexField, writer);
+                //  writer.Optimize();
+              //  PanGu.Dict.WordDictionary dic = new PanGu.Dict.WordDictionary();
+              //  dic.InsertWord("");
                 writer.Close();
                 directory.Close();
                 result = true;

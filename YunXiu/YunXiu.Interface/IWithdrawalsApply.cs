@@ -12,7 +12,7 @@ namespace YunXiu.Interface
 
         bool AddWithdrawalsApply(WithdrawalsApply apply);
 
-        bool UpdateIWithdrawalsApply(WithdrawalsApply apply);
+        bool UpdateWithdrawalsApply(WithdrawalsApply apply);
 
         bool DeleteWithdrawalsApply(int aID);
 

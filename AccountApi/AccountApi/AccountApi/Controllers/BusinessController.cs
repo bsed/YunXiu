@@ -9,5 +9,14 @@ namespace AccountApi.Controllers
 {
     public class BusinessController : ApiController
     {
+        Lazy<>
+        #region 采购
+
+
+        #endregion
+
+        #region 招标
+
+        #endregion
     }
 }

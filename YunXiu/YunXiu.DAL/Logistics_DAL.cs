@@ -18,7 +18,8 @@ namespace YunXiu.DAL
             try
             {
                 KdApi kd = new KdApi();
-                l = JsonConvert.DeserializeObject<Logistics>(kd.getOrderTracesByJson());
+
+                l = JsonConvert.DeserializeObject<Logistics>(kd.getOrderTracesByJson(orderCode, shipperCode, logisticCode));
             }
             catch (Exception ex)
             {
